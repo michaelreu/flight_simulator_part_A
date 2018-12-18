@@ -5,7 +5,7 @@
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
 
-//hg
+
 #include <string>
 #include <map>
 using namespace std;
