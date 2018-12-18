@@ -5,11 +5,14 @@
 #include "openServerFactory.h"
 
 
-
-
 Expression* openServerFactory::createExpression(vector<string> *dataVector) {
-    this->port=(int) getNextDoubleInVector(dataVector);
-    this->hertz=(int) getNextDoubleInVector(dataVector);
+    // get string from vector
+    string stringPort = getNextDoubleInVector(dataVector);
+    string stringHertz = getNextDoubleInVector(dataVector);
+    // calculate to double
+    this->port = (int)extractDoubleFromString(stringPort);
+    this->hertz = (int)extractDoubleFromString(stringHertz);
+
     ExpressionCommand* expressionCommand = new ExpressionCommand(new OpenServerCommand(this->port, this->hertz));
     return expressionCommand;
 }

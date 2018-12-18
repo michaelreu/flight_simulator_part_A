@@ -8,5 +8,5 @@ add_executable(14_12_12_46 main.cpp Utils.cpp Utils.h expression/Expression.h ex
         reader/Command.h reader/ExpressionCommand.h reader/ExpressionCommand.cpp reader/OpenServerCommand.h reader/OpenServerCommand.cpp
         reader/Reader.h reader/Reader.cpp
         shuntingYard/Operators.cpp shuntingYard/Operators.h shuntingYard/ShuntingYardExpression.h maps/CommandMapClass.h factory/ExpressionFactory.cpp factory/ExpressionFactory.h factory/CommandExpressionFactory.h maps/SymbolTable.cpp maps/SymbolTable.h reader/LexerParser.cpp reader/LexerParser.h
-        maps/CommandFactoryMap.cpp maps/CommandFactoryMap.h maps/CommandMapClass.cpp factory/openServerFactory.cpp factory/openServerFactory.h factory/CommandExpressionFactory.cpp)
+        maps/CommandFactoryMap.cpp maps/CommandFactoryMap.h maps/CommandMapClass.cpp factory/openServerFactory.cpp factory/openServerFactory.h factory/CommandExpressionFactory.cpp factory/ConnectFactory.cpp factory/ConnectFactory.h reader/ConnectCommand.cpp reader/ConnectCommand.h factory/ifCommandFactory.cpp factory/ifCommandFactory.h)
 #Old/Token.cpp Old/Token.h Old/StringToDoubleClass.cpp Old/StringToDoubleClass.h Old/StrToDoubleShuntingYard.cpp Old/StrToDoubleShuntingYard.h tokens/Token1.cpp tokens/Token1.h

@@ -1,19 +1,25 @@
 
-#ifndef INC_14_12_12_46_OPENSERVERFACTORY_H
-#define INC_14_12_12_46_OPENSERVERFACTORY_H
+
+#ifndef INC_14_12_12_46_CONNECTFACTORY_H
+#define INC_14_12_12_46_CONNECTFACTORY_H
 
 #include "CommandExpressionFactory.h"
 #include "ExpressionFactory.h"
 #include "../reader/ExpressionCommand.h"
 #include "../reader/OpenServerCommand.h"
+#include "../reader/ConnectCommand.h"
 
-class openServerFactory : public CommandExpressionFactory{
+
+class ConnectFactory : public CommandExpressionFactory{
+
 private:
+    string server;
     int port;
-    int hertz;
 public:
     virtual Expression* createExpression(vector<string> *dataVector);
+
 };
 
 
 #endif //INC_14_12_12_46_OPENSERVERFACTORY_H
+

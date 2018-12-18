@@ -20,7 +20,6 @@ private:
 
 public:
     OpenServerCommand(int prt, int hz);
-    //vector<string> *getDataVector() const;
     virtual void execute();
 
 };

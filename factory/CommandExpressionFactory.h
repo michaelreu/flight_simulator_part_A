@@ -17,7 +17,7 @@ public:
 
     virtual Expression* createExpression(vector<string> *dataVector) = 0;
     double extractDoubleFromString(string &s);
-    double getNextDoubleInVector(vector<string> *dataVector);
+    string getNextDoubleInVector(vector<string> *dataVector);
 
 };
 

@@ -84,7 +84,7 @@ OpenServerCommand::OpenServerCommand(int prt, int hz) {
 }
 
 void OpenServerCommand::execute(){
-    //openServer(port,hertz);
+
 }
 
 
