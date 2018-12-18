@@ -9,11 +9,11 @@
 #include "Command.h"
 
 class ExpressionCommand : public Expression {
-        Command *c;
+        Command* c;
 
 public:
-    ExpressionCommand(Command *command){
-        c = command;
+    ExpressionCommand(const Command &command){
+        c = *command;
     }
     //need to check about the return value if calculate returns double but execute ret void
     ExpressionCommand(){}

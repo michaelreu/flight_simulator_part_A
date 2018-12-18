@@ -18,9 +18,6 @@ class OpenServerCommand: public Command {
 private:
     int port;
     int hertz;
-    //vector<string> *dataVector;
-    //double extractDoubleFromString(string &s);
-    //double getNextDoubleInVector(vector<string> *data);
 
 public:
     OpenServerCommand(int prt, int hz);

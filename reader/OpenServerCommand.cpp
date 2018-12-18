@@ -83,8 +83,6 @@ OpenServerCommand::OpenServerCommand(int prt, int hz) {
     this->hertz = hz;
 }
 
-
-
 void OpenServerCommand::execute(){
     //openServer(port,hertz);
 }
