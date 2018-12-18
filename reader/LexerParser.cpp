@@ -2,6 +2,9 @@
 
 using namespace std;
 
+LexerParser::LexerParser(const SymbolTable &sym) {
+    this->symTbl = sym;
+}
 
 string extractFileName(string command){
     size_t startFileName = command.find("/""");
@@ -10,7 +13,7 @@ string extractFileName(string command){
 }
 
 vector<string> LexerParser::loadfile(const string& fileName){
-    regex numPattern();
+    //regex numPattern();
     string expression;
     vector<string> dataFromFile;
     ifstream myFile(fileName);
@@ -24,17 +27,21 @@ vector<string> LexerParser::loadfile(const string& fileName){
 }
 
 
-vector<string> LexerParser::lexer(string commands) {
-    vector <string> listOfCommand;
-    if (commands.rfind("run", 0) == 0){
-        listOfCommand = loadfile(extractFileName(commands));
+vector<string> LexerParser::lexer(const string &command) {
+    vector <string> listOfCommands;
+    vector <string> vecOfExpressions;
+    if (command.rfind("run", 0) == 0){
+        listOfCommands = loadfile(extractFileName(command));
+    } else {
+        listOfCommands.push_back(command);
     }
 
+    while (!listOfCommands.empty()) {
+
+    }
 }
 
 
 void LexerParser::parser(vector<string> listOfCommand){
-
-
 
 }

@@ -144,8 +144,9 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
     }
 }
 
-Expression* ExpressionFactory::createExpression(const string &strToExp) {
-    this->expressionStr = strToExp;
+Expression* ExpressionFactory::createExpression(vector<string> *dataVec) {
+    auto it = (dataVec)->begin();
+    this->expressionStr = (*it);
     insertByOrderToStack();
     return generateExpressionOfStack();
     //Expression* ex = stackToExpression();

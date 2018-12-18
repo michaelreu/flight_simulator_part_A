@@ -22,9 +22,10 @@ class LexerParser {
     SymbolTable symTbl;
 
 public:
+    LexerParser (const SymbolTable &sym);
     vector<string> loadfile(const string& fileName);
-    vector<string>  lexer(string commands);
-    void parser(vector<string>);
+    vector<string>  lexer(const string&  command);
+    void parser(vector<string> vec);
 };
 
 

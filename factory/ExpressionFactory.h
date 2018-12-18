@@ -59,7 +59,7 @@ private:
 public:
     ExpressionFactory(const SymbolTable &symbolTable);
 
-    virtual Expression* createExpression(const string &strToExp);
+    virtual Expression* createExpression(vector<string> *dataVec);
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H
