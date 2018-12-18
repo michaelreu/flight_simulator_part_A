@@ -16,13 +16,15 @@ using namespace std;
 
 class OpenServerCommand: public Command {
 private:
-    vector<string> *dataVector;
-    double extractDoubleFromString(string &s);
-    double getNextDoubleInVector1(vector<string> *data);
+    int port;
+    int hertz;
+    //vector<string> *dataVector;
+    //double extractDoubleFromString(string &s);
+    //double getNextDoubleInVector(vector<string> *data);
 
 public:
-    OpenServerCommand(vector<string> *dataV);
-    vector<string> *getDataVector() const;
+    OpenServerCommand(int prt, int hz);
+    //vector<string> *getDataVector() const;
     virtual void execute();
 
 };

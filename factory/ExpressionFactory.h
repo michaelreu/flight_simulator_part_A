@@ -25,14 +25,13 @@
 #include "../expression/Num.h"
 #include "../shuntingYard/Operators.h"
 #include "../shuntingYard/ShuntingYardExpression.h"
-#include "FactoryInter.h"
 #include "../Utils.h"
 #include "../maps/SymbolTable.h"
 
 
 using namespace std;
 
-class ExpressionFactory : public FactoryInter{
+class ExpressionFactory{
 private:
     Utils utils;
     SymbolTable symbolTable;
@@ -58,8 +57,7 @@ private:
     Expression* generateExpressionOfStack();
 public:
     ExpressionFactory(const SymbolTable &symbolTable);
-
-    virtual Expression* createExpression(vector<string> *dataVec);
+    virtual Expression* createExpression(const string &strToExp);
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H

@@ -7,8 +7,9 @@
 
 #include "CommandExpressionFactory.h"
 #include "ExpressionFactory.h"
+#include "../reader/OpenServerCommand.h"
 
-class openServerFactory  : public CommandExpressionFactory{
+class openServerFactory : public CommandExpressionFactory{
 private:
     int port;
     int hertz;

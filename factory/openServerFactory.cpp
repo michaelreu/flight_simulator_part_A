@@ -7,8 +7,9 @@
 
 
 
-Expression* openServerFactory::createExpression(vector<string> *dataVector){
-
-
+Expression* openServerFactory::createExpression(vector<string> *dataVector) {
+    this->port=(int) getNextDoubleInVector(dataVector);
+    this->hertz=(int) getNextDoubleInVector(dataVector);
+    return OpenServerCommand(this->port, this->hertz);
 }
 

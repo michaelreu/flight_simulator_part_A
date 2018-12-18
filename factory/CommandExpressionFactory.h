@@ -9,17 +9,16 @@
 
 using namespace std;
 
-class CommandExpressionFactory : public FactoryInter{
+class CommandExpressionFactory {
 private:
     ExpressionFactory expressionNumberCreator;
 
 public:
     CommandExpressionFactory();
-
-
+    
     virtual Expression* createExpression(vector<string> *dataVector) = 0;
     double extractDoubleFromString(string &s);
-    double getNextDoubleInVector1(vector<string> *dataVector);
+    double getNextDoubleInVector(vector<string> *dataVector);
 
 };
 

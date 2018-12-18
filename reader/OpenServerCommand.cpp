@@ -78,38 +78,14 @@ void openServer(int port, int hertz) {
     }
 }
 */
-OpenServerCommand::OpenServerCommand(vector<string> *dataV) {
-    dataVector = dataV;
-}
-
-vector<string> *OpenServerCommand::getDataVector() const {
-    return this->dataVector;
-}
-
-
-double OpenServerCommand::extractDoubleFromString(string &s) {
-    ExpressionFactory e = ExpressionFactory(s);
-    return (e.createExpression())->calculate(s);
-    //StrToDoubleClass strToDouble = StrToDoubleClass(s);
-
-    //return strToDouble.calculate();
-}
-
-double OpenServerCommand::getNextDoubleInVector1(vector<string> *dataVector) {
-    dataVector->erase((dataVector)->begin());
-    auto it = (dataVector)->begin();
-    double d = extractDoubleFromString(*it);
-    return d;
+OpenServerCommand::OpenServerCommand(int prt, int hz) {
+    this->port = prt;
+    this->hertz = hz;
 }
 
 
 
 void OpenServerCommand::execute(){
-    if (dataVector->size() < NUM_OF_PARAM) {
-        throw PARAMETERS_NUMBER_EXCEPTION;
-    }
-    int port = (int) getNextDoubleInVector1(getDataVector());
-    int hertz = (int) getNextDoubleInVector1(getDataVector());
     //openServer(port,hertz);
 }
 
