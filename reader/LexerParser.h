@@ -14,6 +14,7 @@
 #include <map>
 #include "../shuntingYard/StrToDoubleClass.h"
 #include "../expression/Expression.h"
+#include "../factory/CommandExpressionFactory.h"
 #include "regex"
 
 using namespace std;
@@ -26,6 +27,7 @@ public:
     vector<string> loadfile(const string& fileName);
     vector<string>  lexer(const string&  command);
     void parser(vector<string> vec);
+    SymbolTable getSymbolTable();
 };
 
 

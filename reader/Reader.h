@@ -11,6 +11,9 @@
 #include <vector>
 #include <iostream>
 #include "LexerParser.h"
+#include "../maps/SymbolTable.h"
+#include "../factory/ExpressionFactory.h"
+
 
 
 

@@ -41,7 +41,10 @@ vector<string> LexerParser::lexer(const string &command) {
     }
 }
 
-
+SymbolTable LexerParser::getSymbolTable(){
+    return symTbl;
+}
 void LexerParser::parser(vector<string> listOfCommand){
+    CommandExpressionFactory commandsCreator(getSymbolTable());
 
 }

@@ -1,9 +1,22 @@
-//
-// Created by tamir on 18/12/18.
-//
 
 #include "CommandExpressionFactory.h"
 
-CommandExpressionFactory::CommandExpressionFactory(const string &strOfExpression) {
-    this->expressionStr = strOfExpression;
+
+
+
+
+
+double CommandExpressionFactory::extractDoubleFromString(string &s) {
+
+    return (expressionNumberCreator.createExpression(s))->calculate();
+    //StrToDoubleClass strToDouble = StrToDoubleClass(s);
+
+    //return strToDouble.calculate();
+}
+
+double CommandExpressionFactory::getNextDoubleInVector1(vector<string> *dataVector) {
+    dataVector->erase((dataVector)->begin());
+    auto it = (dataVector)->begin();
+    double d = extractDoubleFromString(*it);
+    return d;
 }
