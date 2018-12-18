@@ -3,7 +3,6 @@
 #define INC_14_12_12_46_COMMANDEXPRESSIONFACTORY_H
 
 
-#include "FactoryInter.h"
 #include "ExpressionFactory.h"
 #include <vector>
 
@@ -15,7 +14,7 @@ private:
 
 public:
     CommandExpressionFactory();
-    
+
     virtual Expression* createExpression(vector<string> *dataVector) = 0;
     double extractDoubleFromString(string &s);
     double getNextDoubleInVector(vector<string> *dataVector);

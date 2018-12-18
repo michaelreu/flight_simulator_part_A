@@ -8,8 +8,11 @@ int main() {
     //StrToDoubleClass strToDoubleClass = StrToDoubleClass(s);
     //double d = strToDoubleClass.calculate();
     //cout<<d<<endl;
+
+    /*
     Reader start;
     start.lexer();
     return 0;
+    */
 }
 //run "t.txt"

@@ -12,7 +12,6 @@
 #include "list"
 #include <utility>
 #include <map>
-#include "../shuntingYard/StrToDoubleClass.h"
 #include "../expression/Expression.h"
 #include "../factory/CommandExpressionFactory.h"
 #include "regex"

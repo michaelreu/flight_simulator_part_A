@@ -1,6 +1,3 @@
-//
-// Created by cs on 12/13/18.
-//
 
 #ifndef PROJECTPART1_COMMANDEXPRESSION_H
 #define PROJECTPART1_COMMANDEXPRESSION_H
@@ -12,12 +9,11 @@ class ExpressionCommand : public Expression {
         Command* c;
 
 public:
-    ExpressionCommand(const Command &command){
-        c = *command;
+    ExpressionCommand(Command *command){
+        c = command;
     }
-    //need to check about the return value if calculate returns double but execute ret void
-    ExpressionCommand(){}
 
+    //need to check about the return value if calculate returns double but execute ret void
     virtual double calculate(){
         c->execute();
         return 0;
