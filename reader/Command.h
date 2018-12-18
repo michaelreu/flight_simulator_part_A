@@ -4,8 +4,6 @@
 
 #ifndef PROJECTPART1_COMMAND_H
 #define PROJECTPART1_COMMAND_H
-#include <iterator>
-
 
 class Command {
 public:

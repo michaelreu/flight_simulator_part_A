@@ -23,8 +23,6 @@ using namespace std;
 
 class Reader  {
 
-private:
-
 public:
     Reader() = default;
     void readCommands();

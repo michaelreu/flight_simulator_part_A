@@ -77,7 +77,6 @@ void ExpressionFactory::insertByOrderToStack() {
                         break;
                     }
                     //
-
                 case PLUS_CHAR:
                     //
                     if ((!getOperationsStack().empty()) && (operationsPrecedence(*it))) {

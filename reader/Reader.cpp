@@ -17,7 +17,7 @@ void Reader::readCommands(){
         if (listOfCommand.empty()){
             break;
         }
-        interpreter.parser(listOfCommand);
+        interpreter.parser();
     }
 }
 
