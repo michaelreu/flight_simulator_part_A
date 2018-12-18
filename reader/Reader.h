@@ -22,10 +22,11 @@ using namespace std;
 
 
 class Reader  {
-    Reader() = default;
+
 private:
 
 public:
+    Reader() = default;
     void readCommands();
 
 };

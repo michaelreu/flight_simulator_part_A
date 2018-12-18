@@ -10,7 +10,7 @@
 Expression* openServerFactory::createExpression(vector<string> *dataVector) {
     this->port=(int) getNextDoubleInVector(dataVector);
     this->hertz=(int) getNextDoubleInVector(dataVector);
-    ExpressionCommand* expressionCommand = new ExpressionCommand(OpenServerCommand(this->port, this->hertz));
+    ExpressionCommand* expressionCommand = new ExpressionCommand(new OpenServerCommand(this->port, this->hertz));
     return expressionCommand;
 }
 
