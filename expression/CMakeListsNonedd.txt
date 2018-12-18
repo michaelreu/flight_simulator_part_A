@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.12)
+project(SemProject)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(SemProject ../main.cpp Expression.h Num.cpp Num.h BinaryExpression.cpp BinaryExpression.h Plus.cpp Plus.h Minus.cpp Minus.h Mult.cpp Mult.h Div.cpp Div.h UnaryExpression.h Neg.cpp Neg.h UnaryExpression.cpp StrToDoubleClass.cpp StrToDoubleClass.h Utils.cpp Utils.h OpenServerCommand.cpp OpenServerCommand.h)
