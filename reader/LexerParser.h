@@ -3,6 +3,10 @@
 #define INC_14_12_12_46_LEXERPARSER_H
 
 #define RUN "run"
+#define VAR "var"
+#define WHILE "while"
+#define IF "if"
+
 //#define OPEN_DATA_SERVER_STR "openDataServer"
 #define CONNECT_TO_SERVER_STR "connect"
 #define IF_CONDITION_STR "if"
@@ -38,6 +42,7 @@ public:
     void parser();
     void checkVarsOfCommand();
     const vector<string> &getVecOfExpressions() const;
+    void lexByValue();
 };
 
 

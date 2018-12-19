@@ -27,6 +27,124 @@ vector<string> LexerParser::loadfile(const string& fileName){
     return dataFromFile;
 }
 
+bool isDigit(char check){
+    return ((check >= 48) && (check <= 57));
+}
+
+bool isletter(char check){
+    return (((check >= 65) && (check <= 90)) || ((check >= 97) && (check <= 122)) || check == 95);
+}
+
+bool isoperator(char check){
+    return (((check >= 42) && (check <= 43)) || ((check >= 45) && (check <= 47)));
+}
+
+void LexerParser::lexByValue(){
+    regex letter ("[a-zA-Z_]");
+    regex digit ("0-9");
+    regex operatorSymbbol ("[-*/+]");
+    vector<string> lex;
+    char prev = vecOfExpressions[0][0];
+    vector<string>::iterator it = vecOfExpressions.begin();
+    string value;
+    for ( ;it != getVecOfExpressions().end(); (++it)) {
+        for (int i = 0; i < (*it).size(); i++){
+            char current = ((*it)[i]);
+            // char after char
+            if((isletter(current)) && (isletter(prev))){
+                value += current;
+
+            }
+            // char after digit
+            else if((isletter(current)) && (isDigit(prev))){
+                value += current;
+
+            }
+            // char after operator
+            else if((isletter(current)) && (isoperator(prev))){
+                lex.push_back(value);
+                value = "";
+                value += current;
+
+            }
+            // char after '='
+            else if((isletter(current)) && (prev == 61)){
+                lex.push_back(value);
+                value = "";
+                value += current;
+            }
+            // digit after char
+            else if((isDigit(current)) && (isletter(prev))){
+                // If they are in a different cell
+                if(i == 0){
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                } else{
+                    value += current;
+                }
+            }
+            // digit after digit
+            else if((isDigit(current)) && (isDigit(prev))){
+                // If they are in a different cell
+                if(i == 0){
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                } else{
+                    value += current;
+                }
+            }
+            // digit after operator
+            else if((isDigit(current)) && (isoperator(prev))){
+                value += current;
+            }
+            // digit after '='
+            else if((isDigit(current)) && (prev == 61)){
+                lex.push_back(value);
+                value = "";
+                value += current;
+            }
+            // operator after char
+            else if((isoperator(current)) && (isletter(prev))){
+                value += current;
+
+            }
+            // operator after digit
+            else if((isoperator(current)) && (isdigit(prev))){
+                value += current;
+
+            }
+            // operator after operator
+            else if((isoperator(current)) && (isoperator(prev))){
+                value += current;
+
+            }
+            // operator after '='
+            else if((isoperator(current))  && (prev == 61)){
+                lex.push_back(value);
+                value = "";
+                value += current;
+            }
+            // '='
+            else if (current == 61){
+                lex.push_back(value);
+                value = "";
+                value += current;
+            }
+            // ','
+            else if (current == 44){
+                lex.push_back(value);
+                value = "";
+                value += current;
+            }else {
+                value += current;
+            }
+            prev = current;
+
+        }
+    }
+}
 
 vector<string> LexerParser::lexer(const string &command) {
     vector <string> listOfCommands;
@@ -38,7 +156,7 @@ vector<string> LexerParser::lexer(const string &command) {
     } else {
         listOfCommands.push_back(command);
     }
-    /*
+
     for (auto it = listOfCommands.begin() ; it != listOfCommands.end(); ++it) {
         // split the data by white spaces
         istringstream iss((*it));
@@ -46,7 +164,8 @@ vector<string> LexerParser::lexer(const string &command) {
             (this->vecOfExpressions).push_back(s);
         }
     }
-    */
+    lexByValue();
+
     return this->vecOfExpressions;
 }
 
