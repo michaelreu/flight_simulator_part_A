@@ -31,7 +31,6 @@ class LexerParser {
     map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
 
-
 public:
     void initMapOfCommands();
     LexerParser (const SymbolTable &sym);
@@ -40,7 +39,6 @@ public:
     void parser();
     void checkVarsOfCommand();
     const vector<string> &getVecOfExpressions() const;
-
     SymbolTable getSymbolTable();
 };
 

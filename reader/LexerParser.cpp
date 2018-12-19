@@ -67,11 +67,12 @@ void LexerParser::checkVarsOfCommand(){
 
 void LexerParser::parser() {
     vector<string>::iterator it = vecOfExpressions.begin();
+    CommandExpressionFactory commandExpfac = CommandExpressionFactory();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
-        CommandExpressionFactory commandExpfac = CommandExpressionFactory();
         Expression* tempExp = commandExpfac.createExpression((it));
     }
 }
+
 /*
         //(!(mapStrToCommand.find(*it) == mapStrToCommand.end()))
         if ((false)) {
@@ -82,4 +83,4 @@ void LexerParser::parser() {
         } else {
 
         }
-        */
+*/

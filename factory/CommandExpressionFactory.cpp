@@ -5,12 +5,10 @@
 Expression* CommandExpressionFactory::createExpression(vector<string>::iterator &it) {
     Expression* ex;
     if ((*it) == OPEN_DATA_SERVER_STR) {
-        ex = getOpenServerCommand(it);
+        return getOpenServerCommand(it);
     } else if ((*it) == CONNECT_STR) {
         return getConnectCommand(it);
     }
-    string str = (*it);
-    return ex;
 }
 
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
