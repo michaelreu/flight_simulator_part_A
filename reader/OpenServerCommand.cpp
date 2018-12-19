@@ -78,11 +78,17 @@ void openServer(int port, int hertz) {
     }
 }
 */
+
 OpenServerCommand::OpenServerCommand(int prt, int hz) {
     this->port = prt;
     this->hertz = hz;
 }
-
+/*
+OpenServerCommand::OpenServerCommand(vector<string>::iterator it) {
+    ExpressionFactory ex = new ExpressionFactory();
+    this->port = ExpressionFactory
+}
+*/
 void OpenServerCommand::execute(){
 
 }

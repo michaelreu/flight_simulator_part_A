@@ -3,6 +3,7 @@
 
 
 int main() {
+    SymbolTable s = SymbolTable();
     //SymbolTable s = SymbolTable();
     //LexerParser l= LexerParser(s);
     //l.initMapOfCommands();

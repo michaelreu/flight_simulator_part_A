@@ -19,9 +19,9 @@ private:
     int hertz;
 
 public:
+    //OpenServerCommand(vector<string>::iterator it);
     OpenServerCommand(int prt, int hz);
     virtual void execute();
-
 };
 
 
