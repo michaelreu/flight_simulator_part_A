@@ -18,8 +18,9 @@ void LexerParser::initMapOfCommands() {
 
 
 string extractFileName(string command){
-    size_t startFileName = command.find("/""");
-    string fileName = command.substr (startFileName + 1, command.size() -2);
+    //listOfCommand[1].substr(1, listOfCommand[1].size() - 2)
+    size_t startFileName = command.find("\"");
+    string fileName = command.substr (startFileName + 1, command.size()-6);
     return fileName;
 }
 
@@ -49,7 +50,7 @@ vector<string> LexerParser::lexer(const string &command) {
     }
     for (auto it = listOfCommands.begin() ; it != listOfCommands.end(); ++it) {
         // split the data by white spaces
-        istringstream iss(command);
+        istringstream iss((*it));
         for (string s; iss >> s;) {
             (this->vecOfExpressions).push_back(s);
         }
