@@ -5,23 +5,21 @@
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
 
-
 #include <string>
 #include <map>
 using namespace std;
 
 class SymbolTable {
 private:
-    map<string, double> valuesMap;
-    map<string, string> destinationMap;
+    map<const string*, double> valuesMap;
+    map<const string, const string> destinationMap;
 
 public:
     SymbolTable () = default;
-    const map<string, double> &getValuesMap() const;
-    const map<string, string> &getDestinationMap() const;
-    void addValuesToMap(string key, double value);
-    void addDestinationToMap(string key, double value);
+    const map<const string*, double> &getValuesMap() const;
+    const map<const string, const string> &getDestinationMap() const;
+    void addValuesToMap(const string* key, double value);
+    void addDestinationToMap(const string key,const string dest);
 };
-
 
 #endif //INC_14_12_12_46_VARIABLESMAP_H
