@@ -7,14 +7,14 @@
 
 #include "CommandExpressionFactory.h"
 #include "ExpressionFactory.h"
-#include "../reader/ExpressionCommand.h"
 #include "../reader/IfCondition.h"
+#include "../reader/ExpressionCommand.h"
+
 
 class ifCommandFactory : public CommandExpressionFactory{
 private:
     string condition;
     vector <ExpressionCommand> vectorOfComannds;
-
 public:
     virtual Expression* createExpression(vector<string> *dataVector);
 };

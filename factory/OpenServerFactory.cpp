@@ -2,10 +2,9 @@
 // Created by cs on 12/18/18.
 //
 
-#include "openServerFactory.h"
+#include "OpenServerFactory.h"
 
-
-Expression* openServerFactory::createExpression(vector<string> *dataVector) {
+Expression* OpenServerFactory::createExpression(vector<string> *dataVector) {
     // get string from vector
     string stringPort = getNextDoubleInVector(dataVector);
     string stringHertz = getNextDoubleInVector(dataVector);

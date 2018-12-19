@@ -19,6 +19,8 @@ public:
     SymbolTable () = default;
     const map<string, double> &getValuesMap() const;
     const map<string, string> &getDestinationMap() const;
+    void addValuesToMap(string key, double value);
+    void addDestinationToMap(string key, double value);
 };
 
 

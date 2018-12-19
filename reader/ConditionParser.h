@@ -7,9 +7,8 @@
 
 
 #include "Command.h"
-#include "Reader.h"
-#include <vector>
 #include <string>
+#include "../maps/SymbolTable.h"
 
 using namespace std;
 

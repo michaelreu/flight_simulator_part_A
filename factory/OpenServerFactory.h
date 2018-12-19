@@ -7,12 +7,12 @@
 #include "../reader/ExpressionCommand.h"
 #include "../reader/OpenServerCommand.h"
 
-class openServerFactory : public CommandExpressionFactory {
+class OpenServerFactory : public CommandExpressionFactory {
 private:
     int port;
     int hertz;
 public:
-    openServerFactory();
+    OpenServerFactory();
     virtual Expression* createExpression(vector<string> *dataVector);
 };
 

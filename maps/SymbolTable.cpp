@@ -11,3 +11,11 @@ const map<string, double> &SymbolTable::getValuesMap() const {
 const map<string, string> &SymbolTable::getDestinationMap() const {
     return destinationMap;
 }
+
+void SymbolTable::addValuesToMap(string key, double value) {
+    valuesMap[key] = value;
+}
+
+void SymbolTable::addDestinationToMap(string key, double value) {
+    valuesMap[key] = value;
+}

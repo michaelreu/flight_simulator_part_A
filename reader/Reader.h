@@ -5,7 +5,7 @@
 
 
 
-#include <string.h>
+#include <string>
 #include "list"
 #include <utility>
 #include <vector>
@@ -13,10 +13,6 @@
 #include "LexerParser.h"
 #include "../maps/SymbolTable.h"
 #include "../factory/ExpressionFactory.h"
-
-
-
-
 
 using namespace std;
 

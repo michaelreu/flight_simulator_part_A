@@ -9,10 +9,10 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
 }
 void LexerParser::initMapOfCommands() {
-
-    //mapStrToCommand.insert({ OPEN_DATA_SERVER_STR, new openServerFactory});
-    mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(OPEN_DATA_SERVER_STR,new openServerFactory()));
-
+    //mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(OPEN_DATA_SERVER_STR, new OpenServerFactory(this->symTbl)));
+   // mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(CONNECT_TO_SERVER_STR, new ConnectFactory()));
+    //mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(WHILE_CONDITION_STR, new whileCommandFactory()));
+   // mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(IF_CONDITION_STR, new ifCommandFactory()));
 
 }
 
@@ -40,7 +40,7 @@ vector<string> LexerParser::loadfile(const string& fileName){
 
 vector<string> LexerParser::lexer(const string &command) {
     vector <string> listOfCommands;
-    //vector <string> vecOfExpressions;
+    vector <string> vecOfExpressions;
 
     if (command.rfind(RUN, 0) == 0){
         listOfCommands = loadfile(extractFileName(command));
@@ -54,14 +54,25 @@ vector<string> LexerParser::lexer(const string &command) {
             (this->vecOfExpressions).push_back(s);
         }
     }
+    return this->vecOfExpressions;
 }
 
 SymbolTable LexerParser::getSymbolTable(){
     return symTbl;
 }
+
+void LexerParser::checkVarsOfCommand(){
+    regex mathExpression("[(]?-?([1-9][0-9]*)[ ]*([(\\*+\\/\\-)][ ]*([1-9][0-9]*)[ ]*)*[)]?");
+    regex varExpression("[a-z_][a-zA-Z_0-9]*");
+    string s = this->vecOfExpressions.at(1);
+
+}
+
 void LexerParser::parser() {
+
     for (auto it = getVecOfExpressions().begin(); it != getVecOfExpressions().end(); ++it) {
         if (!(mapStrToCommand.find(*it) == mapStrToCommand.end())) {
+            checkVarsOfCommand();
             mapStrToCommand.at(*it)->createExpression(&vecOfExpressions);
         }
     }

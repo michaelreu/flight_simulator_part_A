@@ -5,15 +5,16 @@
 
 #include "ExpressionFactory.h"
 #include <vector>
+#include "../maps/SymbolTable.h"
 
 using namespace std;
 
 class CommandExpressionFactory {
+
 private:
     ExpressionFactory expressionNumberCreator;
 
 public:
-    CommandExpressionFactory();
 
     virtual Expression* createExpression(vector<string> *dataVector) = 0;
     double extractDoubleFromString(string &s);
