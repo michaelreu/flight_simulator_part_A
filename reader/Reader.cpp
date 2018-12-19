@@ -3,9 +3,9 @@
 
 
 void Reader::readCommands(){
-    SymbolTable SymbolMap;
+    //SymbolTable SymbolMap;
     string command;
-    LexerParser interpreter(SymbolMap);
+    LexerParser interpreter();
     vector<string> listOfCommand;
     while(true){
         cout << "enter new Command - 0 to exit\n";

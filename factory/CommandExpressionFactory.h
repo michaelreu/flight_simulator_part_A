@@ -21,6 +21,7 @@ class CommandExpressionFactory {
 
 private:
     ExpressionFactory expressionNumberCreator;
+    SymbolTable symTbl;
 
 public:
     CommandExpressionFactory() = default;
@@ -30,7 +31,7 @@ public:
     //string getNextDoubleInVector(vector<string> *dataVector);
     string getNextDoubleInVector(vector<string>::iterator it);
     Expression* getOpenServerCommand(vector<string>::iterator &it);
-    Expression* getConnectCommand(vector<string>::iterator it);
+    Expression* getConnectCommand(vector<string>::iterator &it);
 };
 
 

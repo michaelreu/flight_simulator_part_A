@@ -18,7 +18,7 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
     return new ExpressionCommand(new OpenServerCommand(port, hertz));
 }
 
-Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator it) {
+Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     string ip = (*(++it));
     int port = (int) (expressionNumberCreator.createExpression((*(++it))))->calculate();
     return new ExpressionCommand(new ConnectCommand(ip,port));

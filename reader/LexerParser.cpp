@@ -2,10 +2,6 @@
 
 using namespace std;
 
-LexerParser::LexerParser(const SymbolTable &sym) {
-    this->symTbl = sym;
-    //this->commandExpFac=CommandExpressionFactory();
-}
 const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
 }
@@ -52,10 +48,6 @@ vector<string> LexerParser::lexer(const string &command) {
     }
     */
     return this->vecOfExpressions;
-}
-
-SymbolTable LexerParser::getSymbolTable(){
-    return symTbl;
 }
 
 void LexerParser::checkVarsOfCommand(){

@@ -27,19 +27,17 @@ class CommandExpressionFactory;
 
 class LexerParser {
     //CommandExpressionFactory commandExpFac;
-    SymbolTable symTbl;
+    //SymbolTable symTbl;
     map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
 
 public:
-    void initMapOfCommands();
-    LexerParser (const SymbolTable &sym);
+    LexerParser ()= default;
     vector<string> loadfile(const string& fileName);
     vector<string> lexer(const string&  command);
     void parser();
     void checkVarsOfCommand();
     const vector<string> &getVecOfExpressions() const;
-    SymbolTable getSymbolTable();
 };
 
 
