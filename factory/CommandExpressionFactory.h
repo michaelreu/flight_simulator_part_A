@@ -23,7 +23,7 @@ private:
     ExpressionFactory expressionNumberCreator;
 
 public:
-
+    CommandExpressionFactory() = default;
     //virtual Expression* createExpression(vector<string> *dataVector)=0;
     virtual Expression* createExpression(vector<string>::iterator it);
     double extractDoubleFromString(string &s);
@@ -31,8 +31,6 @@ public:
     string getNextDoubleInVector(vector<string>::iterator it);
     Expression* getOpenServerCommand(vector<string>::iterator it);
     Expression* getConnectCommand(vector<string>::iterator it);
-
-
 };
 
 

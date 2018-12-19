@@ -4,6 +4,7 @@ using namespace std;
 
 LexerParser::LexerParser(const SymbolTable &sym) {
     this->symTbl = sym;
+    //this->commandExpFac=CommandExpressionFactory();
 }
 const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
@@ -44,10 +45,12 @@ vector<string> LexerParser::lexer(const string &command) {
     vector <string> vecOfExpressions;
 
     if (command.rfind(RUN, 0) == 0){
-        listOfCommands = loadfile(extractFileName(command));
+        //listOfCommands = loadfile(extractFileName(command));
+        this->vecOfExpressions = loadfile(extractFileName(command)) ;
     } else {
         listOfCommands.push_back(command);
     }
+    /*
     for (auto it = listOfCommands.begin() ; it != listOfCommands.end(); ++it) {
         // split the data by white spaces
         istringstream iss((*it));
@@ -55,6 +58,7 @@ vector<string> LexerParser::lexer(const string &command) {
             (this->vecOfExpressions).push_back(s);
         }
     }
+    */
     return this->vecOfExpressions;
 }
 
@@ -70,10 +74,18 @@ void LexerParser::checkVarsOfCommand(){
 }
 
 void LexerParser::parser() {
-    for (auto it = getVecOfExpressions().begin(); it != getVecOfExpressions().end(); ++it) {
-        if (!(mapStrToCommand.find(*it) == mapStrToCommand.end())) {
+    vector<string>::iterator it = vecOfExpressions.begin();
+    for ( ;it != getVecOfExpressions().end(); ++it) {
+        //mapStrToCommand.insert({OPEN_DATA_SERVER_STR})
+        CommandExpressionFactory cef = CommandExpressionFactory();
+        //(!(mapStrToCommand.find(*it) == mapStrToCommand.end()))
+        if ((false)) {
+
+                    //createExpression(*it);
             //checkVarsOfCommand();
-            //mapStrToCommand.at(*it)->createExpression(&vecOfExpressions);
+            //mapStrToCommand.at(*it)->createExpression(it);
+        } else {
+            Expression* x = cef.createExpression((&it));
         }
     }
 }

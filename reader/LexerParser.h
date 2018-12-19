@@ -28,9 +28,11 @@ using namespace std;
 class CommandExpressionFactory;
 
 class LexerParser {
+    //CommandExpressionFactory commandExpFac;
     SymbolTable symTbl;
     map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
+
 
 public:
     void initMapOfCommands();
