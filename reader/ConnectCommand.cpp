@@ -2,11 +2,11 @@
 
 #include "ConnectCommand.h"
 
-ConnectCommand::ConnectCommand(string server, int port){
+ConnectCommand::ConnectCommand(string ip, int port){
+    this->ip = ip;
     this->port = port;
-    this->server = server;
 }
 
 void ConnectCommand::execute(){
-
+    //connect in some way
 }

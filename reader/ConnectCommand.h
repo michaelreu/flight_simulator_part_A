@@ -4,19 +4,17 @@
 
 #include "Command.h"
 #include "Reader.h"
-#include <vector>
 #include <string>
 
 using namespace std;
 
-
 class ConnectCommand: public Command {
 private:
+    string ip;
     int port;
-    string server;
 
 public:
-    ConnectCommand(string server, int port);
+    ConnectCommand(string ip, int port);
     virtual void execute();
 
 };

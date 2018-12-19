@@ -9,7 +9,7 @@
 #include "ExpressionFactory.h"
 #include "../reader/ExpressionCommand.h"
 #include "../reader/WhileCondition.h"
-
+/*
 class whileCommandFactory : public CommandExpressionFactory {
 
 private:
@@ -19,7 +19,7 @@ private:
 public:
     virtual Expression* createExpression(vector<string> *dataVector);
 };
-
+*/
 
 #endif //INC_14_12_12_46_WHILECOMMANDFACTORY_H
 

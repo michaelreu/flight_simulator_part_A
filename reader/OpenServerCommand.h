@@ -6,7 +6,7 @@
 #define PARAMETERS_NUMBER_EXCEPTION "not enough parameters"
 
 #include "Command.h"
-#include "Reader.h"
+//#include "Reader.h"
 #include <vector>
 #include <string>
 

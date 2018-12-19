@@ -71,8 +71,8 @@ void LexerParser::checkVarsOfCommand(){
 void LexerParser::parser() {
     for (auto it = getVecOfExpressions().begin(); it != getVecOfExpressions().end(); ++it) {
         if (!(mapStrToCommand.find(*it) == mapStrToCommand.end())) {
-            checkVarsOfCommand();
-            mapStrToCommand.at(*it)->createExpression(&vecOfExpressions);
+            //checkVarsOfCommand();
+            //mapStrToCommand.at(*it)->createExpression(&vecOfExpressions);
         }
     }
 }
