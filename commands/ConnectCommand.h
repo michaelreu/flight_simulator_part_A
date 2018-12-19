@@ -3,7 +3,7 @@
 #define PROJECTPART1_CONNECTCOMMAND_H
 
 #include "Command.h"
-#include "Reader.h"
+#include "../reader/Reader.h"
 #include <string>
 
 using namespace std;

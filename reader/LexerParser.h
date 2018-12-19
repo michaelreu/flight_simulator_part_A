@@ -21,8 +21,6 @@
 #include "../expression/Expression.h"
 #include "../factory/CommandExpressionFactory.h"
 #include "../maps/SymbolTable.h"
-#include "../factory/whileCommandFactory.h"
-#include "../factory/ifCommandFactory.h"
 
 using namespace std;
 class CommandExpressionFactory;

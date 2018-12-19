@@ -7,9 +7,9 @@
 #define CONNECT_STR "connect"
 
 #include "ExpressionFactory.h"
-#include "../reader/ExpressionCommand.h"
-#include "../reader/OpenServerCommand.h"
-#include "../reader/ConnectCommand.h"
+#include "../commands/ExpressionCommand.h"
+#include "../commands/OpenServerCommand.h"
+#include "../commands/ConnectCommand.h"
 #include "../maps/SymbolTable.h"
 
 
@@ -25,11 +25,11 @@ private:
 public:
     CommandExpressionFactory() = default;
     //virtual Expression* createExpression(vector<string> *dataVector)=0;
-    virtual Expression* createExpression(vector<string>::iterator it);
+    virtual Expression* createExpression(vector<string>::iterator &it);
     double extractDoubleFromString(string &s);
     //string getNextDoubleInVector(vector<string> *dataVector);
     string getNextDoubleInVector(vector<string>::iterator it);
-    Expression* getOpenServerCommand(vector<string>::iterator it);
+    Expression* getOpenServerCommand(vector<string>::iterator &it);
     Expression* getConnectCommand(vector<string>::iterator it);
 };
 

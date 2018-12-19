@@ -4,7 +4,7 @@
 #define INC_14_12_12_46_WHILECONDITION_H
 
 #include "ConditionParser.h"
-#include "ExpressionCommand.h"
+#include "../commands/ExpressionCommand.h"
 #include <vector>
 
 

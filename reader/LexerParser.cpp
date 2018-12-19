@@ -9,14 +9,6 @@ LexerParser::LexerParser(const SymbolTable &sym) {
 const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
 }
-void LexerParser::initMapOfCommands() {
-    //mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(OPEN_DATA_SERVER_STR, new OpenServerFactory(this->symTbl)));
-   // mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(CONNECT_TO_SERVER_STR, new ConnectFactory()));
-    //mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(WHILE_CONDITION_STR, new whileCommandFactory()));
-   // mapStrToCommand.insert(pair<string,CommandExpressionFactory*>(IF_CONDITION_STR, new ifCommandFactory()));
-
-}
-
 
 string extractFileName(string command){
     //listOfCommand[1].substr(1, listOfCommand[1].size() - 2)
@@ -75,9 +67,12 @@ void LexerParser::checkVarsOfCommand(){
 
 void LexerParser::parser() {
     vector<string>::iterator it = vecOfExpressions.begin();
-    for ( ;it != getVecOfExpressions().end(); ++it) {
-        //mapStrToCommand.insert({OPEN_DATA_SERVER_STR})
-        CommandExpressionFactory cef = CommandExpressionFactory();
+    for ( ;it != getVecOfExpressions().end(); (++it)) {
+        CommandExpressionFactory commandExpfac = CommandExpressionFactory();
+        Expression* tempExp = commandExpfac.createExpression((it));
+    }
+}
+/*
         //(!(mapStrToCommand.find(*it) == mapStrToCommand.end()))
         if ((false)) {
 
@@ -85,7 +80,6 @@ void LexerParser::parser() {
             //checkVarsOfCommand();
             //mapStrToCommand.at(*it)->createExpression(it);
         } else {
-            Expression* x = cef.createExpression((&it));
+
         }
-    }
-}
+        */

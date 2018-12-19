@@ -6,7 +6,7 @@
 #define INC_14_12_12_46_CONDITIONPARSER_H
 
 
-#include "Command.h"
+#include "../commands/Command.h"
 #include <string>
 #include "../maps/SymbolTable.h"
 
