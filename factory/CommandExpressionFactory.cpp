@@ -3,8 +3,9 @@
 #include "../commands/vars/DefineVarCommand.h"
 
 CommandExpressionFactory::CommandExpressionFactory() {
-    this->expressionNumberCreator = new ExpressionFactory();
     this->symTbl = new SymbolTable();
+    this->expressionNumberCreator = new ExpressionFactory(symTbl);
+
 }
 
 Expression* CommandExpressionFactory::createExpression(vector<string>::iterator &it) {

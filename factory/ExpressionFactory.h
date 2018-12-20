@@ -57,7 +57,7 @@ private:
     Expression* generateExpressionOfStack();
 public:
     ExpressionFactory()= default;
-    ExpressionFactory(const SymbolTable* &symbolTable);
+    ExpressionFactory(SymbolTable* &symbolTable);
     virtual Expression* createExpression(const string &strToExp);
 };
 

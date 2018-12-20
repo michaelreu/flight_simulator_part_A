@@ -5,7 +5,7 @@
 #include "ExpressionFactory.h"
 
 
-ExpressionFactory::ExpressionFactory(const SymbolTable *&symTbl) {
+ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
     this->symbolTable = symTbl;
 }
 
@@ -72,7 +72,8 @@ void ExpressionFactory::insertByOrderToStack() {
             this->numBeforeMe = true;
         } else if (utils.isOperation(*it)) {
             if (symbolTable->isVarInValueMap(tempVar)) {
-                symbolTable->getValueOfVar(tempVar);
+                double valOfVar = symbolTable->getValueOfVar(tempVar);
+                getMainStack().push(new Num(valOfVar));
             } //check if tempVar is in the symbol table
             switch (*it) {
                 case MINUS_CHAR:
