@@ -1,6 +1,5 @@
-openDataServer 5400 10
-connect 127.0.0.1 5402
-var breaks = bind "/controls/flight/speedbrake"
+var breaks
+breaks = bind "/controls/flight/speedbrake"
 var throttle = bind "/controls/engines/engine/throttle"
 var heading = bind "/instrumentation/heading-indicator/offset-deg"
 var airspeed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"

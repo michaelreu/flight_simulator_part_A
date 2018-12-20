@@ -7,6 +7,9 @@ CommandExpressionFactory::CommandExpressionFactory() {
 }
 
 Expression* CommandExpressionFactory::createExpression(vector<string>::iterator &it) {
+    if (symTbl->isVarInMap(*it)) {
+        (++it);
+    }
     if ((*it) == OPEN_DATA_SERVER_STR) {
         return getOpenServerCommand(it);
     } else if ((*it) == CONNECT_STR) {

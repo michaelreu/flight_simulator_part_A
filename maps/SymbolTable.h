@@ -12,7 +12,7 @@ using namespace std;
 class SymbolTable {
 private:
     map<const string, double> valuesMap;
-    map<const string, const string> destinationMap;
+    map<string, string> destinationMap;
 
 public:
     SymbolTable () = default;
@@ -20,7 +20,8 @@ public:
     //const map<const string, const string> &getDestinationMap() const;
     void setVar(const string &key);
     void addValuesToMap(const string &key, double value);
-    void addDestinationToMap(const string &key,const string &dest);
+    void addDestinationToMap(string &key, string &dest);
+    bool isVarInMap(const string &key);
 };
 
 #endif //INC_14_12_12_46_VARIABLESMAP_H
