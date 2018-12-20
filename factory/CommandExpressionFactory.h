@@ -5,11 +5,16 @@
 
 #define OPEN_DATA_SERVER_STR "openDataServer"
 #define CONNECT_STR "connect"
+#define VAR_STR "var"
+#define ASSIGN_CHAR "="
+#define BIND_STR "bind"
 
 #include "ExpressionFactory.h"
 #include "../commands/ExpressionCommand.h"
 #include "../commands/OpenServerCommand.h"
 #include "../commands/ConnectCommand.h"
+#include "../commands/AssignCommand.h"
+
 #include "../maps/SymbolTable.h"
 
 
@@ -21,10 +26,10 @@ class CommandExpressionFactory {
 
 private:
     ExpressionFactory expressionNumberCreator;
-    SymbolTable symTbl;
+    SymbolTable* symTbl;
 
 public:
-    CommandExpressionFactory() = default;
+    CommandExpressionFactory();
     //virtual Expression* createExpression(vector<string> *dataVector)=0;
     virtual Expression* createExpression(vector<string>::iterator &it);
     double extractDoubleFromString(string &s);
@@ -32,6 +37,9 @@ public:
     string getNextDoubleInVector(vector<string>::iterator it);
     Expression* getOpenServerCommand(vector<string>::iterator &it);
     Expression* getConnectCommand(vector<string>::iterator &it);
+    Expression* getDefineVarCommand(vector<string>::iterator &it);
+    Expression* getAssignCommand(vector<string>::iterator &it);
+
 };
 
 

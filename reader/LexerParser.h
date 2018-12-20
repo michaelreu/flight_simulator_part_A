@@ -34,6 +34,7 @@ class LexerParser {
     //SymbolTable symTbl;
     map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
+    Utils utils;
 
 public:
     LexerParser ()= default;

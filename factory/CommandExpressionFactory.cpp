@@ -1,13 +1,20 @@
 
 #include "CommandExpressionFactory.h"
+#include "../commands/vars/DefineVarCommand.h"
 
+CommandExpressionFactory::CommandExpressionFactory() {
+    this->symTbl = new SymbolTable();
+}
 
 Expression* CommandExpressionFactory::createExpression(vector<string>::iterator &it) {
-    Expression* ex;
     if ((*it) == OPEN_DATA_SERVER_STR) {
         return getOpenServerCommand(it);
     } else if ((*it) == CONNECT_STR) {
         return getConnectCommand(it);
+    } else if ((*it) == VAR_STR) {
+        return getDefineVarCommand(it);
+    } else if ((*it) == ASSIGN_CHAR) {
+        return  getAssignCommand(it);
     }
 }
 
@@ -24,6 +31,22 @@ Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator
     return new ExpressionCommand(new ConnectCommand(ip,port));
 }
 
+Expression* CommandExpressionFactory::getDefineVarCommand(vector<string>::iterator &it) {
+    string var = (*(++it));
+    return new ExpressionCommand(new DefineVarCommand(symTbl, var));
+}
+
+Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator &it) {
+    string var = (*(--it)++);
+    (++it);
+    if ((*it)==BIND_STR) {
+        string destinationPath = (*(++it));
+        return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
+    } else {
+        double value = (expressionNumberCreator.createExpression((*(it))))->calculate();
+        return new ExpressionCommand(new AssignCommand(symTbl, var , value));
+    }
+}
 double CommandExpressionFactory::extractDoubleFromString(string &s) {
     return (expressionNumberCreator.createExpression(s))->calculate();
 

@@ -10,6 +10,9 @@
 bool Utils::isDigit(const char c) {
     return ((c >= MIN_DIGIT_ASCII) && (c <= MAX_DIGIT_ASCII));
 }
+bool Utils::isLetter(char c) {
+    return (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)) || c == 95);
+}
 
 int Utils::charToInt(const char c) {
     if (isDigit(c)) {
@@ -25,6 +28,10 @@ int Utils::charToInt(const char c) {
  */
 bool Utils::isOperation(const char c) {
     return  ( (c >= MIN_OPERATION_ASCII) && (c <= MAX_OPERATION_ASCII) && (c!=44) );
+}
+
+bool Utils::isOperator(char c) {
+    return (((c >= 42) && (c <= 43)) || ((c >= 45) && (c <= 47)));
 }
 
 Utils::Type Utils::getType(int numOfType) {

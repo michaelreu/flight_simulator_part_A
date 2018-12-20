@@ -36,17 +36,9 @@ vector<string> LexerParser::loadfile(const string& fileName){
  //   }
 //}
 
-bool isDigit(char check){
-    return ((check >= 48) && (check <= 57));
-}
 
-bool isletter(char check){
-    return (((check >= 65) && (check <= 90)) || ((check >= 97) && (check <= 122)) || check == 95);
-}
 
-bool isoperator(char check){
-    return (((check >= 42) && (check <= 43)) || ((check >= 45) && (check <= 47)));
-}
+
 
 void LexerParser::lexByValue(){
     vector<string> lex;
@@ -57,30 +49,30 @@ void LexerParser::lexByValue(){
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
             // char after char
-            if((isletter(current)) && (isletter(prev))){
+            if((utils.isLetter(current)) && (utils.isLetter(prev))){
                 value += current;
 
             }
             // char after digit
-            else if((isletter(current)) && (isDigit(prev))){
+            else if((utils.isLetter(current)) && (utils.isDigit(prev))){
                 value += current;
 
             }
             // char after operator
-            else if((isletter(current)) && (isoperator(prev))){
+            else if((utils.isLetter(current)) && (utils.isOperator(prev))){
                 lex.push_back(value);
                 value = "";
                 value += current;
 
             }
             // char after '='
-            else if((isletter(current)) && (prev == 61)){
+            else if((utils.isLetter(current)) && (prev == 61)){
                 lex.push_back(value);
                 value = "";
                 value += current;
             }
             // digit after char
-            else if((isDigit(current)) && (isletter(prev))){
+            else if((utils.isDigit(current)) && (utils.isLetter(prev))){
                 // If they are in a different cell
                 if(i == 0){
                     lex.push_back(value);
@@ -91,7 +83,7 @@ void LexerParser::lexByValue(){
                 }
             }
             // digit after digit
-            else if((isDigit(current)) && (isDigit(prev))){
+            else if((utils.isDigit(current)) && (utils.isDigit(prev))){
                 // If they are in a different cell
                 if(i == 0){
                     lex.push_back(value);
@@ -102,32 +94,32 @@ void LexerParser::lexByValue(){
                 }
             }
             // digit after operator
-            else if((isDigit(current)) && (isoperator(prev))){
+            else if((utils.isDigit(current)) && (utils.isOperator(prev))){
                 value += current;
             }
             // digit after '='
-            else if((isDigit(current)) && (prev == 61)){
+            else if((utils.isDigit(current)) && (prev == 61)){
                 lex.push_back(value);
                 value = "";
                 value += current;
             }
             // operator after char
-            else if((isoperator(current)) && (isletter(prev))){
+            else if((utils.isOperator(current)) && (utils.isLetter(prev))){
                 value += current;
 
             }
             // operator after digit
-            else if((isoperator(current)) && (isdigit(prev))){
+            else if((utils.isOperator(current)) && (isdigit(prev))){
                 value += current;
 
             }
             // operator after operator
-            else if((isoperator(current)) && (isoperator(prev))){
+            else if((utils.isOperator(current)) && (utils.isOperator(prev))){
                 value += current;
 
             }
             // operator after '='
-            else if((isoperator(current))  && (prev == 61)){
+            else if((utils.isOperator(current))  && (prev == 61)){
                 lex.push_back(value);
                 value = "";
                 value += current;
@@ -156,7 +148,7 @@ void LexerParser::lexByValue(){
 
 vector<string> LexerParser::lexer(const string &command) {
     vector <string> listOfCommands;
-    vector <string> vecOfExpressions;
+    //vector <string> vecOfExpressions;
 
     if (command.rfind(RUN, 0) == 0){
         //listOfCommands = loadfile(extractFileName(command));
@@ -189,6 +181,7 @@ void LexerParser::parser() {
     CommandExpressionFactory commandExpfac = CommandExpressionFactory();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         Expression* tempExp = commandExpfac.createExpression((it));
+        tempExp->calculate();
     }
 }
 

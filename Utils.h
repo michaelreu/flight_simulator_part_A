@@ -26,7 +26,8 @@ public:
     int charToInt(const char c);
     Type getType(int numOfType);
     bool isStrDouble(const string str);
-
+    bool isLetter(char c);
+    bool isOperator(char c);
 };
 
 

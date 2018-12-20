@@ -5,6 +5,7 @@
 #ifndef PROJECTPART1_COMMAND_H
 #define PROJECTPART1_COMMAND_H
 
+#include "../expression/Expression.h"
 class Command {
 public:
     virtual void execute() = 0;
