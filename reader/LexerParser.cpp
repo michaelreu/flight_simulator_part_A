@@ -7,7 +7,7 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
 }
 
 void LexerParser::loadfile(const string& fileName){
-    //regex numPattern();
+
     string expression;
     vector<string> dataFromFile;
     ifstream myFile(fileName);
@@ -21,13 +21,35 @@ void LexerParser::loadfile(const string& fileName){
             istringstream iss(temp);
             for(string temp; iss >> temp; ) {
                 this->vecOfExpressions.push_back(temp);
+
             }
             this->vecOfExpressions.push_back("\n");
-            }
-
+        }
     }
     myFile.close();
 }
+
+
+bool LexerParser::parnthesesCase(char prev){
+    return ((utils.isOperator(prev)) || (prev == utils.LEFT_PARENTHESES));
+}
+
+bool LexerParser::charCase(char prev, int i){
+    if (utils.isLetter(prev) || utils.isDigit(prev)){
+       return (i == 0);
+    }
+    if (utils.isOperator(prev)|| prev == utils.LEFT_PARENTHESES){
+        return false;
+    }
+    if (prev == EQUAL){
+        return true;
+    }
+}
+
+bool isSeparatingChar (char check){
+    return ((check == EQUAL) || (check == LEFT_CURLY_PARENT_CHAR) || (check == COMMA));
+}
+
 
 
 void LexerParser::lexByValue(){
@@ -49,38 +71,10 @@ void LexerParser::lexByValue(){
             char current = ((*it)[i]);
             //if we are not in quote
             if (inQuoteFlag == false) {
-                // char after char
-                if ((utils.isLetter(current)) && (utils.isLetter(prev))) {
-                    // If they are in a different cell
-                    if (i == 0) {
-                        lex.push_back(value);
-                        value = "";
-                        value += current;
-                    } else {
-                        value += current;
-                    }
 
-                }
-                    // char after digit
-                else if ((utils.isLetter(current)) && (utils.isDigit(prev))) {
-                    value += current;
-
-                }
-                    // char after operator
-                else if ((utils.isLetter(current)) && (utils.isOperator(prev))) {
-                    value += current;
-
-                }
-                    // char after '='
-                else if ((utils.isLetter(current)) && (prev == 61)) {
-                    lex.push_back(value);
-                    value = "";
-                    value += current;
-                }
-                    // digit after char
-                else if ((utils.isDigit(current)) && (utils.isLetter(prev))) {
-                    // If they are in a different cell
-                    if (i == 0) {
+                //char or number
+                if(utils.isLetter(current) || (utils.isDigit(current))) {
+                    if (charCase(prev, i)) {
                         lex.push_back(value);
                         value = "";
                         value += current;
@@ -88,73 +82,58 @@ void LexerParser::lexByValue(){
                         value += current;
                     }
                 }
-                    // digit after digit
-                else if ((utils.isDigit(current)) && (utils.isDigit(prev))) {
-                    // If they are in a different cell
-                    if (i == 0) {
+                // operator case
+                else if (utils.isOperator(current)) {
+                    if (prev == EQUAL){
                         lex.push_back(value);
                         value = "";
                         value += current;
-                    } else {
+                    }else{
                         value += current;
                     }
                 }
-                    // digit after operator
-                else if ((utils.isDigit(current)) && (utils.isOperator(prev))) {
-                    value += current;
-                }
-                    // digit after '='
-                else if ((utils.isDigit(current)) && (prev == 61)) {
-                    lex.push_back(value);
-                    value = "";
-                    value += current;
-                }
-                    // operator after char
-                else if ((utils.isOperator(current)) && (utils.isLetter(prev))) {
-                    value += current;
 
-                }
-                    // operator after digit
-                else if ((utils.isOperator(current)) && (isdigit(prev))) {
-                    value += current;
-
-                }
-                    // operator after operator
-                else if ((utils.isOperator(current)) && (utils.isOperator(prev))) {
-                    value += current;
-
-                }
-                    // operator after '='
-                else if ((utils.isOperator(current)) && (prev == 61)) {
-                    lex.push_back(value);
-                    value = "";
-                    value += current;
-                }
                 // '='
-                else if ((current == 61)||(prev == 61)) {
+                else if ((isSeparatingChar(current)) || (isSeparatingChar(prev))) {
                     lex.push_back(value);
                     value = "";
                     value += current;
                 }
-                // '('
-                else if ((current == 34) || (current == 123)) {
+                else if ((current == utils.LEFT_PARENTHESES)){
+                    if (parnthesesCase(prev)) {
+                        lex.push_back(value);
+                        value = "";
+                        value += current;
+                    } else {
+                        value += current;
+                    }
+                }
+                // start of ""
+                else if (current == QUOTES_CHAR) {
                     lex.push_back(value);
                     value = "";
                     value += current;
                     inQuoteFlag = true;
                 }
-                    // ','
-                else if (current == 44) {
-                    lex.push_back(value);
-                    value = "";
-                    value += current;
-                } else {
+
+                //  "(" after operator
+                else if (current == utils.LEFT_PARENTHESES) {
+                    if (utils.isOperator(prev) || prev == utils.LEFT_PARENTHESES) {
+                        value += current;
+                    } else {
+                        lex.push_back(value);
+                        value = "";
+                        value += current;
+                        inQuoteFlag = true;
+                    }
+                }
+                 else {
                     value += current;
                 }
             // if we in quote
             }else{
                 // If we got to the end of the quote
-                if (current == 34) {
+                if (current == QUOTES_CHAR) {
                     value += current;
                     lex.push_back(value);
                     value = "";
@@ -195,3 +174,36 @@ void LexerParser::parser() {
         tempExp->calculate();
     }
 }
+
+
+
+/*
+// char after char
+if ((utils.isLetter(current)) && (utils.isLetter(prev))) {
+// If they are in a different cell
+if (i == 0) {
+lex.push_back(value);
+value = "";
+value += current;
+} else {
+value += current;
+}
+
+}
+// char after digit
+else if ((utils.isLetter(current)) && (utils.isDigit(prev))) {
+value += current;
+
+}
+// char after operator
+else if ((utils.isLetter(current)) && (utils.isOperator(prev))) {
+value += current;
+
+}
+// char after '='
+else if ((utils.isLetter(current)) && (prev == 61)) {
+lex.push_back(value);
+value = "";
+value += current;
+}
+*/
