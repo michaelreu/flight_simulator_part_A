@@ -36,10 +36,6 @@ vector<string> LexerParser::loadfile(const string& fileName){
  //   }
 //}
 
-
-
-
-
 void LexerParser::lexByValue(){
     vector<string> lex;
     char prev = this->vecOfExpressions[0][0];
@@ -167,13 +163,6 @@ vector<string> LexerParser::lexer(const string &command) {
     lexByValue();
 
     return this->vecOfExpressions;
-}
-
-void LexerParser::checkVarsOfCommand(){
-    regex mathExpression("[(]?-?([1-9][0-9]*)[ ]*([(\\*+\\/\\-)][ ]*([1-9][0-9]*)[ ]*)*[)]?");
-    regex varExpression("[a-z_][a-zA-Z_0-9]*");
-    string s = this->vecOfExpressions.at(1);
-
 }
 
 void LexerParser::parser() {
