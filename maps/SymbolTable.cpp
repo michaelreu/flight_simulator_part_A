@@ -18,6 +18,6 @@ void SymbolTable::addValuesToMap(const string &key, double value) {
 
 void SymbolTable::addDestinationToMap(const string &key, const string &dest) {
     //destinationMap.insert(pair<const string,const string>(key,dest));
-    destinationMap[key] = dest;
+    //destinationMap[key] = dest;
     //destinationMap[key] = dest;
 }

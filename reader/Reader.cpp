@@ -15,14 +15,15 @@ void Reader::readCommands(string fileName){
         }
         // read commands from file
         if (command == "f") {
-            listOfCommand = interpreter.loadfile(fileName);
+            interpreter.loadfile(fileName);
+            interpreter.lexByValue();
         }
         // read one command
         else{
             listOfCommand = interpreter.lexer(command);
-        }
-        if (listOfCommand.empty()){
-            break;
+            if (listOfCommand.empty()){
+                break;
+            }
         }
         interpreter.parser();
     }

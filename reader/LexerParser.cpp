@@ -13,28 +13,38 @@ string extractFileName(string command){
     return fileName;
 }
 
-vector<string> LexerParser::loadfile(const string& fileName){
+void LexerParser::loadfile(const string& fileName){
     //regex numPattern();
     string expression;
     vector<string> dataFromFile;
     ifstream myFile(fileName);
     if (myFile.is_open()) {
-        while (myFile >> expression) {
+        while (getline(myFile, expression)) {
             dataFromFile.push_back(expression);
         }
-        myFile.close();
+        vector<string>::iterator it = dataFromFile.begin();
+        for ( ;it != dataFromFile.end(); (++it)) {
+            string temp(*(it));
+            istringstream iss(temp);
+            for(string temp; iss >> temp; ) {
+                this->vecOfExpressions.push_back(temp);
+            }
+            this->vecOfExpressions.push_back("\n");
+            }
+
     }
-    return dataFromFile;
+    myFile.close();
 }
 
-//void LexerParser::mergeIfNeeded(vector<string> *lex){
-  //  regex lop ("[{[(\"]");
-    //vector<string>::iterator it = this->vecOfExpressions.begin();
-    //for ( ;it != this->getVecOfExpressions().end(); (++it)) {
-      //  if ((regex_match(it, lop))
+void LexerParser::mergeIfNeeded(vector<string> *lex){
+    vector<string>::iterator it = this->vecOfExpressions.begin();
+    for ( ;it != this->getVecOfExpressions().end(); (++it)) {
+        if ((*it).find("/") != std::string::npos) {
+            std::cout << "found!" << '\n';
+        }
 
- //   }
-//}
+    }
+}
 
 void LexerParser::lexByValue(){
     vector<string> lex;
@@ -42,6 +52,11 @@ void LexerParser::lexByValue(){
     string value;
     vector<string>::iterator it = this->vecOfExpressions.begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
+        if ((*it) == "\n"){
+            lex.push_back(value);
+            value = "";
+            continue;
+        }
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
             // char after char
@@ -138,21 +153,13 @@ void LexerParser::lexByValue(){
 
         }
     }
-  //  mergeIfNeeded(&lex);
+    mergeIfNeeded(&lex);
     this->vecOfExpressions = lex;
 }
 
 vector<string> LexerParser::lexer(const string &command) {
     vector <string> listOfCommands;
-    //vector <string> vecOfExpressions;
-
-    if (command.rfind(RUN, 0) == 0){
-        //listOfCommands = loadfile(extractFileName(command));
-        this->vecOfExpressions = loadfile(extractFileName(command)) ;
-    } else {
-        listOfCommands.push_back(command);
-    }
-
+    listOfCommands.push_back(command);
     for (auto it = listOfCommands.begin() ; it != listOfCommands.end(); ++it) {
         // split the data by white spaces
         istringstream iss((*it));
@@ -161,7 +168,6 @@ vector<string> LexerParser::lexer(const string &command) {
         }
     }
     lexByValue();
-
     return this->vecOfExpressions;
 }
 

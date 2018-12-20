@@ -38,7 +38,7 @@ class LexerParser {
 
 public:
     LexerParser ()= default;
-    vector<string> loadfile(const string& fileName);
+    void loadfile(const string& fileName);
     vector<string> lexer(const string&  command);
     void parser();
     void checkVarsOfCommand();
