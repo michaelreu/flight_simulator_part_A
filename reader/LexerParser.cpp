@@ -6,13 +6,6 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
 }
 
-string extractFileName(string command){
-    //listOfCommand[1].substr(1, listOfCommand[1].size() - 2)
-    size_t startFileName = command.find("\"");
-    string fileName = command.substr (startFileName + 1, command.size()-6);
-    return fileName;
-}
-
 void LexerParser::loadfile(const string& fileName){
     //regex numPattern();
     string expression;
@@ -36,124 +29,147 @@ void LexerParser::loadfile(const string& fileName){
     myFile.close();
 }
 
-void LexerParser::mergeIfNeeded(vector<string> *lex){
-    vector<string>::iterator it = this->vecOfExpressions.begin();
-    for ( ;it != this->getVecOfExpressions().end(); (++it)) {
-        if ((*it).find("/") != std::string::npos) {
-            std::cout << "found!" << '\n';
-        }
-
-    }
-}
 
 void LexerParser::lexByValue(){
+    bool inQuoteFlag = false;
     vector<string> lex;
-    char prev = this->vecOfExpressions[0][0];
+    char prev;
     string value;
     vector<string>::iterator it = this->vecOfExpressions.begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         if ((*it) == "\n"){
-            lex.push_back(value);
-            value = "";
+            if(value != "") {
+                lex.push_back(value);
+                value = "";
+                prev = ' ';
+            }
             continue;
         }
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
-            // char after char
-            if((utils.isLetter(current)) && (utils.isLetter(prev))){
-                value += current;
+            //if we are not in quote
+            if (inQuoteFlag == false) {
+                // char after char
+                if ((utils.isLetter(current)) && (utils.isLetter(prev))) {
+                    // If they are in a different cell
+                    if (i == 0) {
+                        lex.push_back(value);
+                        value = "";
+                        value += current;
+                    } else {
+                        value += current;
+                    }
 
-            }
-            // char after digit
-            else if((utils.isLetter(current)) && (utils.isDigit(prev))){
-                value += current;
+                }
+                    // char after digit
+                else if ((utils.isLetter(current)) && (utils.isDigit(prev))) {
+                    value += current;
 
-            }
-            // char after operator
-            else if((utils.isLetter(current)) && (utils.isOperator(prev))){
-                lex.push_back(value);
-                value = "";
-                value += current;
+                }
+                    // char after operator
+                else if ((utils.isLetter(current)) && (utils.isOperator(prev))) {
+                    value += current;
 
-            }
-            // char after '='
-            else if((utils.isLetter(current)) && (prev == 61)){
-                lex.push_back(value);
-                value = "";
-                value += current;
-            }
-            // digit after char
-            else if((utils.isDigit(current)) && (utils.isLetter(prev))){
-                // If they are in a different cell
-                if(i == 0){
+                }
+                    // char after '='
+                else if ((utils.isLetter(current)) && (prev == 61)) {
                     lex.push_back(value);
                     value = "";
                     value += current;
-                } else{
+                }
+                    // digit after char
+                else if ((utils.isDigit(current)) && (utils.isLetter(prev))) {
+                    // If they are in a different cell
+                    if (i == 0) {
+                        lex.push_back(value);
+                        value = "";
+                        value += current;
+                    } else {
+                        value += current;
+                    }
+                }
+                    // digit after digit
+                else if ((utils.isDigit(current)) && (utils.isDigit(prev))) {
+                    // If they are in a different cell
+                    if (i == 0) {
+                        lex.push_back(value);
+                        value = "";
+                        value += current;
+                    } else {
+                        value += current;
+                    }
+                }
+                    // digit after operator
+                else if ((utils.isDigit(current)) && (utils.isOperator(prev))) {
                     value += current;
                 }
-            }
-            // digit after digit
-            else if((utils.isDigit(current)) && (utils.isDigit(prev))){
-                // If they are in a different cell
-                if(i == 0){
+                    // digit after '='
+                else if ((utils.isDigit(current)) && (prev == 61)) {
                     lex.push_back(value);
                     value = "";
                     value += current;
-                } else{
+                }
+                    // operator after char
+                else if ((utils.isOperator(current)) && (utils.isLetter(prev))) {
+                    value += current;
+
+                }
+                    // operator after digit
+                else if ((utils.isOperator(current)) && (isdigit(prev))) {
+                    value += current;
+
+                }
+                    // operator after operator
+                else if ((utils.isOperator(current)) && (utils.isOperator(prev))) {
+                    value += current;
+
+                }
+                    // operator after '='
+                else if ((utils.isOperator(current)) && (prev == 61)) {
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                }
+                // '='
+                else if ((current == 61)||(prev == 61)) {
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                }
+                // '('
+                else if ((current == 34) || (current == 123)) {
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                    inQuoteFlag = true;
+                }
+                    // ','
+                else if (current == 44) {
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                } else {
+                    value += current;
+                }
+            // if we in quote
+            }else{
+                // If we got to the end of the quote
+                if (current == 34) {
+                    value += current;
+                    lex.push_back(value);
+                    value = "";
+                    inQuoteFlag = false;
+                // Push to the same cell
+                }else{
                     value += current;
                 }
             }
-            // digit after operator
-            else if((utils.isDigit(current)) && (utils.isOperator(prev))){
-                value += current;
-            }
-            // digit after '='
-            else if((utils.isDigit(current)) && (prev == 61)){
-                lex.push_back(value);
-                value = "";
-                value += current;
-            }
-            // operator after char
-            else if((utils.isOperator(current)) && (utils.isLetter(prev))){
-                value += current;
-
-            }
-            // operator after digit
-            else if((utils.isOperator(current)) && (isdigit(prev))){
-                value += current;
-
-            }
-            // operator after operator
-            else if((utils.isOperator(current)) && (utils.isOperator(prev))){
-                value += current;
-
-            }
-            // operator after '='
-            else if((utils.isOperator(current))  && (prev == 61)){
-                lex.push_back(value);
-                value = "";
-                value += current;
-            }
-            // '='
-            else if (current == 61){
-                lex.push_back(value);
-                value = "";
-                value += current;
-            }
-            // ','
-            else if (current == 44){
-                lex.push_back(value);
-                value = "";
-                value += current;
-            }else {
-                value += current;
-            }
-            prev = current;
-
+                prev = current;
         }
     }
-    mergeIfNeeded(&lex);
+    if (value != ""){
+        lex.push_back(value);
+    }
     this->vecOfExpressions = lex;
 }
 
@@ -179,15 +195,3 @@ void LexerParser::parser() {
         tempExp->calculate();
     }
 }
-
-/*
-        //(!(mapStrToCommand.find(*it) == mapStrToCommand.end()))
-        if ((false)) {
-
-                    //createExpression(*it);
-            //checkVarsOfCommand();
-            //mapStrToCommand.at(*it)->createExpression(it);
-        } else {
-
-        }
-*/
