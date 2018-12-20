@@ -5,10 +5,11 @@
 #include "ExpressionFactory.h"
 
 
-
-ExpressionFactory::ExpressionFactory(const SymbolTable &symTbl) {
+ExpressionFactory::ExpressionFactory(const SymbolTable *&symTbl) {
     this->symbolTable = symTbl;
 }
+
+
 const string& ExpressionFactory::getStrOfExpression() const {
     return this->expressionStr;
 }
@@ -52,7 +53,9 @@ void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
 
 void ExpressionFactory::insertByOrderToStack() {
     string str = getStrOfExpression();
+    string tempVar;
     for(const auto* it = str.c_str(); *it; ++it) {
+        //white spaces are not necessary
         if ((*it) == SPACE_CHAR){
             continue;
         }
@@ -68,8 +71,10 @@ void ExpressionFactory::insertByOrderToStack() {
             --it;
             this->numBeforeMe = true;
         } else if (utils.isOperation(*it)) {
+            if (symbolTable->isVarInValueMap(tempVar)) {
+                symbolTable->getValueOfVar(tempVar);
+            } //check if tempVar is in the symbol table
             switch (*it) {
-
                 case MINUS_CHAR:
                     if (!this->numBeforeMe) {
                         getMainStack().push(new Num(0));
@@ -103,6 +108,8 @@ void ExpressionFactory::insertByOrderToStack() {
                 this->numBeforeMe=true;
             }
 
+        } else if (utils.isValidVarChar(*it)) {
+            tempVar+=(*it);
         } else {
             throw INVALID_EXPRESSION_STRING;
         }

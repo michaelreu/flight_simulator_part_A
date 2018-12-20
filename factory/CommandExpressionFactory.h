@@ -25,21 +25,19 @@ using namespace std;
 class CommandExpressionFactory {
 
 private:
-    ExpressionFactory expressionNumberCreator;
+    ExpressionFactory* expressionNumberCreator;
     SymbolTable* symTbl;
 
 public:
     CommandExpressionFactory();
-    //virtual Expression* createExpression(vector<string> *dataVector)=0;
     virtual Expression* createExpression(vector<string>::iterator &it);
-    double extractDoubleFromString(string &s);
-    //string getNextDoubleInVector(vector<string> *dataVector);
-    string getNextDoubleInVector(vector<string>::iterator it);
+
     Expression* getOpenServerCommand(vector<string>::iterator &it);
     Expression* getConnectCommand(vector<string>::iterator &it);
     Expression* getDefineVarCommand(vector<string>::iterator &it);
     Expression* getAssignCommand(vector<string>::iterator &it);
 
+    virtual ~CommandExpressionFactory();
 };
 
 

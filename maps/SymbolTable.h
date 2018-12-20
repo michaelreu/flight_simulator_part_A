@@ -7,11 +7,13 @@
 
 #include <string>
 #include <map>
-using namespace std;
+#include "VarValue.h"
 
+using namespace std;
+class VarValue;
 class SymbolTable {
 private:
-    map<const string, double> valuesMap;
+    map<const string, VarValue> valuesMap;
     map<string, string> destinationMap;
 
 public:
@@ -22,6 +24,8 @@ public:
     void addValuesToMap(const string &key, double value);
     void addDestinationToMap(string &key, string &dest);
     bool isVarInMap(const string &key);
+    bool isVarInValueMap(const string &key);
+    double getValueOfVar(const string &key);
 };
 
 #endif //INC_14_12_12_46_VARIABLESMAP_H

@@ -1,4 +1,5 @@
-var breaks
+var breaks = 6
+var x = breaks - 5
 breaks = bind "/controls/flight/speedbrake"
 var throttle = bind "/controls/engines/engine/throttle"
 var heading = bind "/instrumentation/heading-indicator/offset-deg"

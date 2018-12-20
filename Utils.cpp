@@ -34,6 +34,7 @@ bool Utils::isOperator(char c) {
     return (((c >= 42) && (c <= 43)) || ((c >= 45) && (c <= 47)));
 }
 
+/*
 Utils::Type Utils::getType(int numOfType) {
     switch (numOfType) {
         case 1:
@@ -54,7 +55,10 @@ Utils::Type Utils::getType(int numOfType) {
     }
 
 }
-
+*/
+bool Utils::isValidVarChar(char c) {
+    return ((isLetter(c))||(isDigit(c))||(c='_'));
+}
 bool Utils::isStrDouble(const string str) {
     bool hasDot = false;
     for(const auto* it = str.c_str(); *it; ++it) {

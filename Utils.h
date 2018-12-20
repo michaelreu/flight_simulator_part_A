@@ -28,6 +28,7 @@ public:
     bool isStrDouble(const string str);
     bool isLetter(char c);
     bool isOperator(char c);
+    bool isValidVarChar(char c);
 };
 
 

@@ -3,6 +3,7 @@
 #include "../commands/vars/DefineVarCommand.h"
 
 CommandExpressionFactory::CommandExpressionFactory() {
+    this->expressionNumberCreator = new ExpressionFactory();
     this->symTbl = new SymbolTable();
 }
 
@@ -23,14 +24,14 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
 
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
     //string str = *(++it);
-    int port = (int) (expressionNumberCreator.createExpression((*(++it))))->calculate();
-    int hertz = (int) (expressionNumberCreator.createExpression((*(++it))))->calculate();
+    int port = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
+    int hertz = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
     return new ExpressionCommand(new OpenServerCommand(port, hertz));
 }
 
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     string ip = (*(++it));
-    int port = (int) (expressionNumberCreator.createExpression((*(++it))))->calculate();
+    int port = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
     return new ExpressionCommand(new ConnectCommand(ip,port));
 }
 
@@ -42,24 +43,18 @@ Expression* CommandExpressionFactory::getDefineVarCommand(vector<string>::iterat
 Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator &it) {
     string var = (*(--it)++);
     (++it);
+    //if (symTbl->isVarInMap(*it)) {    }
     if ((*it)==BIND_STR) {
         string destinationPath = (*(++it));
         return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
     } else {
-        double value = (expressionNumberCreator.createExpression((*(it))))->calculate();
+        double value = (expressionNumberCreator->createExpression((*(it))))->calculate();
         return new ExpressionCommand(new AssignCommand(symTbl, var , value));
     }
 }
-double CommandExpressionFactory::extractDoubleFromString(string &s) {
-    return (expressionNumberCreator.createExpression(s))->calculate();
 
-}
-/*
-string CommandExpressionFactory::getNextDoubleInVector(vector<string> *dataVector) {
-    dataVector->erase((dataVector)->begin());
-    return *(dataVector)->begin();
-}
-*/
-string CommandExpressionFactory::getNextDoubleInVector(vector<string>::iterator it) {
 
+CommandExpressionFactory::~CommandExpressionFactory() {
+    delete this->expressionNumberCreator;
+    delete this->symTbl;
 }

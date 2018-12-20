@@ -34,7 +34,7 @@ using namespace std;
 class ExpressionFactory{
 private:
     Utils utils;
-    SymbolTable symbolTable;
+    SymbolTable* symbolTable;
     stack<ShuntingYardExpression*> mainStack;
     stack<char> operationsStack;
     string expressionStr;
@@ -57,7 +57,7 @@ private:
     Expression* generateExpressionOfStack();
 public:
     ExpressionFactory()= default;
-    ExpressionFactory(const SymbolTable &symbolTable);
+    ExpressionFactory(const SymbolTable* &symbolTable);
     virtual Expression* createExpression(const string &strToExp);
 };
 
