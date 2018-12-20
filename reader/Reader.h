@@ -21,7 +21,7 @@ class Reader  {
 
 public:
     Reader() = default;
-    void readCommands();
+    void readCommands(string fileName);
 
 };
 

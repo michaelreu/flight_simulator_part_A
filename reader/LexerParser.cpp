@@ -27,6 +27,15 @@ vector<string> LexerParser::loadfile(const string& fileName){
     return dataFromFile;
 }
 
+//void LexerParser::mergeIfNeeded(vector<string> *lex){
+  //  regex lop ("[{[(\"]");
+    //vector<string>::iterator it = this->vecOfExpressions.begin();
+    //for ( ;it != this->getVecOfExpressions().end(); (++it)) {
+      //  if ((regex_match(it, lop))
+
+ //   }
+//}
+
 bool isDigit(char check){
     return ((check >= 48) && (check <= 57));
 }
@@ -40,13 +49,10 @@ bool isoperator(char check){
 }
 
 void LexerParser::lexByValue(){
-    regex letter ("[a-zA-Z_]");
-    regex digit ("0-9");
-    regex operatorSymbbol ("[-*/+]");
     vector<string> lex;
-    char prev = vecOfExpressions[0][0];
-    vector<string>::iterator it = vecOfExpressions.begin();
+    char prev = this->vecOfExpressions[0][0];
     string value;
+    vector<string>::iterator it = this->vecOfExpressions.begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
@@ -144,6 +150,8 @@ void LexerParser::lexByValue(){
 
         }
     }
+  //  mergeIfNeeded(&lex);
+    this->vecOfExpressions = lex;
 }
 
 vector<string> LexerParser::lexer(const string &command) {

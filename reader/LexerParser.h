@@ -43,6 +43,7 @@ public:
     void checkVarsOfCommand();
     const vector<string> &getVecOfExpressions() const;
     void lexByValue();
+    void mergeIfNeeded(vector<string> *lex);
 };
 
 
