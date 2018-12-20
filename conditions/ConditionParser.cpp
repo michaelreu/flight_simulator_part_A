@@ -7,6 +7,4 @@
 
 bool ConditionParser::checkCondition(string condition, SymbolTable *symbolTable){
 
-
-
 }

@@ -20,6 +20,8 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
         return getDefineVarCommand(it);
     } else if ((*it) == ASSIGN_CHAR) {
         return  getAssignCommand(it);
+    } else if ((*it)==IF_STR) {
+        return getIfCommand(it);
     }
 }
 
@@ -56,6 +58,26 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
     }
 }
 
+vector<Expression*> CommandExpressionFactory::getCommandsVecOfCondition(vector<string>::iterator &it) {
+    vector<Expression*> commandsList;
+    while (*(++it) != RIGHT_CURLY_PARENTHESIS_STR) {
+        commandsList.push_back(createExpression(it));
+    }
+    return commandsList;
+
+}
+
+Expression* CommandExpressionFactory::getIfCommand(vector<string>::iterator &it) {
+    string condition = *(++it);
+    vector<Expression*> commandsList = getCommandsVecOfCondition(it);
+
+}
+
+Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &it) {
+    string condition = *(++it);
+    vector<Expression*> commandsList = getCommandsVecOfCondition(it);;
+
+}
 
 CommandExpressionFactory::~CommandExpressionFactory() {
     delete this->expressionNumberCreator;

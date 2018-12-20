@@ -9,17 +9,17 @@
 
 using namespace std;
 
-class IfCondition : public  ConditionParser {
+class IfCommand : public  ConditionParser {
 
 private:
-    vector<ExpressionCommand> vecOfExpressionCommands;
-    SymbolTable *symbolTable;
+    vector<Expression*> vecOfExpCommands;
+    SymbolTable *symTbl;
     string condition;
 
 public:
-    void addExpressionCommand(ExpressionCommand command);
-    void setSymbolTable(SymbolTable &symbolTable1);
-    IfCondition(vector <ExpressionCommand> vecOfExpressionCommands, string condition);
+    //void addExpressionCommand(ExpressionCommand command);
+    //void setSymbolTable(SymbolTable &symbolTable1);
+    IfCommand(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
     virtual void execute();
     string getCondition();
 };

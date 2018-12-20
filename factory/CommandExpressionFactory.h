@@ -8,7 +8,9 @@
 #define VAR_STR "var"
 #define ASSIGN_CHAR "="
 #define BIND_STR "bind"
-
+#define IF_STR "if"
+#define WHILE_STR "while"
+#define RIGHT_CURLY_PARENTHESIS_STR "}"
 #include "ExpressionFactory.h"
 #include "../commands/ExpressionCommand.h"
 #include "../commands/OpenServerCommand.h"
@@ -36,7 +38,9 @@ public:
     Expression* getConnectCommand(vector<string>::iterator &it);
     Expression* getDefineVarCommand(vector<string>::iterator &it);
     Expression* getAssignCommand(vector<string>::iterator &it);
-
+    vector<Expression*> getCommandsVecOfCondition(vector<string>::iterator &it);
+    Expression* getIfCommand(vector<string>::iterator &it);
+    Expression* getWhileCommand(vector<string>::iterator &it)
     virtual ~CommandExpressionFactory();
 };
 

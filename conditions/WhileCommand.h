@@ -10,17 +10,14 @@
 
 using namespace std;
 
-class WhileCondition : public  ConditionParser{
+class WhileCommand : public  ConditionParser{
 private:
-
-    vector<ExpressionCommand> vecOfExpressionCommands;
-    SymbolTable *symbolTable;
+    vector<Expression*> vecOfExpCommands;
+    SymbolTable *symTbl;
     string condition;
 
 public:
-
-    WhileCondition(vector <ExpressionCommand>, string condition);
-    void setSymbolTable(SymbolTable &symbolTable1);
+    WhileCommand(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
     string getCondition();
     virtual void execute();
 };
