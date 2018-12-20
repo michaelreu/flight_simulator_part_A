@@ -16,6 +16,8 @@
 #define ZERO_CHAR '0'
 #define SPACE_CHAR ' '
 #include <stack>
+#include <vector>
+
 #include "../expression/Expression.h"
 #include "../expression/Num.h"
 #include "../expression/Plus.h"
@@ -58,7 +60,8 @@ private:
 public:
     ExpressionFactory()= default;
     ExpressionFactory(SymbolTable* &symbolTable);
-    virtual Expression* createExpression(const string &strToExp);
+    virtual Expression* createExpression(vector<string>::iterator &it);
+    //virtual Expression* createExpression(const string &strToExp);
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H

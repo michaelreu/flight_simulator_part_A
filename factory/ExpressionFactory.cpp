@@ -151,6 +151,15 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
     }
 }
 
+Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
+    //auto it = (dataVec)->begin();
+    //this->expressionStr = (*it);
+    this->expressionStr = (*it);
+    insertByOrderToStack();
+    return generateExpressionOfStack();
+    //Expression* ex = stackToExpression();
+}
+/*
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     //auto it = (dataVec)->begin();
     //this->expressionStr = (*it);
@@ -159,3 +168,4 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
     return generateExpressionOfStack();
     //Expression* ex = stackToExpression();
 }
+ */
