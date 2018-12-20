@@ -2,15 +2,13 @@
 #ifndef INC_14_12_12_46_LEXERPARSER_H
 #define INC_14_12_12_46_LEXERPARSER_H
 
-#define RUN "run"
-#define VAR "var"
-#define WHILE "while"
-#define IF "if"
 
-//#define OPEN_DATA_SERVER_STR "openDataServer"
-#define CONNECT_TO_SERVER_STR "connect"
-#define IF_CONDITION_STR "if"
-#define WHILE_CONDITION_STR "while"
+
+
+#define QUOTES_CHAR 34
+#define COMMA 44
+#define LEFT_CURLY_PARENT_CHAR 123
+
 
 #include <vector>
 #include <string.h>
@@ -45,6 +43,8 @@ public:
     const vector<string> &getVecOfExpressions() const;
     void lexByValue();
     void mergeIfNeeded(vector<string> *lex);
+    bool charCase(char prev, int i);
+    bool parnthesesCase(char prev);
 };
 
 

@@ -8,6 +8,7 @@
 #define MAX_DIGIT_ASCII 57
 #define MIN_OPERATION_ASCII 40
 #define MAX_OPERATION_ASCII 47
+#define EQUAL 61
 /*
 #define UNKNOWN 0
 #define NUM 1
