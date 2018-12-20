@@ -5,6 +5,14 @@
 #include "ConditionParser.h"
 
 
-bool ConditionParser::checkCondition(string condition, SymbolTable *symbolTable){
+ConditionParser::ConditionParser(vector<Expression *> &vecOfExp, string &con, SymbolTable *&symbolTable) {
+    this->symTbl=symbolTable;
+    this->vecOfExpCommands = vecOfExp;
+    this->condition = con;
+}
+vector<Expression*>& ConditionParser::getVecOfExpCommands() {
+    return this->vecOfExpCommands;
+}
+bool ConditionParser::checkCondition() {
 
 }

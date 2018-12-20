@@ -11,14 +11,9 @@
 using namespace std;
 
 class WhileCommand : public  ConditionParser{
-private:
-    vector<Expression*> vecOfExpCommands;
-    SymbolTable *symTbl;
-    string condition;
 
 public:
     WhileCommand(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
-    string getCondition();
     virtual void execute();
 };
 

@@ -1,6 +1,8 @@
 
 #include "CommandExpressionFactory.h"
 #include "../commands/vars/DefineVarCommand.h"
+#include "../conditions/IfCommand.h"
+#include "../conditions/WhileCommand.h"
 
 CommandExpressionFactory::CommandExpressionFactory() {
     this->symTbl = new SymbolTable();
@@ -22,6 +24,12 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
         return  getAssignCommand(it);
     } else if ((*it)==IF_STR) {
         return getIfCommand(it);
+    } else if ((*it)==WHILE_STR) {
+        return getWhileCommand(it);
+    } else if ((*it)==PRINT_STR) {
+        return getPrintCommand(it);
+    } else {
+        throw "Error: " + (*it) + "is not initialized";
     }
 }
 
@@ -60,8 +68,10 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
 
 vector<Expression*> CommandExpressionFactory::getCommandsVecOfCondition(vector<string>::iterator &it) {
     vector<Expression*> commandsList;
-    while (*(++it) != RIGHT_CURLY_PARENTHESIS_STR) {
-        commandsList.push_back(createExpression(it));
+    //skips on '{'
+    (++it);
+    while (*(it) != RIGHT_CURLY_PARENTHESIS_STR) {
+        commandsList.push_back(createExpression(++it));
     }
     return commandsList;
 
@@ -70,12 +80,18 @@ vector<Expression*> CommandExpressionFactory::getCommandsVecOfCondition(vector<s
 Expression* CommandExpressionFactory::getIfCommand(vector<string>::iterator &it) {
     string condition = *(++it);
     vector<Expression*> commandsList = getCommandsVecOfCondition(it);
+    return new ExpressionCommand(new IfCommand(commandsList , condition, symTbl));
 
 }
 
 Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &it) {
     string condition = *(++it);
-    vector<Expression*> commandsList = getCommandsVecOfCondition(it);;
+    vector<Expression*> commandsList = getCommandsVecOfCondition(it);
+    return new ExpressionCommand(new WhileCommand(commandsList , condition, symTbl));
+}
+
+Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &it) {
+    string strToPrint = *(++it);
 
 }
 

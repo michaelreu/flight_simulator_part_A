@@ -4,19 +4,16 @@
 
 #include "IfCommand.h"
 
-IfCommand::IfCommand(vector<Expression *> &vecOfExp, string &con, SymbolTable *&symbolTable) {
-    this->vecOfExpCommands = vecOfExp;
-    this->symTbl = symbolTable;
-    this->condition = con;
-}
+IfCommand::IfCommand(vector<Expression *> &vecOfExp, string &con, SymbolTable *&symbolTable)
+:ConditionParser(vecOfExp,con,symbolTable) {  }
+//this->vecOfExpCommands = vecOfExp;
+   // this->symTbl = symbolTable;
+   // this->condition = con;
 
-string IfCommand:: getCondition(){
-    return this->condition;
-}
 
 void IfCommand::execute(){
-    if (checkCondition(getCondition(), this->symTbl)) {
-        for (Expression* command : this->vecOfExpCommands) {
+    if (checkCondition()) {
+        for (Expression* command : getVecOfExpCommands()) {
             command->calculate();
         }
     }

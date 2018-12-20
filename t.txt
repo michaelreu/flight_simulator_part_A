@@ -1,3 +1,4 @@
+var alt = 8
 if alt < 1000 {
 rudder = (h0 – heading)/20
 aileron = - roll / 70

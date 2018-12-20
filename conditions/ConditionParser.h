@@ -8,14 +8,21 @@
 
 #include "../commands/Command.h"
 #include <string>
+#include <vector>
 #include "../maps/SymbolTable.h"
 
 using namespace std;
 
 class ConditionParser : public Command {
+private:
+    vector<Expression*> vecOfExpCommands;
+    SymbolTable *symTbl;
+    string condition;
 
 public:
-    bool checkCondition(string condition, SymbolTable *symbolTable);
+    ConditionParser(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
+    vector<Expression*> &getVecOfExpCommands();
+    bool checkCondition();
     virtual void execute() = 0;
 
 };

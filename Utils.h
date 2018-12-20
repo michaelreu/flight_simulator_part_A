@@ -8,7 +8,9 @@
 #define MAX_DIGIT_ASCII 57
 #define MIN_OPERATION_ASCII 40
 #define MAX_OPERATION_ASCII 47
-#define EQUAL 61
+#define LEFT_PARENTHESES '('
+#define RIGHT_PARENTHESES ')'
+
 /*
 #define UNKNOWN 0
 #define NUM 1
@@ -21,11 +23,9 @@ using namespace std;
 
 class Utils {
 public:
-    enum Type { UNKONWN = 0, NUMBER, OPERATOR, LEFT_PARENTHESES, RIGHT_PARENTHESES };
     bool isDigit (const char c);
     bool isOperation(const char c);
     int charToInt(const char c);
-    Type getType(int numOfType);
     bool isStrDouble(const string str);
     bool isLetter(char c);
     bool isOperator(char c);

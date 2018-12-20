@@ -34,28 +34,6 @@ bool Utils::isOperator(char c) {
     return (((c >= 42) && (c <= 43)) || ((c >= 45) && (c <= 47)));
 }
 
-/*
-Utils::Type Utils::getType(int numOfType) {
-    switch (numOfType) {
-        case 1:
-            return Type::NUMBER;
-            break;
-        case 2:
-            return Type::OPERATOR;
-            break;
-        case 3:
-            return Type::LEFT_PARENTHESES;
-            break;
-        case 4:
-            return Type::RIGHT_PARENTHESES;
-            break;
-        default:
-            return Type ::UNKONWN;
-            break;
-    }
-
-}
-*/
 bool Utils::isValidVarChar(char c) {
     return ((isLetter(c))||(isDigit(c))||(c='_'));
 }
