@@ -6,7 +6,7 @@
 #define SEMPROJECT_DIV_H
 
 
-#include "BinaryExpression.h"
+#include "../BinaryExpression.h"
 
 class Div : public BinaryExpression  {
 

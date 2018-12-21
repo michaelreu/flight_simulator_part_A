@@ -79,14 +79,14 @@ vector<Expression*> CommandExpressionFactory::getCommandsVecOfCondition(vector<s
 Expression* CommandExpressionFactory::getIfCommand(vector<string>::iterator &it) {
     string condition = *(++it);
     vector<Expression*> commandsList = getCommandsVecOfCondition(it);
-    return new ExpressionCommand(new IfCommand(commandsList , condition, symTbl));
+    return new ExpressionCommand(new IfCommand(commandsList , condition, expressionNumberCreator));
 
 }
 
 Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &it) {
     string condition = *(++it);
     vector<Expression*> commandsList = getCommandsVecOfCondition(it);
-    return new ExpressionCommand(new WhileCommand(commandsList , condition, symTbl));
+    return new ExpressionCommand(new WhileCommand(commandsList , condition, expressionNumberCreator));
 }
 
 Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &it) {

@@ -2,12 +2,13 @@
 #ifndef INC_14_12_12_46_LEXERPARSER_H
 #define INC_14_12_12_46_LEXERPARSER_H
 
-#define LEFT_PARENTHESES '('
-#define RIGHT_PARENTHESES ')'
+
+
+
 #define QUOTES_CHAR 34
 #define COMMA 44
 #define LEFT_CURLY_PARENT_CHAR 123
-#define EQUAL '='
+
 
 #include <vector>
 #include <string.h>

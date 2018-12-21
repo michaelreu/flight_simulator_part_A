@@ -6,7 +6,7 @@
 #define SEMPROJECT_NEG_H
 
 
-#include "UnaryExpression.h"
+#include "../UnaryExpression.h"
 
 class Neg : public UnaryExpression  {
 

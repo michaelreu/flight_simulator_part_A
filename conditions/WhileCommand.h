@@ -13,7 +13,7 @@ using namespace std;
 class WhileCommand : public  ConditionParser{
 
 public:
-    WhileCommand(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
+    WhileCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac);
     virtual void execute();
 };
 

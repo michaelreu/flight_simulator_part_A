@@ -6,7 +6,7 @@
 #define SEMPROJECT_PLUS_H
 
 
-#include "BinaryExpression.h"
+#include "../BinaryExpression.h"
 
 class Plus : public BinaryExpression  {
 

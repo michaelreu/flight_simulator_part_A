@@ -20,10 +20,10 @@
 
 #include "../expression/Expression.h"
 #include "../expression/Num.h"
-#include "../expression/Plus.h"
-#include "../expression/Minus.h"
-#include "../expression/Mult.h"
-#include "../expression/Div.h"
+#include "../expression/arithmeticExpressions/Plus.h"
+#include "../expression/arithmeticExpressions/Minus.h"
+#include "../expression/arithmeticExpressions/Mult.h"
+#include "../expression/arithmeticExpressions/Div.h"
 #include "../expression/Num.h"
 #include "../shuntingYard/Operators.h"
 #include "../shuntingYard/ShuntingYardExpression.h"
@@ -61,7 +61,7 @@ public:
     ExpressionFactory()= default;
     ExpressionFactory(SymbolTable* &symbolTable);
     virtual Expression* createExpression(vector<string>::iterator &it);
-    //virtual Expression* createExpression(const string &strToExp);
+    virtual Expression* createExpression(const string &strToExp);
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H

@@ -1,8 +1,8 @@
 
 #include "WhileCommand.h"
 
-WhileCommand::WhileCommand(vector<Expression *> &vecOfExp, string &con, SymbolTable *&symbolTable)
-:ConditionParser(vecOfExp,con,symbolTable) {}
+WhileCommand::WhileCommand(vector<Expression *> &vecOfExp, string &con, ExpressionFactory* expFac)
+:ConditionParser(vecOfExp,con,expFac) {}
 
 void WhileCommand::execute(){
     while (checkCondition()) {

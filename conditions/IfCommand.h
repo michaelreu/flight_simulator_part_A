@@ -19,7 +19,7 @@ private:
 public:
     //void addExpressionCommand(ExpressionCommand command);
     //void setSymbolTable(SymbolTable &symbolTable1);
-    IfCommand(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
+    IfCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac);
     virtual void execute();
     string getCondition();
 };

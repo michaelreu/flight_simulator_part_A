@@ -10,21 +10,28 @@
 #include <string>
 #include <vector>
 #include "../maps/SymbolTable.h"
+#include "../Utils.h"
+#include "../factory/ExpressionFactory.h"
 
 using namespace std;
 
 class ConditionParser : public Command {
 private:
     vector<Expression*> vecOfExpCommands;
-    SymbolTable *symTbl;
+    ExpressionFactory* expressionFactory;
+    //SymbolTable *symTbl;
     string condition;
+    string boolOperator;
+    Utils utils;
+
+    bool isValidCondition();
+    bool conditionHasBoolExp();
 
 public:
-    ConditionParser(vector <Expression*> &vecOfExp, string &con, SymbolTable* &symbolTable);
+    ConditionParser(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac);
     vector<Expression*> &getVecOfExpCommands();
     bool checkCondition();
     virtual void execute() = 0;
-
 };
 
 

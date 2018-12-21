@@ -70,7 +70,7 @@ void ExpressionFactory::insertByOrderToStack() {
             getMainStack().push(new Num(stod (numStr)));
             --it;
             this->numBeforeMe = true;
-        } else if (utils.isOperation(*it)) {
+        } else if (utils.isShunYardOperation(*it)) {
             if (symbolTable->isVarInValueMap(tempVar)) {
                 double valOfVar = symbolTable->getValueOfVar(tempVar);
                 getMainStack().push(new Num(valOfVar));
@@ -124,7 +124,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
         //if expression is operator
         string tempStr = shuntingYardExpression->getNumOrOperationExp();
         const auto it = tempStr.c_str();
-        if (utils.isOperation(*it)) {
+        if (utils.isShunYardOperation(*it)) {
             Expression* rightExpression = generateExpressionOfStack();
             Expression* leftExpression = generateExpressionOfStack();
             switch (tempStr[0]) {
@@ -152,20 +152,14 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
 }
 
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
-    //auto it = (dataVec)->begin();
-    //this->expressionStr = (*it);
     this->expressionStr = (*it);
     insertByOrderToStack();
     return generateExpressionOfStack();
-    //Expression* ex = stackToExpression();
 }
-/*
+
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
-    //auto it = (dataVec)->begin();
-    //this->expressionStr = (*it);
     this->expressionStr = strToExp;
     insertByOrderToStack();
     return generateExpressionOfStack();
-    //Expression* ex = stackToExpression();
 }
- */
+

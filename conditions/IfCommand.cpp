@@ -4,8 +4,8 @@
 
 #include "IfCommand.h"
 
-IfCommand::IfCommand(vector<Expression *> &vecOfExp, string &con, SymbolTable *&symbolTable)
-:ConditionParser(vecOfExp,con,symbolTable) {  }
+IfCommand::IfCommand(vector<Expression *> &vecOfExp, string &con, ExpressionFactory* expFac)
+:ConditionParser(vecOfExp,con,expFac) {  }
 //this->vecOfExpCommands = vecOfExp;
    // this->symTbl = symbolTable;
    // this->condition = con;

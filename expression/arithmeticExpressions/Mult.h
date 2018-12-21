@@ -6,7 +6,7 @@
 #define SEMPROJECT_MULT_H
 
 
-#include "BinaryExpression.h"
+#include "../BinaryExpression.h"
 
 class Mult : public BinaryExpression  {
 
