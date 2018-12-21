@@ -2,8 +2,8 @@
 #ifndef INC_14_12_12_46_COMMANDEXPRESSIONFACTORY_H
 #define INC_14_12_12_46_COMMANDEXPRESSIONFACTORY_H
 
-#define ERR_MSG "Error: "
-#define NOT_INIT_ERR " is not initialized"
+#define ERR_MSG "Error: \""
+#define NOT_INIT_ERR "\" is not initialized"
 
 #define OPEN_DATA_SERVER_STR "openDataServer"
 #define CONNECT_STR "connect"
@@ -22,6 +22,10 @@
 #include "../commands/ConnectCommand.h"
 #include "../commands/AssignCommand.h"
 #include "../commands/SleepCommand.h"
+#include "../commands/vars/DefineVarCommand.h"
+#include "../conditions/IfCommand.h"
+#include "../conditions/WhileCommand.h"
+#include "../commands/PrintCommand.h"
 #include <map>
 #include "../maps/SymbolTable.h"
 

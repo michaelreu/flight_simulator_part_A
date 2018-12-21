@@ -7,15 +7,20 @@
 
 #include <string>
 #include "Command.h"
+#include "../factory/ExpressionFactory.h"
 
 using namespace std;
 class PrintCommand : public Command {
 private:
+    ExpressionFactory* expFactory;
     string strToPrint;
-    const SymbolTable* symTbl;
+    //const SymbolTable* symTbl;
+
+    bool isInQoutes();
 
 public:
-    PrintCommand(SymbolTable* &symbolTable, string &str);
+    PrintCommand(ExpressionFactory* expFac, string &str);
+
     virtual void execute();
 };
 

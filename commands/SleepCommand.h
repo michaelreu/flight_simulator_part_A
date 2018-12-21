@@ -4,15 +4,17 @@
 
 #ifndef INC_14_12_12_46_SLEEPCOMMAND_H
 #define INC_14_12_12_46_SLEEPCOMMAND_H
-
-
+#define TEN_MILL_SEC 10
+#include <thread>
+#include <chrono>
 #include "Command.h"
 
 class SleepCommand : public Command{
 private:
-    double time;
+    long time;
+
 public:
-    SleepCommand(double time);
+    SleepCommand(long time);
     virtual void execute();
 };
 

@@ -1,8 +1,6 @@
 
 #include "CommandExpressionFactory.h"
-#include "../commands/vars/DefineVarCommand.h"
-#include "../conditions/IfCommand.h"
-#include "../conditions/WhileCommand.h"
+
 
 CommandExpressionFactory::CommandExpressionFactory() {
     this->symTbl = new SymbolTable();
@@ -80,7 +78,6 @@ Expression* CommandExpressionFactory::getIfCommand(vector<string>::iterator &it)
     string condition = *(++it);
     vector<Expression*> commandsList = getCommandsVecOfCondition(it);
     return new ExpressionCommand(new IfCommand(commandsList , condition, expressionNumberCreator));
-
 }
 
 Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &it) {
@@ -91,6 +88,7 @@ Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &
 
 Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &it) {
     string strToPrint = *(++it);
+    return new ExpressionCommand(new PrintCommand(expressionNumberCreator, strToPrint));
 }
 
 Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &it) {
