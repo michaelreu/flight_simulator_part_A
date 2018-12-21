@@ -31,7 +31,7 @@ void LexerParser::loadfile(const string& fileName){
 
 
 bool LexerParser::parnthesesCase(char prev){
-    return ((utils.isOperator(prev)) || (prev == LEFT_PARENTHESES));
+    return !((utils.isOperator(prev)) || (prev == LEFT_PARENTHESES));
 }
 
 bool LexerParser::charCase(char prev, int i){
@@ -51,24 +51,35 @@ bool isSeparatingChar (char check){
 }
 
 
-
 void LexerParser::lexByValue(){
+    string ifStr = "if";
+    string whileStr = "while";
     bool inQuoteFlag = false;
     vector<string> lex;
     char prev;
     string value;
     vector<string>::iterator it = this->vecOfExpressions.begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
+        // and of line case
         if ((*it) == "\n"){
             if(value != "") {
                 lex.push_back(value);
                 value = "";
                 prev = ' ';
             }
+            inQuoteFlag = false;
             continue;
         }
+
+        // read char by char
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
+            if ((value == ifStr) || (value == whileStr)) {
+                lex.push_back(value);
+                value = "";
+                value += current;
+                inQuoteFlag = true;
+            }
             //if we are not in quote
             if (inQuoteFlag == false) {
 
@@ -99,6 +110,7 @@ void LexerParser::lexByValue(){
                     value = "";
                     value += current;
                 }
+                // '('
                 else if ((current == LEFT_PARENTHESES)){
                     if (parnthesesCase(prev)) {
                         lex.push_back(value);
@@ -115,18 +127,7 @@ void LexerParser::lexByValue(){
                     value += current;
                     inQuoteFlag = true;
                 }
-
-                //  "(" after operator
-                else if (current == LEFT_PARENTHESES) {
-                    if (utils.isOperator(prev) || prev == LEFT_PARENTHESES) {
-                        value += current;
-                    } else {
-                        lex.push_back(value);
-                        value = "";
-                        value += current;
-                        inQuoteFlag = true;
-                    }
-                }
+                 // defult
                  else {
                     value += current;
                 }
