@@ -31,7 +31,7 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
         // create the requested command
         return (this->*func)(it);
     }else{
-        throw "Error: " + (*it) + "is not initialized";
+        throw ERR_MSG + (*it) + NOT_INIT_ERR;
     }
 }
 
@@ -69,8 +69,8 @@ vector<Expression*> CommandExpressionFactory::getCommandsVecOfCondition(vector<s
     vector<Expression*> commandsList;
     //skips on '{'
     (++it);
-    while (*(it) != RIGHT_CURLY_PARENTHESIS_STR) {
-        commandsList.push_back(createExpression(++it));
+    while (*(++it) != RIGHT_CURLY_PARENTHESIS_STR) {
+        commandsList.push_back(createExpression(it));
     }
     return commandsList;
 

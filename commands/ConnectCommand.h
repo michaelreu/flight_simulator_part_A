@@ -1,7 +1,7 @@
 
 #ifndef PROJECTPART1_CONNECTCOMMAND_H
 #define PROJECTPART1_CONNECTCOMMAND_H
-
+#define INVALID_IP_ADRESS_ERR "Error: connection failed - invalid IP adress"
 #include "Command.h"
 #include "../reader/Reader.h"
 #include <string>
@@ -15,6 +15,9 @@ private:
 
 public:
     ConnectCommand(string ip, int port);
+
+    bool validIP();
+
     virtual void execute();
 
 };

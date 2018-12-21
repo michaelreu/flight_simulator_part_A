@@ -1,9 +1,4 @@
-var alt = 8
-if alt < 1000 {
-rudder = (h0 – heading)/20
-aileron = - roll / 70
-elevator = pitch / 50
-print alt
-sleep 250
-}
-print "done"
+a 2
+openDataServer 5400 80
+connect 127.0.0.1 5400
+connect 127.127.257.0 42

@@ -2,6 +2,8 @@
 #ifndef INC_14_12_12_46_COMMANDEXPRESSIONFACTORY_H
 #define INC_14_12_12_46_COMMANDEXPRESSIONFACTORY_H
 
+#define ERR_MSG "Error: "
+#define NOT_INIT_ERR " is not initialized"
 
 #define OPEN_DATA_SERVER_STR "openDataServer"
 #define CONNECT_STR "connect"

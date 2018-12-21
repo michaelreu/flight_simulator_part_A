@@ -11,7 +11,7 @@ ConditionParser::ConditionParser(vector<Expression *> &vecOfExp, string &con, Ex
     this->expressionFactory = exprNumCreator;
     this->vecOfExpCommands = vecOfExp;
     this->condition = con;
-    this->boolOperator = utils.findBoolExpression(con);
+    this->boolOperator = utils.getStringOfOperation(con);
 }
 vector<Expression*>& ConditionParser::getVecOfExpCommands() {
     return this->vecOfExpCommands;
