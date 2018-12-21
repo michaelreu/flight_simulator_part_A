@@ -10,12 +10,7 @@
 using namespace std;
 
 class IfCommand : public  ConditionParser {
-/*
-private:
-    vector<Expression*> vecOfExpCommands;
-    SymbolTable *symTbl;
-    string condition;
-*/
+
 public:
     //void addExpressionCommand(ExpressionCommand command);
     //void setSymbolTable(SymbolTable &symbolTable1);

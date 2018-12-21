@@ -70,7 +70,7 @@ string Utils::getStringOfOperation(string &condition) {
             ++diffOfParents;
         } else if ((*it)==RIGHT_PARENTHESES) {
             if ((--diffOfParents)<0) {
-                return "";
+                throw PARENT_ERR;
             }
         } else if ((isValidVarChar(*it))||((*it)==DOT_CHAR)) {
             continue;

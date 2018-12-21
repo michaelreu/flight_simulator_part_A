@@ -2,13 +2,19 @@
 #ifndef PROJECTPART1_OPENSERVERCOMMAND_H
 #define PROJECTPART1_OPENSERVERCOMMAND_H
 
-#define NUM_OF_PARAM 3
-#define PARAMETERS_NUMBER_EXCEPTION "not enough parameters"
-
 #include "Command.h"
 //#include "Reader.h"
 #include <vector>
-#include <string>
+#include <string.h>
+#include "../factory/ExpressionFactory.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <iostream>
 
 using namespace std;
 
@@ -17,10 +23,11 @@ class OpenServerCommand: public Command {
 private:
     int port;
     int hertz;
+    bool shouldStop;
 
 public:
-    //OpenServerCommand(vector<string>::iterator it);
     OpenServerCommand(int prt, int hz);
+    void updateDataFromClient(string str);
     virtual void execute();
 };
 

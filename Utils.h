@@ -3,7 +3,7 @@
 #define SEMPROJECT_UTILS_H
 
 #include <string>
-
+#define PARENT_ERR "Error: too many right parentheses"
 #define MIN_DIGIT_ASCII 48
 #define MAX_DIGIT_ASCII 57
 #define MIN_OPERATION_ASCII 40

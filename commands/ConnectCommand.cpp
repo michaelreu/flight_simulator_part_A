@@ -2,14 +2,14 @@
 
 #include "ConnectCommand.h"
 
-ConnectCommand::ConnectCommand(const char* ip, int port){
+ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable *symTable){
     this->ip = ip;
     this->port = port;
+    this->symTbl = symTable;
 }
 
 bool ConnectCommand::validIP() {
-    regex ipPattern
-    ("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+    regex ipPattern (IP_REGEX);
     return  (regex_match (ip, ipPattern));
 
 }
