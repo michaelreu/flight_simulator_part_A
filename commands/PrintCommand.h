@@ -14,8 +14,6 @@ class PrintCommand : public Command {
 private:
     ExpressionFactory* expFactory;
     string strToPrint;
-    //const SymbolTable* symTbl;
-
     bool isInQoutes();
 
 public:

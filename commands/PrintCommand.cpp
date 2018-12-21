@@ -18,7 +18,6 @@ void PrintCommand::execute() {
     if (isInQoutes()) {
         cout<< strToPrint << endl;
     } else {
-        //double tempExp = (expFactory->createExpression(strToPrint))->calculate();
         cout << (expFactory->createExpression(strToPrint))->calculate() << endl;
     }
 }

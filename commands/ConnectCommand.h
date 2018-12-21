@@ -5,16 +5,25 @@
 #include "Command.h"
 #include "../reader/Reader.h"
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <netdb.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
+#include <string.h>
 
 using namespace std;
 
 class ConnectCommand: public Command {
 private:
-    string ip;
+    const char* ip;
     int port;
 
 public:
-    ConnectCommand(string ip, int port);
+    ConnectCommand(const char* ip, int port);
 
     bool validIP();
 

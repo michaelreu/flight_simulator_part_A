@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(14_12_12_46)
 
 set(CMAKE_CXX_STANDARD 11)
-
+set(CMAKE_CXX_FLAGS -pthread)
 add_executable(14_12_12_46 main.cpp Utils.cpp Utils.h expression/Expression.h expression/BinaryExpression.h expression/BinaryExpression.cpp expression/UnaryExpression.h  expression/UnaryExpression.cpp
         expression/arithmeticExpressions/Plus.h expression/arithmeticExpressions/Minus.h expression/arithmeticExpressions/Mult.h expression/arithmeticExpressions/Div.h expression/Num.h expression/arithmeticExpressions/Neg.h expression/arithmeticExpressions/Plus.cpp expression/arithmeticExpressions/Minus.cpp expression/arithmeticExpressions/Mult.cpp expression/arithmeticExpressions/Div.cpp expression/Num.cpp expression/arithmeticExpressions/Neg.cpp
         commands/Command.h commands/ExpressionCommand.h commands/ExpressionCommand.cpp commands/OpenServerCommand.h commands/OpenServerCommand.cpp
