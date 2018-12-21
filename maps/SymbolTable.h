@@ -7,14 +7,19 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include "VarValue.h"
 
 using namespace std;
 class VarValue;
 class SymbolTable {
 private:
+    //key - var, value - double, bool initialized
     map<const string, VarValue> valuesMap;
+    //key - var, value - path
     map<string, string> destinationMap;
+    //each path has number of parameters that can be mapped to it
+    map<string,vector<string>> bindMap;
 
 public:
     SymbolTable () = default;

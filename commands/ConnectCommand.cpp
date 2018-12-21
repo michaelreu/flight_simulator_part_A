@@ -21,17 +21,10 @@ void ConnectCommand::execute(){
     //char* opop = ip;
     int sockfd, n;
     //int portno;
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serverAddress;
     struct hostent *server;
 
     char buffer[256];
-    /*
-    if (argc < 3) {
-        fprintf(stderr,"usage %s hostname port\n", argv[0]);
-        exit(0);
-    }
-    */
-    //portno = atoi(argv[2]);
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,14 +40,15 @@ void ConnectCommand::execute(){
         fprintf(stderr,"ERROR, no such host\n");
         exit(0);
     }
-
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-    serv_addr.sin_port = htons(this->port);
+    //init the buffer
+    bzero((char *) &serverAddress, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    //copy the message to buffer
+    bcopy((char *)server->h_addr, (char *)&serverAddress.sin_addr.s_addr, server->h_length);
+    serverAddress.sin_port = htons(this->port);
 
     /* Now connect to the server */
-    if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+    if (connect(sockfd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
         perror("ERROR connecting");
         exit(1);
     }
@@ -67,13 +61,22 @@ void ConnectCommand::execute(){
     bzero(buffer,256);
     fgets(buffer,255,stdin);
 
-    /* Send message to the server */
-    n = write(sockfd, buffer, strlen(buffer));
 
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
+    while (!ConnectCommand::shouldStop) {
+        /* Send message to the server as: "set path value" */
+        n = write(sockfd, buffer, strlen(buffer));
+
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
+        }
+
+        this_thread::sleep_for(chrono::milliseconds(300));
     }
+
+
+    //check if there is a message
+
 
     /* Now read server response */
     bzero(buffer,256);
