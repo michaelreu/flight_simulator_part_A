@@ -1,3 +1,8 @@
-while(alt<=7){
-if alt<=1000
-if(alt+5)>=1000
+while alt <= 1000 {
+rudder = (h0 – heading)/20
+aileron = - roll / 70
+elevator = pitch / 50
+print alt
+sleep 250
+}
+print "done"

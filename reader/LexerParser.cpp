@@ -74,14 +74,17 @@ void LexerParser::lexByValue(){
         // read char by char
         for (int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
-            if ((value == ifStr) || (value == whileStr)) {
-                lex.push_back(value);
-                value = "";
-                value += current;
-                inQuoteFlag = true;
-            }
+
             //if we are not in quote
             if (inQuoteFlag == false) {
+                // condition case
+                if ((value == ifStr) || (value == whileStr)) {
+                    lex.push_back(value);
+                    value = "";
+                    value += current;
+                    inQuoteFlag = true;
+                    continue;
+                }
 
                 //char or number
                 if(utils.isLetter(current) || (utils.isDigit(current))) {
