@@ -88,3 +88,6 @@ void ConnectCommand::execute(){
     }
     printf("%s\n",buffer);
 }
+
+//*********************** check********************************
+bool ConnectCommand::shouldStop{};

@@ -42,7 +42,7 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     const char* ip = (*(++it)).c_str();
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    return new ExpressionCommand(new ConnectCommand(ip,port));
+    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl));
 }
 
 Expression* CommandExpressionFactory::getDefineVarCommand(vector<string>::iterator &it) {

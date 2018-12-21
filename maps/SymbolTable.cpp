@@ -16,10 +16,18 @@ void SymbolTable::addValuesToMap(const string &key, double value) {
     //valuesMap.insert(pair<const string, double>(key,value));
     VarValue varVal = VarValue(value);
     valuesMap.at(key) = varVal;
+    changeVec.push_back(key);
 }
 
 void SymbolTable::addDestinationToMap(string &key, string &dest) {
-    destinationMap.at(key) = dest;
+    string pathDest = dest;
+    // type of x = bind y
+    if (destinationMap.count(dest) == 1){
+        pathDest = destinationMap[dest];
+    }
+    destinationMap.at(key) = pathDest;
+    bindMap[pathDest].push_back(key);
+    changeVec.push_back(key);
 }
 
 bool SymbolTable::isVarInMap(const string &key) {

@@ -84,3 +84,4 @@ void OpenServerCommand::execute(){
         exit(1);
     }
 }
+void OpenServerCommand::updateDataFromClient(string str){}

@@ -20,6 +20,8 @@ private:
     map<string, string> destinationMap;
     //each path has number of parameters that can be mapped to it
     map<string,vector<string>> bindMap;
+    //vector of the changes
+    vector<string> changeVec;
 
 public:
     SymbolTable () = default;

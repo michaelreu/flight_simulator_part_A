@@ -33,7 +33,7 @@ public:
     ConnectCommand(const char* ip, int port, SymbolTable *symTable);
     static void runUser();
     static void stop();
-    virtual void execute();
+        virtual void execute();
 
 };
 
