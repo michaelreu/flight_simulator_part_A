@@ -7,35 +7,35 @@
 CommandExpressionFactory::CommandExpressionFactory() {
     this->symTbl = new SymbolTable();
     this->expressionNumberCreator = new ExpressionFactory(symTbl);
+    initMap();
+}
 
+void CommandExpressionFactory::initMap(){
+    mapCreate[OPEN_DATA_SERVER_STR] = &CommandExpressionFactory::getOpenServerCommand;
+    mapCreate[CONNECT_STR] = &CommandExpressionFactory::getConnectCommand;
+    mapCreate[VAR_STR] = &CommandExpressionFactory::getDefineVarCommand;
+    mapCreate[ASSIGN_CHAR] = &CommandExpressionFactory::getAssignCommand;
+    mapCreate[IF_STR] = &CommandExpressionFactory::getIfCommand;
+    mapCreate[WHILE_STR] = &CommandExpressionFactory::getWhileCommand;
+    mapCreate[PRINT_STR] = &CommandExpressionFactory::getPrintCommand;
+    mapCreate[SLEEP_STR] = &CommandExpressionFactory::getSleepCommand;
 }
 
 Expression* CommandExpressionFactory::createExpression(vector<string>::iterator &it) {
     if (symTbl->isVarInMap(*it)) {
         (++it);
     }
-    if ((*it) == OPEN_DATA_SERVER_STR) {
-        return getOpenServerCommand(it);
-    } else if ((*it) == CONNECT_STR) {
-        return getConnectCommand(it);
-    } else if ((*it) == VAR_STR) {
-        return getDefineVarCommand(it);
-    } else if ((*it) == ASSIGN_CHAR) {
-        return  getAssignCommand(it);
-    } else if ((*it)==IF_STR) {
-        return getIfCommand(it);
-    } else if ((*it)==WHILE_STR) {
-        return getWhileCommand(it);
-    } else if ((*it)==PRINT_STR) {
-        return getPrintCommand(it);
-    } else {
+    // find the command on map
+    if (this->mapCreate.count((*it)) == 1) {
+        create func = this->mapCreate[(*it)];
+        // create the requested command
+        return (this->*func)(it);
+    }else{
         throw "Error: " + (*it) + "is not initialized";
     }
 }
 
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
-    //int port = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
-    //int hertz = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
     int hertz = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
     return new ExpressionCommand(new OpenServerCommand(port, hertz));
@@ -43,7 +43,6 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
 
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     string ip = (*(++it));
-    //int port = (int) (expressionNumberCreator->createExpression((*(++it))))->calculate();
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
     return new ExpressionCommand(new ConnectCommand(ip,port));
 }
@@ -92,7 +91,11 @@ Expression* CommandExpressionFactory::getWhileCommand(vector<string>::iterator &
 
 Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &it) {
     string strToPrint = *(++it);
+}
 
+Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &it) {
+    double time = (expressionNumberCreator->createExpression(((++it))))->calculate();
+    return new ExpressionCommand(new SleepCommand(time));
 }
 
 CommandExpressionFactory::~CommandExpressionFactory() {

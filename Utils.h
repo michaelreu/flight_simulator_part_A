@@ -10,6 +10,10 @@
 #define MAX_OPERATION_ASCII 47
 #define LEFT_PARENTHESES '('
 #define RIGHT_PARENTHESES ')'
+#define QUOTES_CHAR 34
+#define COMMA 44
+#define LEFT_CURLY_PARENT_CHAR 123
+#define EQUAL '='
 
 /*
 #define UNKNOWN 0

@@ -12,30 +12,36 @@
 #define WHILE_STR "while"
 #define PRINT_STR "print"
 #define RIGHT_CURLY_PARENTHESIS_STR "}"
+#define SLEEP_STR "sleep"
 
 #include "ExpressionFactory.h"
 #include "../commands/ExpressionCommand.h"
 #include "../commands/OpenServerCommand.h"
 #include "../commands/ConnectCommand.h"
 #include "../commands/AssignCommand.h"
-
+#include "../commands/SleepCommand.h"
+#include <map>
 #include "../maps/SymbolTable.h"
 
 
 #include <vector>
 
+
+
 using namespace std;
 
 class CommandExpressionFactory {
+typedef Expression* (CommandExpressionFactory::*create)(vector<string>::iterator &it);
 
 private:
     ExpressionFactory* expressionNumberCreator;
     SymbolTable* symTbl;
+    map<string, create> mapCreate;
 
 public:
     CommandExpressionFactory();
     virtual Expression* createExpression(vector<string>::iterator &it);
-
+    void initMap();
     Expression* getOpenServerCommand(vector<string>::iterator &it);
     Expression* getConnectCommand(vector<string>::iterator &it);
     Expression* getDefineVarCommand(vector<string>::iterator &it);
@@ -44,6 +50,7 @@ public:
     Expression* getIfCommand(vector<string>::iterator &it);
     Expression* getWhileCommand(vector<string>::iterator &it);
     Expression* getPrintCommand(vector<string>::iterator &it);
+    Expression* getSleepCommand(vector<string>::iterator &it);
     virtual ~CommandExpressionFactory();
 };
 

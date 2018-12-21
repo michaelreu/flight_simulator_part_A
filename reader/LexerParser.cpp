@@ -31,14 +31,14 @@ void LexerParser::loadfile(const string& fileName){
 
 
 bool LexerParser::parnthesesCase(char prev){
-    return ((utils.isOperator(prev)) || (prev == utils.LEFT_PARENTHESES));
+    return ((utils.isOperator(prev)) || (prev == LEFT_PARENTHESES));
 }
 
 bool LexerParser::charCase(char prev, int i){
     if (utils.isLetter(prev) || utils.isDigit(prev)){
        return (i == 0);
     }
-    if (utils.isOperator(prev)|| prev == utils.LEFT_PARENTHESES){
+    if (utils.isOperator(prev)|| prev == LEFT_PARENTHESES){
         return false;
     }
     if (prev == EQUAL){
@@ -99,7 +99,7 @@ void LexerParser::lexByValue(){
                     value = "";
                     value += current;
                 }
-                else if ((current == utils.LEFT_PARENTHESES)){
+                else if ((current == LEFT_PARENTHESES)){
                     if (parnthesesCase(prev)) {
                         lex.push_back(value);
                         value = "";
@@ -117,8 +117,8 @@ void LexerParser::lexByValue(){
                 }
 
                 //  "(" after operator
-                else if (current == utils.LEFT_PARENTHESES) {
-                    if (utils.isOperator(prev) || prev == utils.LEFT_PARENTHESES) {
+                else if (current == LEFT_PARENTHESES) {
+                    if (utils.isOperator(prev) || prev == LEFT_PARENTHESES) {
                         value += current;
                     } else {
                         lex.push_back(value);
@@ -174,36 +174,3 @@ void LexerParser::parser() {
         tempExp->calculate();
     }
 }
-
-
-
-/*
-// char after char
-if ((utils.isLetter(current)) && (utils.isLetter(prev))) {
-// If they are in a different cell
-if (i == 0) {
-lex.push_back(value);
-value = "";
-value += current;
-} else {
-value += current;
-}
-
-}
-// char after digit
-else if ((utils.isLetter(current)) && (utils.isDigit(prev))) {
-value += current;
-
-}
-// char after operator
-else if ((utils.isLetter(current)) && (utils.isOperator(prev))) {
-value += current;
-
-}
-// char after '='
-else if ((utils.isLetter(current)) && (prev == 61)) {
-lex.push_back(value);
-value = "";
-value += current;
-}
-*/
