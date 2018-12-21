@@ -1,5 +1,5 @@
 var x = 5
-print "x"c
+print x + 5
 
 openDataServer 5400 80
 connect 127.0.0.1 5400

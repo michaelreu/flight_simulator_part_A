@@ -10,12 +10,15 @@ PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
 }
 bool PrintCommand::isInQoutes() {
     if ((strToPrint[0] == '\"') && (strToPrint[strToPrint.size()-1] == '\"')) {
-        strToPrint = strToPrint.substr(1,strToPrint.size()-2);
+        strToPrint = strToPrint.substr(FIRST,strToPrint.size()-2);
     }
 }
 
 void PrintCommand::execute() {
     if (isInQoutes()) {
         cout<< strToPrint << endl;
+    } else {
+        //double tempExp = (expFactory->createExpression(strToPrint))->calculate();
+        cout << (expFactory->createExpression(strToPrint))->calculate() << endl;
     }
 }
