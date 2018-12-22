@@ -1,6 +1,3 @@
-//
-// Created by cs on 12/18/18.
-//
 
 #include "ConditionParser.h"
 #include "../expression/booleanExpressions/Equal.h"
@@ -15,9 +12,22 @@ ConditionParser::ConditionParser(vector<Expression *> &vecOfExp, string &con, Ex
     this->condition = con;
     this->boolOperator = utils.getStringOfOperation(con);
 }
+/*
+ConditionParser::ConditionParser(vector<string> &vecOfExp, string &con, ExpressionFactory *exprNumCreator) {
+    this->expressionFactory = exprNumCreator;
+    this->vecOfStrCommands = vecOfExp;
+    this->condition = con;
+    this->boolOperator = utils.getStringOfOperation(con);
+}
+ */
 vector<Expression*>& ConditionParser::getVecOfExpCommands() {
     return this->vecOfExpCommands;
 }
+/*
+vector<string>& ConditionParser::getVecOfStrCommands() {
+    return this->vecOfStrCommands;
+}
+ */
 bool ConditionParser::isValidCondition() {
     return (!boolOperator.empty());
 }
@@ -56,3 +66,8 @@ bool ConditionParser::checkCondition() {
     }
     return (result == 1);
 }
+/*
+ExpressionFactory *ConditionParser::getExpressionFactory() const {
+    return expressionFactory;
+}
+*/

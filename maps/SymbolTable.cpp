@@ -12,7 +12,7 @@ void SymbolTable::initVar(const string &key) {
     valuesMap.insert({key,VarValue()});
     destinationMap.insert({key, ""});
 }
-void SymbolTable::addValuesToMap(const string &key, double value) {
+void SymbolTable::addValuesToMap(string &key, double value) {
     //valuesMap.insert(pair<const string, double>(key,value));
     VarValue varVal = VarValue(value);
     valuesMap.at(key) = varVal;
@@ -42,20 +42,12 @@ bool SymbolTable::isVarInValueMap(const string &key) {
     if (valuesMap.count(key)==IN_MAP) {
         return ((valuesMap.at(key)).isVarInitialized());
     }
-    /*
-    if ((valuesMap.find(key)) != valuesMap.end()) {
-        return ((valuesMap.at(key)).isVarInitialized());
-        //VarValue val = (valuesMap.at(key));
-        //return val.isVarInitialized();
-    }
-    return false;
-     */
 }
 
 double SymbolTable::getValueOfVar(const string &key) {
     if (isVarInValueMap(key)) {
         return ((valuesMap.at(key)).getValue());
     } else {
-        throw "Error: var " + key + "is not initialized";
+        throw INIT_ERR + key;
     }
 }

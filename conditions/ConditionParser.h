@@ -19,16 +19,15 @@ class ConditionParser : public Command {
 private:
     vector<Expression*> vecOfExpCommands;
     ExpressionFactory* expressionFactory;
-    //SymbolTable *symTbl;
     string condition;
     string boolOperator;
     Utils utils;
 
     bool isValidCondition();
-    bool conditionHasBoolExp();
 
 public:
-    ConditionParser(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac);
+    ConditionParser(vector <Expression*> &vecOfExp, string &con,ExpressionFactory* expFac);
+
     vector<Expression*> &getVecOfExpCommands();
     bool checkCondition();
     virtual void execute() = 0;

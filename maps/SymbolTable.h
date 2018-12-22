@@ -5,6 +5,7 @@
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
 #define IN_MAP 1
+#define INIT_ERR "Error: this var is not initialized: "
 #include <string>
 #include <map>
 #include <vector>
@@ -25,10 +26,9 @@ private:
 
 public:
     SymbolTable () = default;
-    //const map<const string, double> &getValuesMap() const;
-    //const map<const string, const string> &getDestinationMap() const;
+
     void initVar(const string &key);
-    void addValuesToMap(const string &key, double value);
+    void addValuesToMap(string &key, double value);
     void addDestinationToMap(string &key, string &dest);
     bool isVarInMap(const string &key);
     bool isVarInValueMap(const string &key);

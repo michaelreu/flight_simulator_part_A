@@ -1,16 +1,11 @@
-var x = 5
-var rudder = - x + 5
-while alt < 1000 {
-alt = alt + 500
+print "michael, there is a problem in print"
+var x = 3+2
+if x < 8 {
+x = x + 5
+}
+if x < 9 {
+x = x+1
 }
 print "done"
-var x = 2
-print 3+x
-var t = x+4
-var y = bind "/path"
-print "done"
 
-sleep 10
-openDataServer 5400 10
-connect 127.0.1.340
 

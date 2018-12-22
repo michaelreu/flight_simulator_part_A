@@ -24,7 +24,7 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
         (++it);
     }
     // find the command on map
-    if (this->mapCreate.count((*it)) == 1) {
+    if (this->mapCreate.count((*it)) == IN_MAP) {
         create func = this->mapCreate[(*it)];
         // create the requested command
         return (this->*func)(it);
@@ -57,9 +57,8 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
         string destinationPath = (*(++it));
         return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
     } else {
-        //double value = (expressionNumberCreator->createExpression((*(it))))->calculate();
-        double value = (expressionNumberCreator->createExpression((it)))->calculate();
-        return new ExpressionCommand(new AssignCommand(symTbl, var , value));
+        //because it's a var - it has to get an ExpressionFactory, var, and it's value so it can update them.
+        return new ExpressionCommand(new AssignCommand(symTbl, expressionNumberCreator, var , it));
     }
 }
 

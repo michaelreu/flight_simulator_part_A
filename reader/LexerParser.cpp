@@ -7,7 +7,6 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
 }
 
 void LexerParser::loadfile(const string& fileName){
-
     string expression;
     vector<string> dataFromFile;
     ifstream myFile(fileName);
@@ -152,7 +151,7 @@ void LexerParser::lexByValue(){
                     value += current;
                 }
             }
-                prev = current;
+            prev = current;
         }
     }
     if (value != ""){
