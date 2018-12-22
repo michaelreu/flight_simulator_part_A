@@ -27,13 +27,11 @@ public:
     /*
      * AssignCommand can be built with numeric value, or a destination path.
      */
-    //AssignCommand(SymbolTable* &symTable,const string &varToAdd, double valueToAdd);
     AssignCommand(SymbolTable* &symTable,const string &varToAdd, const string &dest);
     AssignCommand(SymbolTable* &symTable, ExpressionFactory* &expFac, const string &varToAdd, vector<string>::iterator &it);
     virtual void execute();
 
     virtual ~AssignCommand()= default;
-    //void addToSymbolTable();
 };
 
 

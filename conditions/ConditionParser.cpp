@@ -43,24 +43,24 @@ bool ConditionParser::checkCondition() {
     Expression* exp2;
     //can be 0 or 1 = false or true
     double result = 0;
-    if (boolOperator=="==") {
+    if (boolOperator == "==") {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
-    } else if (boolOperator==">=") {
+    } else if (boolOperator == ">=") {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         exp2 = new GreaterThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = (exp1->calculate() + exp2->calculate());
-    } else if (boolOperator=="<=") {
+    } else if (boolOperator == "<=") {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         exp2 = new LessThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = (exp1->calculate() + exp2->calculate());
-    } else if (boolOperator=="!=") {
+    } else if (boolOperator == "!=") {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = ((int)(exp1->calculate() + 1) % 2);
-    } else if (boolOperator==">") {
+    } else if (boolOperator == ">") {
         exp1 = new GreaterThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
-    } else if (boolOperator=="<") {
+    } else if (boolOperator == "<") {
         exp1 = new LessThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
     }

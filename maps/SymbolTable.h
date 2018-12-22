@@ -33,6 +33,7 @@
 #include <map>
 #include <vector>
 #include "VarValue.h"
+#include <algorithm>
 
 using namespace std;
 class VarValue;

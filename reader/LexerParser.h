@@ -4,10 +4,11 @@
 
 
 
-
+#define PRINT_STR "print"
 #define QUOTES_CHAR 34
 #define COMMA 44
 #define LEFT_CURLY_PARENT_CHAR 123
+#define RIGHT_CURLY_PARENT_CHAR '}'
 #define EQUAL '='
 
 #include <vector>
@@ -33,9 +34,10 @@ class LexerParser {
     //map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
     Utils utils;
+    CommandExpressionFactory* commandExpfac;
 
 public:
-    LexerParser ()= default;
+    LexerParser ();
     void loadfile(const string& fileName);
     vector<string> lexer(const string&  command);
     void parser();
@@ -45,7 +47,8 @@ public:
     bool parnthesesCase(char prev);
 
     void checkVarsOfCommand();
-    void mergeIfNeeded(vector<string> *lex);
+
+    ~LexerParser();
 
 };
 

@@ -24,7 +24,10 @@ void SymbolTable::addValuesToMap(string &key, double value) {
     //valuesMapVarToValue.insert(pair<const string, double>(key,value));
     VarValue varVal = VarValue(value);
     valuesMapVarToValue.at(key) = varVal;
-    changedArgsVec.push_back(key);
+    // if is not on map already
+    if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
+        changedArgsVec.push_back(key);
+    }
 }
 
 void SymbolTable::addDestinationToMap(string &key, string &dest) {
@@ -38,7 +41,9 @@ void SymbolTable::addDestinationToMap(string &key, string &dest) {
     destinationMapVarToPath.at(key) = pathDest;
     //add the var to vector of vars that belongs to a path in the bind map
     bindMapPathToVecOfVars[pathDest].push_back(key);
-    changedArgsVec.push_back(key);
+    if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
+        changedArgsVec.push_back(key);
+    }
 }
 
 bool SymbolTable::isVarInMap(const string &key) {

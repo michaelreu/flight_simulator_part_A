@@ -1,11 +1,16 @@
-print "michael, there is a problem in print"
-var x = 3+2
-if x < 8 {
-x = x + 5
+var rudder = bind "/controls/flight/rudder"
+var roll = bind "/instrumentation/attitude-indicator/indicated-roll-deg"
+var aileron = bind rudder
+rudder = 5
+var x89 = 15
+x89 = bind roll
+aileron = rudder + 50
+while rudder <= 10{
+if x89 == 15{
+print aileron
 }
-if x < 9 {
-x = x+1
+aileron = aileron + 1
+rudder = rudder + 1
 }
+print aileron
 print "done"
-
-

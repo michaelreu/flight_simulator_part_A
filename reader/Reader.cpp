@@ -5,7 +5,7 @@
 void Reader::readCommands(string fileName){
     //SymbolTable SymbolMap;
     string command;
-    LexerParser interpreter;
+    LexerParser* interpreter = new LexerParser();
     vector<string> listOfCommand;
     while(true){
         cout << "enter new Command, '0' to exit, 'f' to read from file\n";
@@ -15,18 +15,19 @@ void Reader::readCommands(string fileName){
         }
         // read commands from file
         if (command == "f") {
-            interpreter.loadfile(fileName);
-            interpreter.lexByValue();
+            interpreter->loadfile(fileName);
+            interpreter->lexByValue();
         }
         // read one command
         else{
-            listOfCommand = interpreter.lexer(command);
+            listOfCommand = interpreter->lexer(command);
             if (listOfCommand.empty()){
                 break;
             }
         }
-        interpreter.parser();
+        interpreter->parser();
     }
+    delete interpreter;
 }
 
 
