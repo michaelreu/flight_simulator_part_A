@@ -62,6 +62,11 @@ void LexerParser::lexByValue(){
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         // and of line case
         if ((*it) == "\n"){
+            if (prev == LEFT_CURLY_PARENT_CHAR){
+                value.erase(value.size()-1);
+                lex.push_back(value);
+                value = LEFT_CURLY_PARENT_CHAR;
+            }
             if(value != "") {
                 lex.push_back(value);
                 value = "";

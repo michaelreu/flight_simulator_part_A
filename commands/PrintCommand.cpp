@@ -11,7 +11,9 @@ PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
 bool PrintCommand::isInQoutes() {
     if ((strToPrint[0] == '\"') && (strToPrint[strToPrint.size()-1] == '\"')) {
         strToPrint = strToPrint.substr(FIRST,strToPrint.size()-2);
+        return true;
     }
+    return false;
 }
 
 void PrintCommand::execute() {

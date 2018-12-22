@@ -1,17 +1,11 @@
-var x = 2
-var t = x+4
-var y = bind "/path"
-print "done"
-print x
-sleep 10
-openDataServer 5400 10
-connect 127.0.1.340
+while x<=18*3{
+if (x == y){
 
-while alt <= 1000 {
-rudder = (h0 – heading)/20
-aileron = - roll / 70
-elevator = pitch / 50
-print alt
-sleep 250
 }
+}
+var rudder = bind "/controls/flight/rudder"
+var aileron = bind rudder
+rudder = 5
+aileron = - rudder + 15
+print rudder
 print "done"
