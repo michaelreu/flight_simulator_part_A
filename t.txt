@@ -1,5 +1,5 @@
-var rudder = bind "/path"
-rudder = 5
+var x = 5
+var rudder = - x + 5
 while alt < 1000 {
 alt = alt + 500
 }

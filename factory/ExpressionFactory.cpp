@@ -7,6 +7,7 @@
 
 ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
     this->symbolTable = symTbl;
+    this->numBeforeMe = false;
 }
 
 
@@ -54,6 +55,7 @@ void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
 void ExpressionFactory::insertByOrderToStack() {
     string str = getStrOfExpression();
     string tempVar;
+    bool varAdded = false;
     for(const auto* it = str.c_str(); *it; ++it) {
         //white spaces are not necessary
         if ((*it) == SPACE_CHAR){
@@ -74,6 +76,7 @@ void ExpressionFactory::insertByOrderToStack() {
             if (symbolTable->isVarInValueMap(tempVar)) {
                 double valOfVar = symbolTable->getValueOfVar(tempVar);
                 getMainStack().push(new Num(valOfVar));
+                tempVar="";
             } //check if tempVar is in the symbol table
             switch (*it) {
                 case MINUS_CHAR:
@@ -119,6 +122,7 @@ void ExpressionFactory::insertByOrderToStack() {
         double valOfVar = symbolTable->getValueOfVar(tempVar);
         getMainStack().push(new Num(valOfVar));
     }
+    this->numBeforeMe = false;
     addRestOfOperatorsToDigitsStack();
 }
 Expression* ExpressionFactory::generateExpressionOfStack() {
