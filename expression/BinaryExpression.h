@@ -12,7 +12,6 @@ private:
     Expression* left;
     Expression* right;
 
-
 public:
     BinaryExpression(Expression* leftEx, Expression* rightEx);
 
@@ -22,7 +21,7 @@ public:
 
     Expression* getRightExpression();
 
-    virtual ~BinaryExpression() = 0;
+    virtual ~BinaryExpression() = default;
 
 
 };

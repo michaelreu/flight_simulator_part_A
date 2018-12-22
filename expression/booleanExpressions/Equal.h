@@ -20,6 +20,7 @@ public:
     Equal(double leftNum, double rightNum);
 
     virtual double calculate();
+
     virtual ~Equal() = default;
 
 };

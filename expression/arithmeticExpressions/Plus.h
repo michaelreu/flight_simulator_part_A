@@ -21,7 +21,7 @@ public:
 
     virtual double calculate();
 
-    virtual ~Plus() = default;
+    virtual ~Plus() = default ;
 
 };
 

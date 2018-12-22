@@ -20,6 +20,7 @@ public:
     LessThen(double leftNum, double rightNum);
 
     virtual double calculate();
+
     virtual ~LessThen() = default;
 
 };

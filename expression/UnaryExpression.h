@@ -17,11 +17,11 @@ private:
 public:
     UnaryExpression(Expression* exp);
 
-    virtual double calculate()=0;
+    virtual double calculate()= 0;
 
     Expression* getExpression();
 
-    virtual ~UnaryExpression() =0;
+    virtual ~UnaryExpression() = default;
 
 };
 
