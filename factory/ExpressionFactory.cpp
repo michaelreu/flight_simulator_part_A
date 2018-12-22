@@ -115,6 +115,10 @@ void ExpressionFactory::insertByOrderToStack() {
             throw INVALID_EXPRESSION_STRING;
         }
     }
+    if (symbolTable->isVarInValueMap(tempVar)) {
+        double valOfVar = symbolTable->getValueOfVar(tempVar);
+        getMainStack().push(new Num(valOfVar));
+    }
     addRestOfOperatorsToDigitsStack();
 }
 Expression* ExpressionFactory::generateExpressionOfStack() {
@@ -146,7 +150,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
         } else if (utils.isStrDouble(tempStr)) {
             return new Num(stod(tempStr));
         } else {
-            throw "Error occurd";
+            throw ERR_GEN_EXP;
         }
     }
 }

@@ -6,6 +6,7 @@
 #define INC_14_12_12_46_EXPRESSIONFACTORY_H
 #define INVALID_EXPRESSION_STRING "Error: string of expression has invalid char"
 #define DOUBLE_STRING_ERROR "Error: unspecified numbers or operations"
+#define ERR_GEN_EXP "ERROR: occurred while calculating expression"
 
 #define PLUS_CHAR '+'
 #define MINUS_CHAR '-'
@@ -41,9 +42,8 @@ private:
     stack<char> operationsStack;
     string expressionStr;
     bool numBeforeMe;
-    //bool negative;
 
-    //private function
+    //private functions
     stack<ShuntingYardExpression*> &getMainStack();
     stack<char> &getOperationsStack();
     // getters
