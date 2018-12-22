@@ -4,7 +4,7 @@
 
 #include <string>
 #define PARENT_ERR "Error: too many right parentheses"
-#define INV_EQUATION_FORMT"ERROR: invalid format of equation"
+#define INV_EQUATION_FORMT "ERROR: invalid format of equation"
 #define CHAR_NOT_DIGIT "ERROR: cannot convert digit to int because the char is not a digit"
 
 #define MIN_DIGIT_ASCII 48

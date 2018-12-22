@@ -20,6 +20,9 @@ public:
     Minus(double leftNum, double rightNum);
 
     virtual double calculate();
+
+    virtual ~Minus() = default;
+
 };
 
 

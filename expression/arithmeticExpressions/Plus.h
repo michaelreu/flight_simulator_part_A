@@ -12,12 +12,17 @@ class Plus : public BinaryExpression  {
 
 public:
     Plus(Expression* leftEx, Expression* rightEx);
+
     Plus(double leftNum, Expression* rightEx);
+
     Plus(Expression* leftEx, double rightNum);
+
     Plus(double leftNum, double rightNum);
 
-
     virtual double calculate();
+
+    virtual ~Plus() = default;
+
 };
 
 

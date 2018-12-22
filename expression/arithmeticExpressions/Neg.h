@@ -16,6 +16,9 @@ public:
     Neg(double num);
 
     virtual double calculate();
+
+    virtual ~Neg() = default;
+
 };
 
 #endif //SEMPROJECT_NEG_H

@@ -20,6 +20,9 @@ public:
     Div(double leftNum, double rightNum);
 
     virtual double calculate();
+
+    virtual ~Div() = default;
+
 };
 
 

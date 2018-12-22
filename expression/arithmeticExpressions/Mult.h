@@ -21,6 +21,9 @@ public:
     Mult(double leftNum, double rightNum);
 
     virtual double calculate();
+
+    virtual ~Mult() = default;
+
 };
 
 
