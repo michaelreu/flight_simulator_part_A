@@ -67,7 +67,7 @@ string Utils::getStringOfOperation(string &condition) {
             if ((--diffOfParents) < 0) {
                 throw PARENT_ERR;
             }
-        } else if ((isValidVarChar(*it))||((*it)==DOT_CHAR)) {
+        } else if ((isValidVarChar(*it))||((*it)==DOT_CHAR)||(isOperator(*it))) {
             continue;
         } else if (boolExpNum == 1) {
             if ((*it)==EQUAL_CHAR) {

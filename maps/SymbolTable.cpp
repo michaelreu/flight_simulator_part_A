@@ -32,8 +32,11 @@ void SymbolTable::addDestinationToMap(string &key, string &dest) {
 
 bool SymbolTable::isVarInMap(const string &key) {
     //return ((destinationMap.find(key) != destinationMap.end()) && (isVarInValueMap(key)));
-    return ((destinationMap.count(key) == IN_MAP) && (isVarInValueMap(key)));
+    //return ((destinationMap.count(key) == IN_MAP) && (isVarInValueMap(key)));
+    return ((destinationMap.count(key) == IN_MAP) && (valuesMap.count(key)==IN_MAP));
 }
+
+
 
 bool SymbolTable::isVarInValueMap(const string &key) {
     if (valuesMap.count(key)==IN_MAP) {

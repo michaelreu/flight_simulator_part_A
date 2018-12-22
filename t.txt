@@ -1,3 +1,9 @@
+var rudder = bind "/path"
+rudder = 5
+while alt < 1000 {
+alt = alt + 500
+}
+print "done"
 var x = 2
 print 3+x
 var t = x+4
@@ -8,11 +14,3 @@ sleep 10
 openDataServer 5400 10
 connect 127.0.1.340
 
-while alt <= 1000 {
-rudder = (h0 – heading)/20
-aileron = - roll / 70
-elevator = pitch / 50
-print alt
-sleep 250
-}
-print "done"

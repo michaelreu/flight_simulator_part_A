@@ -8,7 +8,7 @@ void WhileCommand::execute(){
     while (checkCondition()) {
         for (Expression* command : getVecOfExpCommands()) {
             command->calculate();
-            delete (command);
+            //delete (command);
         }
     }
 }
