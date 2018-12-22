@@ -7,6 +7,7 @@ int main(int argc, char *argv[]) {
         Reader start;
         start.readCommands(argv[1]);
         ConnectCommand::stop();
+        OpenServerCommand::stop();
         return 0;
     }
     catch (string e) {

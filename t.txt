@@ -1,16 +1,26 @@
-var rudder = bind "/controls/flight/rudder"
+openDataServer 5400 10
+connect 127.0.0.1 5402
+var breaks = bind "/controls/flight/speedbrake"
+var throttle = bind "/controls/engines/engine/throttle"
+var heading = bind "/instrumentation/heading-indicator/offset-deg"
+var airspeed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"
 var roll = bind "/instrumentation/attitude-indicator/indicated-roll-deg"
-var aileron = bind rudder
-rudder = 5
-var x89 = 15
-x89 = bind roll
-aileron = rudder + 50
-while rudder <= 10{
-if x89 == 15{
-print aileron
+var pitch = bind "/instrumentation/attitude-indicator/internal-pitch-deg"
+var rudder = bind "/controls/flight/rudder"
+var aileron = bind "/controls/flight/aileron"
+var elevator = bind "/controls/flight/elevator"
+var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
+breaks = 0
+throttle = 1
+rudder = 1
+while alt < 1000 {
+    aileron = roll / 70
+    elevator = pitch / 50
+    if rudder == 0 {
+        rudder = 1
+    }
+    rudder = rudder * -1
+    print rudder
+    sleep 1000
 }
-aileron = aileron + 1
-rudder = rudder + 1
-}
-print aileron
 print "done"

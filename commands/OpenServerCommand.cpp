@@ -1,15 +1,15 @@
 #include <thread>
 #include "OpenServerCommand.h"
 
+bool OpenServerCommand::shouldStop = false;
 
-OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* &symTable) {
+OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable) {
     this->symbolTable = symTable;
     this->port = prt;
     this->hertz = hz;
-    this->shouldStop = false;
 }
 
-void OpenServerCommand::updateDataFromClient(const string &str){
+void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* symbolTable){
     Utils utils;
     stringstream valuesStream(str);
     vector<double>valuesVector;
@@ -23,7 +23,8 @@ void OpenServerCommand::updateDataFromClient(const string &str){
     symbolTable->updateValuesFromClient(valuesVector);
 }
 
-void OpenServerCommand::execute(){
+
+void OpenServerCommand::runServer(int port, int hertz, SymbolTable *symTable) {
     int sockfd, newsockfd, clilen;
     char buffer[256];
     struct sockaddr_in serverAddress, clientAddress;
@@ -43,7 +44,7 @@ void OpenServerCommand::execute(){
 
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_addr.s_addr = INADDR_ANY;
-    serverAddress.sin_port = htons(this->port);
+    serverAddress.sin_port = htons(port);
 
     // Now bind the host address using bind() call.
     if (bind(sockfd, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
@@ -56,8 +57,7 @@ void OpenServerCommand::execute(){
     listen(sockfd, 5);
     //***************************setup ends here***********************************
 
-
-    while (!shouldStop) {
+    while (!OpenServerCommand::shouldStop) {
         clilen = sizeof(clientAddress);
         // Accept actual connection from the client
         newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
@@ -72,23 +72,20 @@ void OpenServerCommand::execute(){
             perror("ERROR reading from socket");
             exit(1);
         }
+        printf("Here is the message: %s\n",buffer);
         try {
-            updateDataFromClient(string(buffer));
+            updateDataFromClient(string(buffer), symTable);
         } catch (exception &exception) {
             cout<<"ERROR: couldn't update data"<<endl;
         }
         this_thread::sleep_for(chrono::seconds(1/hertz));
-
     }
+}
+void OpenServerCommand::execute(){
+    thread serverFlightSimulator(runServer, port, hertz, symbolTable);
+    serverFlightSimulator.detach();
+}
 
-    //printf("Here is the message: %s\n",buffer);
-
-    //Write a response to the client
-    //n = write(newsockfd,"I got your message",18);
-    /*
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
-    }
-     */
+void OpenServerCommand::stop() {
+    shouldStop = true;
 }

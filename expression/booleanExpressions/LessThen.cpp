@@ -15,8 +15,6 @@ LessThen::LessThen(Expression* leftEx, double rightNum):BinaryExpression(leftEx,
 double LessThen::calculate() {
     double left = getLeftExpression()->calculate();
     double right = getRightExpression()->calculate();
-    cout<<"left: "; cout<< left;
-    cout<<", right: ";cout<< right << endl;
     if ( left < right ) {
         return TRUE;
     }

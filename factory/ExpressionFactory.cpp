@@ -75,7 +75,16 @@ void ExpressionFactory::insertByOrderToStack() {
         } else if (utils.isShunYardOperation(*it)) {
             if (symbolTable->isVarInValueMap(tempVar)) {
                 double valOfVar = symbolTable->getValueOfVar(tempVar);
-                getMainStack().push(new Num(valOfVar));
+                if (valOfVar < 0) {
+                    valOfVar = -1 * valOfVar;
+                    getMainStack().push(new Num(0));
+                    getMainStack().push(new Num(valOfVar));
+                    getOperationsStack().push(MINUS_CHAR);
+                } else {
+                    getMainStack().push(new Num(valOfVar));
+                }
+                //double valOfVar = symbolTable->getValueOfVar(tempVar);
+                //getMainStack().push(new Num(valOfVar));
                 tempVar="";
             } //check if tempVar is in the symbol table
             switch (*it) {
@@ -120,7 +129,14 @@ void ExpressionFactory::insertByOrderToStack() {
     }
     if (symbolTable->isVarInValueMap(tempVar)) {
         double valOfVar = symbolTable->getValueOfVar(tempVar);
-        getMainStack().push(new Num(valOfVar));
+        if (valOfVar < 0) {
+            valOfVar = -1 * valOfVar;
+            getMainStack().push(new Num(0));
+            getMainStack().push(new Num(valOfVar));
+            getOperationsStack().push(MINUS_CHAR);
+        } else {
+            getMainStack().push(new Num(valOfVar));
+        }
     }
     this->numBeforeMe = false;
     addRestOfOperatorsToDigitsStack();
@@ -157,6 +173,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             throw ERR_GEN_EXP;
         }
     }
+    //return new Num(0);
 }
 
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {

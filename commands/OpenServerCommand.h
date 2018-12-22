@@ -22,15 +22,18 @@ using namespace std;
 
 
 class OpenServerCommand: public Command {
+
 private:
     SymbolTable* symbolTable;
     int port;
     int hertz;
-    bool shouldStop;
+    static bool shouldStop;
 
 public:
-    OpenServerCommand(int prt, int hz, SymbolTable* &symTable);
-    void updateDataFromClient(const string &str);
+    OpenServerCommand(int prt, int hz, SymbolTable* symTable);
+    static void updateDataFromClient(const string &str, SymbolTable* symTable);
+    static void runServer(int port, int hz, SymbolTable* symTable);
+    static void stop();
     virtual void execute();
     virtual ~OpenServerCommand() = default;
 

@@ -18,7 +18,6 @@
 #include <sstream>
 #include <list>
 #include <utility>
-#include <regex>
 #include <map>
 
 #include "../expression/Expression.h"
