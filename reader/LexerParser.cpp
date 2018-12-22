@@ -223,7 +223,7 @@ void LexerParser::parser() {
     // run on all commands
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         // create new expression
-        Expression* tempExp = this->commandExpfac->createExpression((it));
+        Expression* tempExp = (this->commandExpfac)->createExpression((it));
         // calculate it
         tempExp->calculate();
         delete (tempExp);

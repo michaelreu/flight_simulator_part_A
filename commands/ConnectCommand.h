@@ -5,7 +5,7 @@
 #define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 #include "Command.h"
 #include "../reader/Reader.h"
-#include <thread>
+#include <pthread>
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +18,11 @@
 #include <string.h>
 
 using namespace std;
-
+struct clientParams {
+    SymbolTable* symbolTablePa;
+    const char* ipPa;
+    int portPa;
+};
 class ConnectCommand: public Command {
 private:
     static bool shouldStop;
@@ -28,12 +32,15 @@ private:
     bool validIP();
 
 public:
+    ConnectCommand(){}
     ConnectCommand(const char* ip, int port, SymbolTable* symTable);
     //static void runUser(const char* ip, const char* port, SymbolTable* &symTable);
-    static void runUser(const char* ip, int port, SymbolTable* symTable);
+    //static void runUser(const char* ip, int port, SymbolTable* symTable);
     static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;
+
+    static bool getShouldStop();
 
 
 };
