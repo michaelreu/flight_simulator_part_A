@@ -8,7 +8,6 @@ AssignCommand::AssignCommand(SymbolTable* &symTable,const string &varToAdd, doub
     this->symTbl = symTable;
     this->var = varToAdd;
     this->value = valueToAdd;
-
 }
 
 AssignCommand::AssignCommand(SymbolTable* &symTable, const string &varToAdd, const string &dest) {
@@ -26,3 +25,4 @@ void AssignCommand::execute() {
     }
     //need to add to the map
 }
+

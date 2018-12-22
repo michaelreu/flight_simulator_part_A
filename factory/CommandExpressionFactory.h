@@ -47,7 +47,7 @@ private:
 public:
     CommandExpressionFactory();
     virtual Expression* createExpression(vector<string>::iterator &it);
-    void initMap();
+    void initMapOfStrToFunctionsAddress();
     Expression* getOpenServerCommand(vector<string>::iterator &it);
     Expression* getConnectCommand(vector<string>::iterator &it);
     Expression* getDefineVarCommand(vector<string>::iterator &it);

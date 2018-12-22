@@ -16,6 +16,8 @@ private:
 public:
     SleepCommand(long time);
     virtual void execute();
+    virtual ~SleepCommand() = default;
+
 };
 
 

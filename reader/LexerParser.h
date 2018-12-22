@@ -30,7 +30,7 @@ class CommandExpressionFactory;
 class LexerParser {
     //CommandExpressionFactory commandExpFac;
     //SymbolTable symTbl;
-    map<string,CommandExpressionFactory*> mapStrToCommand;
+    //map<string,CommandExpressionFactory*> mapStrToCommand;
     vector<string> vecOfExpressions;
     Utils utils;
 
@@ -39,12 +39,14 @@ public:
     void loadfile(const string& fileName);
     vector<string> lexer(const string&  command);
     void parser();
-    void checkVarsOfCommand();
     const vector<string> &getVecOfExpressions() const;
     void lexByValue();
-    void mergeIfNeeded(vector<string> *lex);
     bool charCase(char prev, int i);
     bool parnthesesCase(char prev);
+
+    void checkVarsOfCommand();
+    void mergeIfNeeded(vector<string> *lex);
+
 };
 
 

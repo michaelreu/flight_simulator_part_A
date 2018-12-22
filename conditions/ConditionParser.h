@@ -32,6 +32,8 @@ public:
     vector<Expression*> &getVecOfExpCommands();
     bool checkCondition();
     virtual void execute() = 0;
+    virtual ~ConditionParser() = default;
+
 };
 
 

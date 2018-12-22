@@ -1,6 +1,3 @@
-//
-// Created by tamir on 13/12/18.
-//
 
 #include "Utils.h"
 #include <algorithm>
@@ -12,14 +9,16 @@ bool Utils::isDigit(const char c) {
     return ((c >= MIN_DIGIT_ASCII) && (c <= MAX_DIGIT_ASCII));
 }
 bool Utils::isLetter(char c) {
-    return (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)) || c == 95);
+    return (((c >= CAP_A_CHAR) && (c <= CAP_Z_CHAR)) ||
+            ((c >= LOW_A_CHAR) && (c <= LOW_Z_CHAR)) ||
+            (c ==UNDER_SCR_CHAR));
 }
 
-int Utils::charToInt(const char c) {
+int Utils::digitCharToInt(const char c) {
     if (isDigit(c)) {
         return (c - MIN_DIGIT_ASCII);
     } else {
-        //throw exception
+        throw CHAR_NOT_DIGIT;
     }
 }
 
@@ -28,11 +27,11 @@ int Utils::charToInt(const char c) {
  * @return true if the char is { '(' , ')' , '*' , '+' , '-' , '.' , '/' }
  */
 bool Utils::isShunYardOperation(const char c) {
-    return  ( (c >= MIN_OPERATION_ASCII) && (c <= MAX_OPERATION_ASCII) && (c!=44) );
+    return  ( (c >= MIN_OPERATION_ASCII) && (c <= MAX_OPERATION_ASCII) && (c!=COMMA_CHAR) );
 }
 
 bool Utils::isOperator(char c) {
-    return (((c >= 42) && (c <= 43)) || ((c >= 45) && (c <= 47)));
+    return (((c >= MULT_CHAR) && (c <= PLUS_CHAR)) || ((c >= MINUS_CHAR) && (c <= DIV_CHAR)));
 }
 
 bool Utils::isValidVarChar(char c) {
@@ -57,10 +56,6 @@ bool Utils::isBooleanOperator(char c) {
     return ((c==NOT_CHAR)||(c==GREATER_CHAR)||(c==LESS_CHAR));
 }
 
-int Utils::findBoolExpression(string &condition) {
-    int conIndex = (int)condition.find(GREATER_CHAR);
-    //if ((int)condition.find(LESS_CHAR) > co)
-}
 string Utils::getStringOfOperation(string &condition) {
     string con = condition , boolExpOperator;
     int boolExpNum = 0, diffOfParents = 0;
@@ -69,19 +64,20 @@ string Utils::getStringOfOperation(string &condition) {
         if ((*it)==LEFT_PARENTHESES) {
             ++diffOfParents;
         } else if ((*it)==RIGHT_PARENTHESES) {
-            if ((--diffOfParents)<0) {
+            if ((--diffOfParents) < 0) {
                 throw PARENT_ERR;
             }
         } else if ((isValidVarChar(*it))||((*it)==DOT_CHAR)) {
             continue;
-        } else if (boolExpNum==1) {
+        } else if (boolExpNum == 1) {
             if ((*it)==EQUAL_CHAR) {
                 onlyOneEqualChar = false;
                 boolExpOperator+=(*it);
                 ++boolExpNum;
                 //means it's not - (, ), letter, digit, dot, = , then it's not valid condition
             } else {
-                return "";
+                throw INV_EQUATION_FORMT;
+                //return "";
             }
         } else if ((isBooleanOperator(*it)) && (boolExpNum == 0)) {
             boolExpOperator+=(*it);
@@ -91,11 +87,13 @@ string Utils::getStringOfOperation(string &condition) {
             boolExpOperator+=(*it);
             onlyOneEqualChar = true;
         } else {
-            return "";
+            throw INV_EQUATION_FORMT;
+            //return "";
         }
     }
     if (onlyOneEqualChar) {
-        return "";
+        throw INV_EQUATION_FORMT;
+        //return "";
     }
     return boolExpOperator;
 }

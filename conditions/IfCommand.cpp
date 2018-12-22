@@ -11,6 +11,7 @@ void IfCommand::execute(){
     if (checkCondition()) {
         for (Expression* command : getVecOfExpCommands()) {
             command->calculate();
+            delete (command);
         }
     }
 }

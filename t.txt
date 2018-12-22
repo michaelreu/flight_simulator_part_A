@@ -1,3 +1,12 @@
+var x = 2
+var t = x+4
+var y = bind "/path"
+print "done"
+print x
+sleep 10
+openDataServer 5400 10
+connect 127.0.1.340
+
 while alt <= 1000 {
 rudder = (h0 – heading)/20
 aileron = - roll / 70

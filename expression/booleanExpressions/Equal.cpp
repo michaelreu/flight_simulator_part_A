@@ -12,5 +12,8 @@ Equal::Equal(double leftNum, Expression* rightEx):BinaryExpression(new Num(leftN
 Equal::Equal(Expression* leftEx, double rightNum):BinaryExpression(leftEx,new Num(rightNum)) {}
 
 double Equal::calculate() {
-    return (getLeftExpression()->calculate() == getRightExpression()->calculate());
+    if (getLeftExpression()->calculate() == getRightExpression()->calculate()) {
+        return TRUE;
+    }
+    return FALSE;
 }

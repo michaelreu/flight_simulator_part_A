@@ -22,6 +22,9 @@ public:
 
     Expression* getRightExpression();
 
+    virtual ~BinaryExpression() = 0;
+
+
 };
 
 #endif //SEMPROJECT_BINARYEXPRESSION_H

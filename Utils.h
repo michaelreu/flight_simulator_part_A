@@ -4,6 +4,9 @@
 
 #include <string>
 #define PARENT_ERR "Error: too many right parentheses"
+#define INV_EQUATION_FORMT"ERROR: invalid format of equation"
+#define CHAR_NOT_DIGIT "ERROR: cannot convert digit to int because the char is not a digit"
+
 #define MIN_DIGIT_ASCII 48
 #define MAX_DIGIT_ASCII 57
 #define MIN_OPERATION_ASCII 40
@@ -16,15 +19,16 @@
 #define LESS_CHAR '<'
 #define NOT_CHAR '!'
 
-
-
-/*
-#define UNKNOWN 0
-#define NUM 1
-#define OPERATOR 2
-#define UNKNOWN 0
-#define UNKNOWN 0
-*/
+#define UNDER_SCR_CHAR 95
+#define LOW_Z_CHAR 122
+#define LOW_A_CHAR 97
+#define CAP_Z_CHAR 90
+#define CAP_A_CHAR 65
+#define MULT_CHAR '*'
+#define PLUS_CHAR '+'
+#define MINUS_CHAR '-'
+#define DIV_CHAR '/'
+#define COMMA_CHAR ','
 
 using namespace std;
 
@@ -32,7 +36,7 @@ class Utils {
 public:
     bool isDigit (const char c);
     bool isShunYardOperation(const char c);
-    int charToInt(const char c);
+    int digitCharToInt(const char c);
     bool isStrDouble(const string str);
     bool isLetter(char c);
     bool isOperator(char c);

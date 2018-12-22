@@ -30,10 +30,9 @@ public:
 
     virtual double calculate();
 
-    virtual string getNumOrOperationExp(){
-        return  to_string(this->num);
-    }
+    virtual string getNumOrOperationExp();
 
+    virtual ~Num() = default;
 
 };
 

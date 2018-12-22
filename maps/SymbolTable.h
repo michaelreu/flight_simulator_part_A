@@ -4,7 +4,7 @@
 
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
-
+#define IN_MAP 1
 #include <string>
 #include <map>
 #include <vector>
@@ -21,13 +21,13 @@ private:
     //each path has number of parameters that can be mapped to it
     map<string,vector<string>> bindMap;
     //vector of the changes
-    vector<string> changeVec;
+    vector<string> changedArgsVec;
 
 public:
     SymbolTable () = default;
     //const map<const string, double> &getValuesMap() const;
     //const map<const string, const string> &getDestinationMap() const;
-    void setVar(const string &key);
+    void initVar(const string &key);
     void addValuesToMap(const string &key, double value);
     void addDestinationToMap(string &key, string &dest);
     bool isVarInMap(const string &key);

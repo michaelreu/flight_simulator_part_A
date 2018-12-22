@@ -9,5 +9,8 @@ GreaterThen::GreaterThen(double leftNum, Expression* rightEx):BinaryExpression(n
 GreaterThen::GreaterThen(Expression* leftEx, double rightNum):BinaryExpression(leftEx,new Num(rightNum)) {}
 
 double GreaterThen::calculate() {
-    return (getLeftExpression()->calculate() > getRightExpression()->calculate());
+    if (getLeftExpression()->calculate() > getRightExpression()->calculate()) {
+        return TRUE;
+    }
+    return FALSE;
 }

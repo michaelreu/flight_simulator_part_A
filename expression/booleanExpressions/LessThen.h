@@ -20,6 +20,8 @@ public:
     LessThen(double leftNum, double rightNum);
 
     virtual double calculate();
+    virtual ~LessThen() = default;
+
 };
 
 #endif //INC_14_12_12_46_LESSTHEN_H

@@ -19,6 +19,8 @@ public:
     GreaterThen(double leftNum, double rightNum);
 
     virtual double calculate();
+    virtual ~GreaterThen() = default;
+
 };
 
 

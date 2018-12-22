@@ -7,5 +7,5 @@ DefineVarCommand::DefineVarCommand(SymbolTable* &symTable, const string &key) {
 }
 
 void DefineVarCommand::execute() {
-    symTbl->setVar(var);
+    symTbl->initVar(var);
 }

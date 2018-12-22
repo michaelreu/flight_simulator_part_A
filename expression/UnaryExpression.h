@@ -20,6 +20,9 @@ public:
     virtual double calculate()=0;
 
     Expression* getExpression();
+
+    virtual ~UnaryExpression() =0;
+
 };
 
 #endif //SEMPROJECT_UNARYEXPRESSION_H

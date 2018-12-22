@@ -5,10 +5,10 @@
 CommandExpressionFactory::CommandExpressionFactory() {
     this->symTbl = new SymbolTable();
     this->expressionNumberCreator = new ExpressionFactory(symTbl);
-    initMap();
+    initMapOfStrToFunctionsAddress();
 }
 
-void CommandExpressionFactory::initMap(){
+void CommandExpressionFactory::initMapOfStrToFunctionsAddress(){
     mapCreate[OPEN_DATA_SERVER_STR] = &CommandExpressionFactory::getOpenServerCommand;
     mapCreate[CONNECT_STR] = &CommandExpressionFactory::getConnectCommand;
     mapCreate[VAR_STR] = &CommandExpressionFactory::getDefineVarCommand;

@@ -29,6 +29,8 @@ public:
     OpenServerCommand(int prt, int hz);
     void updateDataFromClient(string str);
     virtual void execute();
+    virtual ~OpenServerCommand() = default;
+
 };
 
 

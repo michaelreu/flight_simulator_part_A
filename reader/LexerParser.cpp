@@ -52,8 +52,8 @@ bool isSeparatingChar (char check){
 
 
 void LexerParser::lexByValue(){
-    string ifStr = "if";
-    string whileStr = "while";
+    //string ifStr = "if";
+    //string whileStr = "while";
     bool inQuoteFlag = false;
     vector<string> lex;
     char prev;
@@ -78,7 +78,7 @@ void LexerParser::lexByValue(){
             //if we are not in quote
             if (inQuoteFlag == false) {
                 // condition case
-                if ((value == ifStr) || (value == whileStr)) {
+                if ((value == IF_STR) || (value == WHILE_STR)) {
                     lex.push_back(value);
                     value = "";
                     value += current;
@@ -114,7 +114,7 @@ void LexerParser::lexByValue(){
                     value += current;
                 }
                 // '('
-                else if ((current == LEFT_PARENTHESES)){
+                else if (current == LEFT_PARENTHESES) {
                     if (parnthesesCase(prev)) {
                         lex.push_back(value);
                         value = "";
@@ -172,9 +172,11 @@ vector<string> LexerParser::lexer(const string &command) {
 
 void LexerParser::parser() {
     vector<string>::iterator it = vecOfExpressions.begin();
-    CommandExpressionFactory commandExpfac = CommandExpressionFactory();
+    CommandExpressionFactory* commandExpfac = new CommandExpressionFactory();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
-        Expression* tempExp = commandExpfac.createExpression((it));
+        Expression* tempExp = commandExpfac->createExpression((it));
         tempExp->calculate();
+        delete (tempExp);
     }
+    delete (commandExpfac);
 }
