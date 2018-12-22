@@ -20,14 +20,14 @@ using namespace std;
 
 class ConnectCommand: public Command {
 private:
-    SymbolTable *symTbl;
+    SymbolTable *symbolTable;
     const char* ip;
     int port;
     bool validIP();
     static bool shouldStop;
 
 public:
-    ConnectCommand(const char* ip, int port, SymbolTable *symTable);
+    ConnectCommand(const char* ip, int port, SymbolTable* &symTable);
     static void runUser();
     static void stop();
     virtual void execute();

@@ -3,13 +3,14 @@
 //
 
 #include "AssignCommand.h"
+/*
 AssignCommand::AssignCommand(SymbolTable* &symTable,const string &varToAdd, double valueToAdd) {
     this->addValue = true;
     this->symTbl = symTable;
     this->var = varToAdd;
     this->value = valueToAdd;
 }
-
+*/
 AssignCommand::AssignCommand(SymbolTable* &symTable, const string &varToAdd, const string &dest) {
     this->addValue = false;
     this->symTbl = symTable;

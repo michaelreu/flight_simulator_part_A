@@ -6,6 +6,8 @@
 //#include "Reader.h"
 #include <vector>
 #include <string.h>
+#include <sstream>
+
 #include "../factory/ExpressionFactory.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,13 +23,14 @@ using namespace std;
 
 class OpenServerCommand: public Command {
 private:
+    SymbolTable* symbolTable;
     int port;
     int hertz;
     bool shouldStop;
 
 public:
-    OpenServerCommand(int prt, int hz);
-    void updateDataFromClient(string str);
+    OpenServerCommand(int prt, int hz, SymbolTable* &symTable);
+    void updateDataFromClient(const string &str);
     virtual void execute();
     virtual ~OpenServerCommand() = default;
 
