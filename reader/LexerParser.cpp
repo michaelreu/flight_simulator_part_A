@@ -12,6 +12,14 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
     return this->vecOfExpressions;
 }
 
+string withoutSpaces(string s){
+    int i = 0;
+    while (s[i] == ' '){
+        s.erase(0, 1);
+    }
+    return s;
+}
+
 void LexerParser::loadfile(const string& fileName){
     string expression;
     vector<string> dataFromFile;
@@ -29,7 +37,7 @@ void LexerParser::loadfile(const string& fileName){
             for(string temp; iss >> temp;) {
                 // print case - leave the spaces
                 if (temp == PRINT_STR){
-                    this->vecOfExpressions.push_back((*it));
+                    this->vecOfExpressions.push_back(withoutSpaces(*it));
                     break;
                 }
                 this->vecOfExpressions.push_back(temp);
