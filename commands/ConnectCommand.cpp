@@ -23,8 +23,8 @@ void* runClient(void *arg) {
     struct hostent *server;
     string tempPath, messageOfSet = "hi";
     //int port = stoi(port1);
-    char buffer[207];
-
+    //char buffer[256];
+    const char* buffer;
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -63,10 +63,11 @@ void* runClient(void *arg) {
     //while  (connect(sockfd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
     //trying to connect
     //}
-    n = write(sockfd, buffer, strlen(buffer));
+    //n = write(sockfd, buffer, strlen(buffer));
 
 
     while (!cnct.getShouldStop()) {
+
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
@@ -74,12 +75,15 @@ void* runClient(void *arg) {
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
+                tempPath = tempPath.substr(1,tempPath.size()-2);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
                 messageOfSet = "set " + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";
                 //messageOfSet +=
                 /* Send message to the server as: "set path value" */
-                n = write(sockfd, messageOfSet.c_str(), messageOfSet.size());
+                buffer = messageOfSet.c_str();
+                n = write(sockfd, buffer, strlen(buffer));
+                //n = write(sockfd, messageOfSet.c_str(), messageOfSet.size());
             }
         }
         //check if there is a message
@@ -87,7 +91,8 @@ void* runClient(void *arg) {
             perror("ERROR writing to socket");
             exit(1);
         }
-        this_thread::sleep_for(chrono::milliseconds(300));
+        sleep((unsigned int)1/4);
+        //this_thread::sleep_for(chrono::milliseconds(300));
     }
 
 }
@@ -169,7 +174,8 @@ void* runClient(void *arg) {
         this_thread::sleep_for(chrono::milliseconds(300));
     }
     */
-}
+//}
+
 void ConnectCommand::execute(){
     if(!validIP()) {
         throw INVALID_IP_ADRESS_ERR;

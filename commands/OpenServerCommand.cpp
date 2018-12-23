@@ -60,9 +60,9 @@ void* runServer(void *arg) {
     listen(sockfd, 5);
     //***************************setup ends here***********************************
     newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
-    n = read(newsockfd, buffer, 207);
-    printf("Here is the message: %s\n",buffer);
-    (ops).updateDataFromClient(string(buffer), serverPar->symbolTablePa);
+    //n = read(newsockfd, buffer, 255);
+    //printf("Here is the message: %s\n",buffer);
+    //(ops).updateDataFromClient(string(buffer), serverPar->symbolTablePa);
 
     while (!ops.getShouldStop()) {
         clilen = sizeof(clientAddress);
@@ -73,8 +73,14 @@ void* runServer(void *arg) {
             exit(1);
         }
         bzero(buffer,256);
+        int i = 0, n = 0;
+        char lastDigit = '\0';
         //getting data into the buffer
-        n = read(newsockfd, buffer, 255);
+        while ((i < 1024) && (lastDigit != '\n') && (n >= 0)) {
+            n = read(newsockfd, buffer + i, 1);
+            lastDigit = buffer[i];
+            (++i);
+        }
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);

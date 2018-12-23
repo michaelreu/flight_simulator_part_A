@@ -5,7 +5,7 @@
 #define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 #include "Command.h"
 #include "../reader/Reader.h"
-#include <pthread>
+#include <pthread.h>
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
