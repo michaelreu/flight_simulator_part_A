@@ -75,7 +75,7 @@ void* runClient(void *arg) {
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
-                tempPath = tempPath.substr(1,tempPath.size()-2);
+                tempPath = tempPath.substr(2,tempPath.size()-3);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
                 messageOfSet = "set " + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";

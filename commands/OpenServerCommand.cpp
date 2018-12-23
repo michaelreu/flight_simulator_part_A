@@ -59,7 +59,7 @@ void* runServer(void *arg) {
 
     listen(sockfd, 5);
     //***************************setup ends here***********************************
-    newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
+    //newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
     //n = read(newsockfd, buffer, 255);
     //printf("Here is the message: %s\n",buffer);
     //(ops).updateDataFromClient(string(buffer), serverPar->symbolTablePa);

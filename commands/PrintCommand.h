@@ -18,7 +18,6 @@ private:
 
 public:
     PrintCommand(ExpressionFactory* expFac, string &str);
-
     virtual void execute();
     virtual ~PrintCommand() = default;
 };
