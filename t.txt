@@ -20,7 +20,10 @@ while alt < 1000 {
         rudder = 1
     }
     rudder = rudder * -1
+    print "rudder: "
     print rudder
+    print "alt: "
+    print alt
     sleep 1000
 }
 print "done"

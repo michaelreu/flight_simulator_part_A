@@ -80,9 +80,15 @@ double SymbolTable::getValueOfVar(const string &key) {
     if (isVarInValueMap(key)) {
         return ((valuesMapVarToValue.at(key)).getValue());
     } else {
-        throw INIT_ERR + key;
+        return 0;
+        //throw INIT_ERR + key;
     }
+    //else if (isVarInBindsMap(key)) {
+        //return ((isVarInBindsMap.at(key)).getValue());
+
+    //}
 }
+
 
 void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
     //changedArgsVec.clear();
