@@ -207,7 +207,7 @@ vector<string> LexerParser::lexer(const string &command) {
         for (string s; iss >> s;) {
             // print case
             if (s == PRINT_STR){
-                this->vecOfExpressions.push_back((*it));
+                this->vecOfExpressions.push_back(withoutSpaces(*it));
                 break;
             }
             (this->vecOfExpressions).push_back(s);
