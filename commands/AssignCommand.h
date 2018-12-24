@@ -30,7 +30,6 @@ public:
     AssignCommand(SymbolTable* &symTable,const string &varToAdd, const string &dest);
     AssignCommand(SymbolTable* &symTable, ExpressionFactory* &expFac, const string &varToAdd, vector<string>::iterator &it);
     virtual void execute();
-
     virtual ~AssignCommand()= default;
 };
 

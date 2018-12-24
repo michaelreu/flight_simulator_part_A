@@ -5,7 +5,7 @@
 
 
 bool ConnectCommand::shouldStop = false;
-ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* symTable){
+ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable){
     this->symbolTable = symTable;
     this->ip = ip;
     this->port = port;
@@ -51,6 +51,7 @@ void* runClient(void *arg) {
     //&&(!ConnectCommand::getShouldStop())
 
     while (!cnct.getShouldStop()) {
+    //while(true) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
@@ -61,7 +62,7 @@ void* runClient(void *arg) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
                 tempPath = tempPath.substr(2,tempPath.size()-3);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
-                messageOfSet = "set " + tempPath + " ";
+                messageOfSet = SET + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";
                 buffer = messageOfSet.c_str();
                 n = write(sockfd, buffer, strlen(buffer));
@@ -79,23 +80,18 @@ void* runClient(void *arg) {
         //this_thread::sleep_for(chrono::milliseconds(300));
     }
     close(sockfd);
+    delete(clientPar);
 }
 
 void ConnectCommand::execute(){
-
     struct clientParams* clParams = new clientParams();
     clParams->symbolTablePa = this->symbolTable;
     clParams->portPa = this->port;
     clParams->ipPa = this->ip;
     pthread_t clientFlightSimulator;
     pthread_create(&clientFlightSimulator, nullptr, runClient, clParams);
-
-    //thread clientFlightSimulator(runUser, ip, port, symbolTable);
-    //clientFlightSimulator.detach();
+    //no need to delete clParams it has been deleted above
 }
-
-
-//******** check***********
 
 void ConnectCommand::stop() {
     shouldStop = true;
@@ -103,4 +99,8 @@ void ConnectCommand::stop() {
 
 bool ConnectCommand::getShouldStop() {
     return shouldStop;
+}
+
+ConnectCommand::~ConnectCommand() {
+
 }

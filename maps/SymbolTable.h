@@ -2,6 +2,7 @@
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
 #define IN_MAP 1
+#define ZERO_INIT 0
 #define INIT_ERR "Error: this var is not initialized: "
 #define INDICATE_SPEED "/instrumentation/airspeed-indicator/indicated-speed-kt"
 #define INDICATE_ALT "/instrumentation/altimeter/indicated-altitude-ft"
@@ -29,15 +30,14 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "VarValue.h"
 #include <algorithm>
 
 using namespace std;
-class VarValue;
 class SymbolTable {
 private:
     //key - var, value - double, bool initialized
-    map<const string, VarValue> valuesMapVarToValue;
+    //map<const string, VarValue> valuesMapVarToValue;
+    map<const string, double> valuesMapVarToValue;
     //key - var, value - path
     map<string, string> destinationMapVarToPath;
     //each path has number of parameters that can be mapped to it

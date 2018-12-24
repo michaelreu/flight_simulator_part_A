@@ -5,7 +5,7 @@
 SymbolTable::SymbolTable() {
     initPathXmlVec();
     this->mutex = PTHREAD_MUTEX_INITIALIZER;
-    pthread_mutex_init(getMutex(),);
+    //pthread_mutex_init(getMutex(),);
 }
 void SymbolTable::initPathXmlVec() {
     xmlPathsVec = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
@@ -13,14 +13,14 @@ void SymbolTable::initPathXmlVec() {
                     SLIP_SKID, TURN_RATE, SPEED_FPM, AILERON, ELEVATOR, RUDDER, FLAPS, THROTTLE, RPM};
 }
 void SymbolTable::initVar(const string &key) {
-    valuesMapVarToValue.insert({key,VarValue()});
+    valuesMapVarToValue.insert({key,ZERO_INIT});
     destinationMapVarToPath.insert({key, ""});
 }
 void SymbolTable::addValuesToMap(string &key, double value) {
     pthread_mutex_lock(getMutex());
     //valuesMapVarToValue.insert(pair<const string, double>(key,value));
-    VarValue varVal = VarValue(value);
-    valuesMapVarToValue.at(key) = varVal;
+    //VarValue varVal = VarValue(value);
+    valuesMapVarToValue.at(key) = value;
     // if is not on map already
     if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
         changedArgsVec.push_back(key);
@@ -56,7 +56,8 @@ bool SymbolTable::isVarInMap(const string &key) {
 
 bool SymbolTable::isVarInValueMap(const string &key) {
     if (valuesMapVarToValue.count(key)==IN_MAP) {
-        return ((valuesMapVarToValue.at(key)).isVarInitialized());
+        //return ((valuesMapVarToValue.at(key)).isVarInitialized());
+        return ((valuesMapVarToValue.count(key)==IN_MAP));
     }
 }
 bool SymbolTable::isVarInBindsMap(const string &key) {
@@ -78,6 +79,8 @@ string SymbolTable::getPathByVar(const string &keyVar) {
     }
 }
 double SymbolTable::getValueOfVar(const string &key) {
+    return (valuesMapVarToValue.at(key));
+    /*
     if (isVarInValueMap(key)) {
         return ((valuesMapVarToValue.at(key)).getValue());
     } else {
@@ -88,6 +91,7 @@ double SymbolTable::getValueOfVar(const string &key) {
         //return ((isVarInBindsMap.at(key)).getValue());
 
     //}
+     */
 }
 
 
@@ -112,5 +116,5 @@ pthread_mutex_t* SymbolTable::getMutex(){
 }
 
 SymbolTable::~SymbolTable() {
-    pthread_mutex_destroy(getMutex());
+    //pthread_mutex_destroy(getMutex());
 }

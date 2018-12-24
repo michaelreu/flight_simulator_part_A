@@ -226,6 +226,7 @@ void LexerParser::parser() {
         Expression* tempExp = (this->commandExpfac)->createExpression((it));
         // calculate it
         tempExp->calculate();
+        //if it's exit
         delete (tempExp);
     }
     this->vecOfExpressions.clear();
