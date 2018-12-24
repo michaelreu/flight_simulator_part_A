@@ -52,6 +52,7 @@ private:
     void popOperatorsInParenthesesToMainStack();
     void popOperatorFromStackToMainStack();
     void insertByOrderToStack();
+    void addMinusExpressionToMainStack(double minusVal);
 
     Expression* generateExpressionOfStack();
 public:

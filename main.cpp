@@ -13,6 +13,9 @@ int main(int argc, char *argv[]) {
     catch (const char* e) {
         cout<<e<<endl;
         cout<<"That's not supposed to happen !!!!!!!!!!!!"<<endl;
+    } catch (string &e) {
+        cout<<e<<endl;
+        cout<<"That's not supposed to happen !!!!!!!!!!!!"<<endl;
     }
 }
 //run "t.txt"

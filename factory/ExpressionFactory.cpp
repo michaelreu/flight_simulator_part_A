@@ -1,7 +1,3 @@
-//
-// Created by tamir on 18/12/18.
-//
-
 #include "ExpressionFactory.h"
 
 
@@ -52,6 +48,17 @@ void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
     }
 }
 
+void ExpressionFactory::addMinusExpressionToMainStack(double valOfVar) {
+    if (valOfVar < 0) {
+        valOfVar = -1 * valOfVar;
+        getMainStack().push(new Num(0));
+        getMainStack().push(new Num(valOfVar));
+        getOperationsStack().push(MINUS_CHAR);
+    } else {
+        getMainStack().push(new Num(valOfVar));
+    }
+}
+
 void ExpressionFactory::insertByOrderToStack() {
     string str = getStrOfExpression();
     string tempVar="";
@@ -75,14 +82,7 @@ void ExpressionFactory::insertByOrderToStack() {
         } else if (utils.isShunYardOperation(*it)) {
             if (symbolTable->isVarInValueMap(tempVar)) {
                 double valOfVar = symbolTable->getValueOfVar(tempVar);
-                if (valOfVar < 0) {
-                    valOfVar = -1 * valOfVar;
-                    getMainStack().push(new Num(0));
-                    getMainStack().push(new Num(valOfVar));
-                    getOperationsStack().push(MINUS_CHAR);
-                } else {
-                    getMainStack().push(new Num(valOfVar));
-                }
+                addMinusExpressionToMainStack(valOfVar);
                 this->numBeforeMe = true;
                 this->varDigit = false;
                 tempVar="";
@@ -123,8 +123,6 @@ void ExpressionFactory::insertByOrderToStack() {
         } else if (utils.isValidVarChar(*it)) {
             tempVar+=(*it);
             this->varDigit = true;
-            //continue;
-            //} else {
         } else {
             throw INVALID_EXPRESSION_STRING;
         }
@@ -132,14 +130,7 @@ void ExpressionFactory::insertByOrderToStack() {
     }
     if (symbolTable->isVarInValueMap(tempVar)) {
         double valOfVar = symbolTable->getValueOfVar(tempVar);
-        if (valOfVar < 0) {
-            valOfVar = -1 * valOfVar;
-            getMainStack().push(new Num(0));
-            getMainStack().push(new Num(valOfVar));
-            getOperationsStack().push(MINUS_CHAR);
-        } else {
-            getMainStack().push(new Num(valOfVar));
-        }
+        addMinusExpressionToMainStack(valOfVar);
     }
     this->numBeforeMe = false;
     addRestOfOperatorsToDigitsStack();
