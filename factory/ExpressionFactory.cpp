@@ -140,6 +140,7 @@ void ExpressionFactory::insertByOrderToStack() {
 
 Expression* ExpressionFactory::generateExpressionOfStack() {
     while (!(getMainStack()).empty()) {
+        //each one of the ShuntingYardExpression* goes to the vector, then the vector frees
         ShuntingYardExpression* shuntingYardExpression = getMainStack().top();
         saveToFree.push_back(shuntingYardExpression);
         getMainStack().pop();
@@ -175,11 +176,17 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
 
     //return new Num(0);
 }
-
+void ExpressionFactory::freeVectorOfMainStack() {
+    for (ShuntingYardExpression* objToFree : this->saveToFree) {
+        delete(objToFree);
+    }
+    this->saveToFree.clear();
+}
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
     this->expressionStr = (*it);
     insertByOrderToStack();
     Expression* exp = generateExpressionOfStack();
+    freeVectorOfMainStack();
     return exp;
 }
 
@@ -187,6 +194,7 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
     insertByOrderToStack();
     Expression* exp = generateExpressionOfStack();
+    freeVectorOfMainStack();
     /*
     for (ShuntingYardExpression* objToFree : this->saveToFree) {
         delete(objToFree);
@@ -196,4 +204,7 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
      */
     return exp;
 }
-
+ExpressionFactory::~ExpressionFactory() {
+    freeVectorOfMainStack();
+    delete(this->symbolTable);
+}

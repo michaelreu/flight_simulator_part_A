@@ -54,20 +54,14 @@ private:
     void popOperatorFromStackToMainStack();
     void insertByOrderToStack();
     void addMinusExpressionToMainStack(double minusVal);
-
+    void freeVectorOfMainStack();
     Expression* generateExpressionOfStack();
 public:
     ExpressionFactory()= default;
     ExpressionFactory(SymbolTable* &symbolTable);
     virtual Expression* createExpression(vector<string>::iterator &it);
     virtual Expression* createExpression(const string &strToExp);
-    ~ExpressionFactory() {
-        for (ShuntingYardExpression* objToFree : this->saveToFree) {
-            delete(objToFree);
-        }
-        this->saveToFree.clear();
-        delete(this->symbolTable);
-    }
+    ~ExpressionFactory();
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H
