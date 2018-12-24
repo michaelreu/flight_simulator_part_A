@@ -179,6 +179,6 @@ Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &
  * distructor
  */
 CommandExpressionFactory::~CommandExpressionFactory() {
-    delete this->expressionNumberCreator;
-    delete this->symTbl;
+    delete (this->expressionNumberCreator);
+    //delete (this->symTbl);
 }

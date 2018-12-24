@@ -23,7 +23,6 @@ class Reader  {
 public:
     Reader() = default;
     void readCommands(string fileName);
-
 };
 
 

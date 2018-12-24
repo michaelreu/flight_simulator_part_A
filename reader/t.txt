@@ -1,2 +1,0 @@
-print "alt + breaks =  " alt + breaks
-breaks = 300/ 8

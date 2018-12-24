@@ -21,7 +21,9 @@ public:
 
     Expression* getExpression();
 
-    virtual ~UnaryExpression() = default;
+    virtual ~UnaryExpression(){
+        delete(this->expression);
+    };
 
 };
 

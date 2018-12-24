@@ -22,7 +22,7 @@ public:
 
     virtual double calculate();
 
-    virtual ~Mult() = default;
+    //virtual ~Mult() = default;
 
 };
 

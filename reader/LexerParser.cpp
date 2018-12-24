@@ -235,5 +235,5 @@ void LexerParser::parser() {
  * distructor
  */
 LexerParser::~LexerParser() {
-    delete this->commandExpfac;
+    delete (this->commandExpfac);
 }

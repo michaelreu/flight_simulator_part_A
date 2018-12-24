@@ -40,6 +40,7 @@ void AssignCommand::execute() {
         Expression* tempExp = expressionFactory->createExpression(this->it);
         value = tempExp->calculate();
         symTbl->addValuesToMap(var,value);
+        delete(tempExp);
     // path case
     } else {
         symTbl->addDestinationToMap(var, dest);

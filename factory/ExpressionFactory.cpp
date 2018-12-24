@@ -4,6 +4,7 @@
 ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
     this->symbolTable = symTbl;
     this->numBeforeMe = false;
+    this->varDigit = false;
 }
 
 
@@ -140,9 +141,11 @@ void ExpressionFactory::insertByOrderToStack() {
 Expression* ExpressionFactory::generateExpressionOfStack() {
     while (!(getMainStack()).empty()) {
         ShuntingYardExpression* shuntingYardExpression = getMainStack().top();
+        saveToFree.push_back(shuntingYardExpression);
         getMainStack().pop();
         //if expression is operator
         string tempStr = shuntingYardExpression->getNumOrOperationExp();
+        //delete(shuntingYardExpression);
         const auto it = tempStr.c_str();
         if (utils.isShunYardOperation(*it)) {
             Expression* rightExpression = generateExpressionOfStack();
@@ -169,18 +172,28 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             throw ERR_GEN_EXP;
         }
     }
+
     //return new Num(0);
 }
 
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
     this->expressionStr = (*it);
     insertByOrderToStack();
-    return generateExpressionOfStack();
+    Expression* exp = generateExpressionOfStack();
+    return exp;
 }
 
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
     insertByOrderToStack();
-    return generateExpressionOfStack();
+    Expression* exp = generateExpressionOfStack();
+    /*
+    for (ShuntingYardExpression* objToFree : this->saveToFree) {
+        delete(objToFree);
+    }
+
+    this->saveToFree.clear();
+     */
+    return exp;
 }
 
