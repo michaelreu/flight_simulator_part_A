@@ -1,6 +1,3 @@
-//
-// Created by tamir on 18/12/18.
-//
 
 #ifndef INC_14_12_12_46_VARIABLESMAP_H
 #define INC_14_12_12_46_VARIABLESMAP_H
@@ -27,7 +24,7 @@
 #define ELEVATOR "/controls/flight/elevator"
 #define RUDDER "/controls/flight/rudder"
 #define FLAPS "/controls/flight/flaps"
-#define THROTTLE "/controls/engines/engine/throttle"
+#define THROTTLE "/controls/engines/current-engine/throttle"
 #define RPM "/engines/engine/rpm"
 #include <string>
 #include <map>
@@ -49,6 +46,7 @@ private:
     vector<string> changedArgsVec;
 
     vector<string> xmlPathsVec;
+    pthread_mutex_t mutex;
 
 public:
     SymbolTable ();
@@ -63,6 +61,8 @@ public:
     void updateValuesFromClient(vector<double>&vecOfVals);
     string getPathByVar(const string &keyVar);
     vector<string> &getChangedArgsVec();
+    pthread_mutex_t* getMutex();
+
 
 };
 

@@ -1,15 +1,10 @@
 #include "SymbolTable.h"
-/*
-map<const string, double> &SymbolTable::getValuesMap() {
-    return valuesMapVarToValue;
-}
 
- const map<const string, const string> &SymbolTable::getDestinationMap() const {
-    return destinationMapVarToPath;
-}
-*/
+
+
 SymbolTable::SymbolTable() {
     initPathXmlVec();
+    this->mutex = PTHREAD_MUTEX_INITIALIZER;
 }
 void SymbolTable::initPathXmlVec() {
     xmlPathsVec = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
@@ -21,6 +16,7 @@ void SymbolTable::initVar(const string &key) {
     destinationMapVarToPath.insert({key, ""});
 }
 void SymbolTable::addValuesToMap(string &key, double value) {
+    pthread_mutex_lock(getMutex());
     //valuesMapVarToValue.insert(pair<const string, double>(key,value));
     VarValue varVal = VarValue(value);
     valuesMapVarToValue.at(key) = varVal;
@@ -28,6 +24,7 @@ void SymbolTable::addValuesToMap(string &key, double value) {
     if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
         changedArgsVec.push_back(key);
     }
+    pthread_mutex_unlock(getMutex());
 }
 
 vector<string>& SymbolTable::getChangedArgsVec() {
@@ -35,19 +32,17 @@ vector<string>& SymbolTable::getChangedArgsVec() {
 }
 
 void SymbolTable::addDestinationToMap(string &key, string &dest) {
+    pthread_mutex_lock(getMutex());
     string pathDest = dest;
     // type of x = bind y - means: dest will be y
     if (destinationMapVarToPath.count(dest) == IN_MAP){
         //then the path will be the value of y in the destinationMap
         pathDest = destinationMapVarToPath[dest];
     }
-
     destinationMapVarToPath.at(key) = pathDest;
     //add the var to vector of vars that belongs to a path in the bind map
     bindMapPathToVecOfVars[pathDest].push_back(key);
-    if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
-        changedArgsVec.push_back(key);
-    }
+    pthread_mutex_unlock(getMutex());
 }
 
 bool SymbolTable::isVarInMap(const string &key) {
@@ -100,10 +95,16 @@ void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
     vector<string>varsOfSpecificPath;
     for (unsigned long i = 0; i < vecOfVals.size(); ++i) {
         tempPath = xmlPathsVec.at(i);
-        varsOfSpecificPath = bindMapPathToVecOfVars[tempPath];
+        if (bindMapPathToVecOfVars.count(tempPath) > 0) {
+            varsOfSpecificPath = bindMapPathToVecOfVars[tempPath];
+        }
         for (string var : varsOfSpecificPath) {
             valuesMapVarToValue[var] = vecOfVals.at(i);
             changedArgsVec.push_back(var);
         }
     }
+}
+
+pthread_mutex_t* SymbolTable::getMutex(){
+    return &this->mutex;
 }

@@ -15,6 +15,7 @@
 #define PRINT_STR "print"
 #define RIGHT_CURLY_PARENTHESIS_STR "}"
 #define SLEEP_STR "sleep"
+#define START_OF_STR 1
 
 #include "ExpressionFactory.h"
 #include "../commands/ExpressionCommand.h"
@@ -45,7 +46,6 @@ private:
     SymbolTable* symTbl;
     map<string, create> mapCreate;
     CheckInputs* check;
-    pthread_mutex_t mutex;
 
 public:
     CommandExpressionFactory();

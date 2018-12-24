@@ -5,12 +5,11 @@
 
 
 bool ConnectCommand::shouldStop = false;
-ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* symTable, pthread_mutex_t* mutex){
+ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* symTable){
     this->symbolTable = symTable;
     this->ip = ip;
     this->port = port;
     shouldStop = false;
-    this->mutex = mutex;
 }
 
 
@@ -51,28 +50,26 @@ void* runClient(void *arg) {
     cout<<"connected"<<endl;
     //&&(!ConnectCommand::getShouldStop())
 
-
     while (!cnct.getShouldStop()) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
-
+        pthread_mutex_lock(clientPar->symbolTablePa->getMutex());
         vector<string> changedArgs = (clientPar->symbolTablePa)->getChangedArgsVec();
-
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
                 tempPath = tempPath.substr(2,tempPath.size()-3);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
                 messageOfSet = "set " + tempPath + " ";
-                messageOfSet += to_string(valueOfVar) + "\n";
+                messageOfSet += to_string(valueOfVar) + "\r\n";
                 buffer = messageOfSet.c_str();
                 n = write(sockfd, buffer, strlen(buffer));
 
             }
         }
         ((clientPar->symbolTablePa)->getChangedArgsVec()).clear();
-
+        pthread_mutex_unlock(clientPar->symbolTablePa->getMutex());
         //check if there is a message
         if (n < 0) {
             perror("ERROR writing to socket");
@@ -85,11 +82,11 @@ void* runClient(void *arg) {
 }
 
 void ConnectCommand::execute(){
+
     struct clientParams* clParams = new clientParams();
     clParams->symbolTablePa = this->symbolTable;
     clParams->portPa = this->port;
     clParams->ipPa = this->ip;
-    clParams->mutexPa = this->mutex;
     pthread_t clientFlightSimulator;
     pthread_create(&clientFlightSimulator, nullptr, runClient, clParams);
 

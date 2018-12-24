@@ -54,15 +54,15 @@ void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
 
 void ExpressionFactory::insertByOrderToStack() {
     string str = getStrOfExpression();
-    string tempVar;
-    bool varAdded = false;
+    string tempVar="";
+    this->varDigit = false;
     for(const auto* it = str.c_str(); *it; ++it) {
         //white spaces are not necessary
         if ((*it) == SPACE_CHAR){
             continue;
         }
         //token as a number
-        if( utils.isDigit(*it) ) {
+        if((utils.isDigit(*it)) && (!this->varDigit)) {
             const auto* tempExp = it;
             for(; utils.isDigit(*it)||((*it)=='.'); ++it) { ; }
             const auto numStr = string(tempExp, it);
@@ -83,49 +83,52 @@ void ExpressionFactory::insertByOrderToStack() {
                 } else {
                     getMainStack().push(new Num(valOfVar));
                 }
-                //double valOfVar = symbolTable->getValueOfVar(tempVar);
-                //getMainStack().push(new Num(valOfVar));
+                this->numBeforeMe = true;
+                this->varDigit = false;
                 tempVar="";
             } //check if tempVar is in the symbol table
             switch (*it) {
                 case MINUS_CHAR:
+                    this->varDigit = false;
                     if (!this->numBeforeMe) {
                         getMainStack().push(new Num(0));
                         getOperationsStack().push(*it);
                         break;
                     }
-                    //
                 case PLUS_CHAR:
-                    //
+                    this->varDigit = false;
                     if ((!getOperationsStack().empty()) && (operationsPrecedence(*it))) {
                         popOperatorFromStackToMainStack();
                     }
-
                 case PARENTHESES_OPEN_CHAR:
                 case MULT_CHAR:
                 case DIV_CHAR:
                     getOperationsStack().push(*it);
                     break;
                 case PARENTHESES_CLOSE_CHAR:
+                    this->varDigit = false;
                     //pops all the operation inside the parentheses
                     popOperatorsInParenthesesToMainStack();
                     //pops the '(' left in operation stack
                     getOperationsStack().pop();
                     break;
-
                 default:
                     break;
             }
-            this->numBeforeMe=false;
+            this->numBeforeMe = false;
             if (*it == PARENTHESES_CLOSE_CHAR) {
-                this->numBeforeMe=true;
+                this->numBeforeMe = true;
             }
 
         } else if (utils.isValidVarChar(*it)) {
             tempVar+=(*it);
+            this->varDigit = true;
+            //continue;
+            //} else {
         } else {
             throw INVALID_EXPRESSION_STRING;
         }
+        //this->varDigit = false;
     }
     if (symbolTable->isVarInValueMap(tempVar)) {
         double valOfVar = symbolTable->getValueOfVar(tempVar);
@@ -141,6 +144,8 @@ void ExpressionFactory::insertByOrderToStack() {
     this->numBeforeMe = false;
     addRestOfOperatorsToDigitsStack();
 }
+
+
 Expression* ExpressionFactory::generateExpressionOfStack() {
     while (!(getMainStack()).empty()) {
         ShuntingYardExpression* shuntingYardExpression = getMainStack().top();

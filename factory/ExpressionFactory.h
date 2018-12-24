@@ -1,7 +1,3 @@
-//
-// Created by tamir on 18/12/18.
-//
-
 #ifndef INC_14_12_12_46_EXPRESSIONFACTORY_H
 #define INC_14_12_12_46_EXPRESSIONFACTORY_H
 #define INVALID_EXPRESSION_STRING "Error: string of expression has invalid char"
@@ -42,6 +38,7 @@ private:
     stack<char> operationsStack;
     string expressionStr;
     bool numBeforeMe;
+    bool varDigit;
 
     //private functions
     stack<ShuntingYardExpression*> &getMainStack();

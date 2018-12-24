@@ -24,7 +24,6 @@ struct clientParams {
     SymbolTable* symbolTablePa;
     const char* ipPa;
     int portPa;
-    pthread_mutex_t* mutexPa;
 };
 class ConnectCommand: public Command {
 private:
@@ -32,12 +31,11 @@ private:
     SymbolTable* symbolTable;
     const char* ip;
     int port;
-    pthread_mutex_t* mutex;
 
 
 public:
     ConnectCommand(){}
-    ConnectCommand(const char* ip, int port, SymbolTable* symTable, pthread_mutex_t* mutex);
+    ConnectCommand(const char* ip, int port, SymbolTable* symTable);
     static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;

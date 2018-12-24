@@ -15,8 +15,6 @@ PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
 bool PrintCommand::isInQoutes() {
     // string case
     if ((strToPrint[0] == '\"') && (strToPrint[strToPrint.size()-1] == '\"')) {
-
-
         return true;
     }
     // var case

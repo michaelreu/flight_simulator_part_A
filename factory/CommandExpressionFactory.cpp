@@ -58,7 +58,7 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
     if (!check->checkHertz(hertz)){
         throw "invalid hertz";
     }
-    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl, &mutex));
+    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl));
 }
 
 /**
@@ -75,7 +75,7 @@ Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator
     if (!check->checkIP(ip)){
         throw  "invalid ip";
     }
-    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl, &this->mutex));
+    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl));
 }
 
 /**
@@ -101,7 +101,8 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
     (++it);
     // path case
     if ((*it)==BIND_STR) {
-        string destinationPath = (*(++it));
+        string destinationPath =  (*(++it));
+        destinationPath = destinationPath.substr(START_OF_STR,destinationPath.size()-2);;
         return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
     // value case
     } else {

@@ -1,7 +1,3 @@
-//
-// Created by tamir on 14/12/18.
-//
-
 #ifndef INC_14_12_12_46_OPERATORS_H
 #define INC_14_12_12_46_OPERATORS_H
 
@@ -15,9 +11,9 @@ private:
     char operation;
 public:
     Operators(const char op);
-    string getNumOrOperationExp();
+    char getOperation() const;
 
+    virtual string getNumOrOperationExp();
+    virtual ~Operators() = default;
 };
-
-
 #endif //INC_14_12_12_46_OPERATORS_H

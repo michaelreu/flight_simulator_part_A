@@ -1,6 +1,7 @@
 #ifndef PROJECTPART1_OPENSERVERCOMMAND_H
 #define PROJECTPART1_OPENSERVERCOMMAND_H
 
+
 #include "Command.h"
 //#include "Reader.h"
 #include <vector>
@@ -26,7 +27,8 @@ struct serverParams {
     SymbolTable* symbolTablePa;
     int portPa;
     int hertzPa;
-    pthread_mutex_t* mutexPa;
+    int sockfd;
+    int newsockfd;
 };
 
 
@@ -37,12 +39,11 @@ private:
     int port;
     int hertz;
     static bool shouldStop;
-    pthread_mutex_t* mutex;
 
 
 public:
     OpenServerCommand(){}
-    OpenServerCommand(int prt, int hz, SymbolTable* symTable, pthread_mutex_t* mutex);
+    OpenServerCommand(int prt, int hz, SymbolTable* symTable);
     void updateDataFromClient(const string &str, SymbolTable* symTable);
     //static void runServer(int port, int hz, SymbolTable* symTable);
     //void* runServer(void* arg);
