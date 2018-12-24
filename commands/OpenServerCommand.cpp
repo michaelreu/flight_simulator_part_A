@@ -18,7 +18,6 @@ void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* sym
     while (valuesStream.good()) {
         getline(valuesStream, tempStr, COMMA_CHAR);
         if (utils.isStrDouble(tempStr)) {
-            cout<<"temp string: "; cout<< tempStr <<endl;
             valuesVector.push_back(stod(tempStr));
         }
     }
