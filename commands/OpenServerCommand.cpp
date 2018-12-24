@@ -27,7 +27,7 @@ void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* sym
 void* runServer(void *arg) {
     OpenServerCommand ops = OpenServerCommand();
     struct serverParams* serverPar = (struct serverParams*) arg;
-    char buffer[1024];
+    char buffer[BUFF_SIZE];
     string tempStr;
 
     if (serverPar->newsockfd < 0) {
@@ -35,11 +35,11 @@ void* runServer(void *arg) {
         exit(1);
     }
     while (!ops.getShouldStop()) {
-        bzero(buffer,1024);
+        bzero(buffer,BUFF_SIZE);
         int i = 0, n = 0;
         char lastDigit = '\0';
         //getting data into the buffer
-        while ((i < 1024) && (lastDigit != '\n') && (n >= 0)) {
+        while ((i < BUFF_SIZE) && (lastDigit != '\n') && (n >= 0)) {
             n = read(serverPar->newsockfd, buffer + i, 1);
             lastDigit = buffer[i];
             (++i);

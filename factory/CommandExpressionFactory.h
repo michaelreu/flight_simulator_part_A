@@ -16,6 +16,7 @@
 #define RIGHT_CURLY_PARENTHESIS_STR "}"
 #define SLEEP_STR "sleep"
 #define START_OF_STR 1
+#define END_OF_STR 2
 
 #include "ExpressionFactory.h"
 #include "../commands/ExpressionCommand.h"

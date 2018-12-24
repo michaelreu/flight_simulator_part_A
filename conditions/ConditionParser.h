@@ -5,6 +5,9 @@
 #ifndef INC_14_12_12_46_CONDITIONPARSER_H
 #define INC_14_12_12_46_CONDITIONPARSER_H
 
+#define  START_OF_STR 0
+#define TRUE 1
+
 
 #include "../commands/Command.h"
 #include <string>

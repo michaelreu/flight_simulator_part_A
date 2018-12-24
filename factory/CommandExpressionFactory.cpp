@@ -102,7 +102,7 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
     // path case
     if ((*it)==BIND_STR) {
         string destinationPath =  (*(++it));
-        destinationPath = destinationPath.substr(START_OF_STR,destinationPath.size()-2);;
+        destinationPath = destinationPath.substr(START_OF_STR,destinationPath.size() - END_OF_STR);;
         return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
     // value case
     } else {

@@ -2,12 +2,12 @@
 #define PROJECTPART1_OPENSERVERCOMMAND_H
 
 
+#define BUFF_SIZE 256
+
 #include "Command.h"
-//#include "Reader.h"
 #include <vector>
 #include <string.h>
 #include <sstream>
-
 #include "../factory/ExpressionFactory.h"
 #include <stdio.h>
 #include <stdlib.h>

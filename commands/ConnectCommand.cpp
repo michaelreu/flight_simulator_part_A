@@ -59,7 +59,7 @@ void* runClient(void *arg) {
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
-                tempPath = tempPath.substr(2,tempPath.size()-3);
+                tempPath = tempPath.substr(START_OF_STR,tempPath.size()-END_OF_STR);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
                 messageOfSet = "set " + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";
@@ -75,7 +75,7 @@ void* runClient(void *arg) {
             perror("ERROR writing to socket");
             exit(1);
         }
-        sleep((unsigned int)1/4);
+        sleep((unsigned int)SEEP_TIME);
         //this_thread::sleep_for(chrono::milliseconds(300));
     }
     close(sockfd);

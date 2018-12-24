@@ -36,7 +36,7 @@ bool ConditionParser::checkCondition() {
     if (!isValidCondition()) {
         return false;
     }
-    string left = condition.substr(0,condition.find(boolOperator));
+    string left = condition.substr(START_OF_STR ,condition.find(boolOperator));
     string right = condition.substr(condition.find(boolOperator)+boolOperator.size(),condition.size());
 
     Expression* exp1;
@@ -64,7 +64,7 @@ bool ConditionParser::checkCondition() {
         exp1 = new LessThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
     }
-    return (result == 1);
+    return (result == TRUE);
 }
 /*
 ExpressionFactory *ConditionParser::getExpressionFactory() const {
