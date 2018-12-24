@@ -1,4 +1,3 @@
-
 #ifndef PROJECTPART1_OPENSERVERCOMMAND_H
 #define PROJECTPART1_OPENSERVERCOMMAND_H
 
@@ -19,12 +18,15 @@
 #include <iostream>
 #include <pthread.h>
 
+
+
 using namespace std;
 
 struct serverParams {
     SymbolTable* symbolTablePa;
     int portPa;
     int hertzPa;
+    pthread_mutex_t* mutexPa;
 };
 
 
@@ -35,10 +37,12 @@ private:
     int port;
     int hertz;
     static bool shouldStop;
+    pthread_mutex_t* mutex;
+
 
 public:
     OpenServerCommand(){}
-    OpenServerCommand(int prt, int hz, SymbolTable* symTable);
+    OpenServerCommand(int prt, int hz, SymbolTable* symTable, pthread_mutex_t* mutex);
     void updateDataFromClient(const string &str, SymbolTable* symTable);
     //static void runServer(int port, int hz, SymbolTable* symTable);
     //void* runServer(void* arg);
@@ -48,8 +52,5 @@ public:
 
     static bool getShouldStop();
 };
-
-
-
 
 #endif //PROJECTPART1_OPENSERVERCOMMAND_H

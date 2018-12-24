@@ -5,7 +5,7 @@
 #include "VarValue.h"
 VarValue::VarValue() {
     this->value = 0;
-    this->isInitialize = false;
+    this->isInitialize = true;
 }
 VarValue::VarValue(double val) {
     this->value = val;

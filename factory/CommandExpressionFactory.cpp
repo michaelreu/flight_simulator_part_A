@@ -52,7 +52,13 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
     int hertz = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl));
+    if (!check->checkPort(port)){
+        throw "invalid port";
+    }
+    if (!check->checkHertz(hertz)){
+        throw "invalid hertz";
+    }
+    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl, &mutex));
 }
 
 /**
@@ -63,7 +69,13 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     const char* ip = (*(++it)).c_str();
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl));
+    if (!check->checkPort(port)){
+        throw "invalid port";
+    }
+    if (!check->checkIP(ip)){
+        throw  "invalid ip";
+    }
+    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl, &this->mutex));
 }
 
 /**
@@ -73,6 +85,9 @@ Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator
  */
 Expression* CommandExpressionFactory::getDefineVarCommand(vector<string>::iterator &it) {
     string var = (*(++it));
+    if(!check->checkNameOfVar(var)){
+        throw "invalid name";
+    }
     return new ExpressionCommand(new DefineVarCommand(symTbl, var));
 }
 
@@ -152,7 +167,11 @@ Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &
  */
 Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &it) {
     double time = (expressionNumberCreator->createExpression(((++it))))->calculate();
-    return new ExpressionCommand(new SleepCommand(time));
+    if (check->checkTime(time)) {
+        return new ExpressionCommand(new SleepCommand(time));
+    }else{
+        throw "invalid time";
+    }
 }
 
 /**

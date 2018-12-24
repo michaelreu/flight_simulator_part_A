@@ -62,9 +62,7 @@ public:
     double getValueOfVar(const string &key);
     void updateValuesFromClient(vector<double>&vecOfVals);
     string getPathByVar(const string &keyVar);
-    const vector<string> &getChangedArgsVec() const {
-        return changedArgsVec;
-    }
+    vector<string> &getChangedArgsVec();
 
 };
 

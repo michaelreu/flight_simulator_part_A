@@ -28,9 +28,7 @@ using namespace std;
 class CommandExpressionFactory;
 
 class LexerParser {
-    //CommandExpressionFactory commandExpFac;
-    //SymbolTable symTbl;
-    //map<string,CommandExpressionFactory*> mapStrToCommand;
+
     vector<string> vecOfExpressions;
     Utils utils;
     CommandExpressionFactory* commandExpfac;
@@ -44,8 +42,6 @@ public:
     void lexByValue();
     bool charCase(char prev, int i);
     bool parnthesesCase(char prev);
-
-    void checkVarsOfCommand();
 
     ~LexerParser();
 

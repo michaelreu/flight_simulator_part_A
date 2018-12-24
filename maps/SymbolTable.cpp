@@ -30,6 +30,10 @@ void SymbolTable::addValuesToMap(string &key, double value) {
     }
 }
 
+vector<string>& SymbolTable::getChangedArgsVec() {
+    return changedArgsVec;
+}
+
 void SymbolTable::addDestinationToMap(string &key, string &dest) {
     string pathDest = dest;
     // type of x = bind y - means: dest will be y

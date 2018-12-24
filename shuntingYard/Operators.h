@@ -15,13 +15,8 @@ private:
     char operation;
 public:
     Operators(const char op);
-    char getOperation() const;
+    string getNumOrOperationExp();
 
-    virtual string getNumOrOperationExp() {
-        string s;
-        s+=operation;
-        return s;
-    }
 };
 
 

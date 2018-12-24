@@ -35,7 +35,7 @@ bool Utils::isOperator(char c) {
 }
 
 bool Utils::isValidVarChar(char c) {
-    return ((isLetter(c))||(isDigit(c))||(c=='_'));
+    return ((isLetter(c)) || (isDigit(c)) || (c == '_'));
 }
 bool Utils::isStrDouble(const string str) {
     bool hasDot = false;

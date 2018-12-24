@@ -78,7 +78,7 @@ void LexerParser::lexByValue(){
     bool condition = false;
     bool inQuoteFlag = false;
     vector<string> lex;
-    char prev;
+    char prev = '\0';
     string value;
     vector<string>::iterator it = this->vecOfExpressions.begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
@@ -99,7 +99,7 @@ void LexerParser::lexByValue(){
             if(value != "") {
                 lex.push_back(value);
                 value = "";
-                prev = ' ';
+                prev = '\0';
             }
             // reset the flags and continue to next line
             condition = false;

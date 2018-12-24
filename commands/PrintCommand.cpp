@@ -15,7 +15,8 @@ PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
 bool PrintCommand::isInQoutes() {
     // string case
     if ((strToPrint[0] == '\"') && (strToPrint[strToPrint.size()-1] == '\"')) {
-        strToPrint = strToPrint.substr(FIRST,strToPrint.size()-2);
+
+
         return true;
     }
     // var case
@@ -28,7 +29,8 @@ bool PrintCommand::isInQoutes() {
 void PrintCommand::execute() {
     // string case
     if (isInQoutes()) {
-        cout<< strToPrint << endl;
+        string toPrint = strToPrint.substr(FIRST,strToPrint.size()-2);
+        cout<< toPrint << endl;
     // var value case
     } else {
 

@@ -18,10 +18,13 @@
 #include <string.h>
 
 using namespace std;
+
+
 struct clientParams {
     SymbolTable* symbolTablePa;
     const char* ipPa;
     int portPa;
+    pthread_mutex_t* mutexPa;
 };
 class ConnectCommand: public Command {
 private:
@@ -29,13 +32,12 @@ private:
     SymbolTable* symbolTable;
     const char* ip;
     int port;
-    bool validIP();
+    pthread_mutex_t* mutex;
+
 
 public:
     ConnectCommand(){}
-    ConnectCommand(const char* ip, int port, SymbolTable* symTable);
-    //static void runUser(const char* ip, const char* port, SymbolTable* &symTable);
-    //static void runUser(const char* ip, int port, SymbolTable* symTable);
+    ConnectCommand(const char* ip, int port, SymbolTable* symTable, pthread_mutex_t* mutex);
     static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;

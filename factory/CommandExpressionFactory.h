@@ -28,6 +28,7 @@
 #include "../commands/PrintCommand.h"
 #include <map>
 #include "../maps/SymbolTable.h"
+#include "CheckInputs.h"
 
 
 #include <vector>
@@ -43,6 +44,8 @@ private:
     ExpressionFactory* expressionNumberCreator;
     SymbolTable* symTbl;
     map<string, create> mapCreate;
+    CheckInputs* check;
+    pthread_mutex_t mutex;
 
 public:
     CommandExpressionFactory();
