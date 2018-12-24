@@ -17,7 +17,7 @@ public:
 
     virtual double calculate();
 
-    virtual ~Neg() = default;
+    //virtual ~Neg() = default;
 
 };
 

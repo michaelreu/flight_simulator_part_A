@@ -5,6 +5,7 @@
 SymbolTable::SymbolTable() {
     initPathXmlVec();
     this->mutex = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_init(getMutex(),);
 }
 void SymbolTable::initPathXmlVec() {
     xmlPathsVec = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
@@ -25,6 +26,7 @@ void SymbolTable::addValuesToMap(string &key, double value) {
         changedArgsVec.push_back(key);
     }
     pthread_mutex_unlock(getMutex());
+    pthread_mutex_destroy(getMutex());
 }
 
 vector<string>& SymbolTable::getChangedArgsVec() {
@@ -106,5 +108,9 @@ void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
 }
 
 pthread_mutex_t* SymbolTable::getMutex(){
-    return &this->mutex;
+    return (&this->mutex);
+}
+
+SymbolTable::~SymbolTable() {
+    pthread_mutex_destroy(getMutex());
 }

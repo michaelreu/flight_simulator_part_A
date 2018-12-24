@@ -62,6 +62,7 @@ public:
     string getPathByVar(const string &keyVar);
     vector<string> &getChangedArgsVec();
     pthread_mutex_t* getMutex();
+    ~SymbolTable();
 
 
 };

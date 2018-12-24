@@ -21,7 +21,10 @@ public:
 
     Expression* getRightExpression();
 
-    virtual ~BinaryExpression() = default;
+    ~BinaryExpression() {
+        delete(this->left);
+        delete(this->right);
+    };
 
 
 };
