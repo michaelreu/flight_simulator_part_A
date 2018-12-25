@@ -4,12 +4,14 @@
 #define INC_14_12_12_46_SHUNTINGYARDEXPRESSION_H
 
 #include <string>
-
+/*
+ * this class is the class of the stack template for the shunting yard algorithm
+ */
 using namespace std;
 class ShuntingYardExpression {
 
 public:
-    virtual string getNumOrOperationExp()=0;
+    virtual string getNumOrOperationExp() = 0;
 
     virtual ~ShuntingYardExpression() = default;
 };

@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
         OpenServerCommand::stop();
         return 0;
     }
-    catch (const char* e) {
+    catch (char* e) {
         cout<<e<<endl;
         cout<<"That's not supposed to happen !!!!!!!!!!!!"<<endl;
     } catch (string &e) {

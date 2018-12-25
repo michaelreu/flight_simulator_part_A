@@ -8,6 +8,7 @@
 bool Utils::isDigit(const char c) {
     return ((c >= MIN_DIGIT_ASCII) && (c <= MAX_DIGIT_ASCII));
 }
+
 bool Utils::isLetter(char c) {
     return (((c >= CAP_A_CHAR) && (c <= CAP_Z_CHAR)) ||
             ((c >= LOW_A_CHAR) && (c <= LOW_Z_CHAR)) ||
@@ -33,10 +34,19 @@ bool Utils::isShunYardOperation(const char c) {
 bool Utils::isOperator(char c) {
     return (((c >= MULT_CHAR) && (c <= PLUS_CHAR)) || ((c >= MINUS_CHAR) && (c <= DIV_CHAR)));
 }
-
+/**
+ *
+ * @param c
+ * @return true if char is a valid var char (letter, _ , digit)
+ */
 bool Utils::isValidVarChar(char c) {
     return ((isLetter(c)) || (isDigit(c)) || (c == '_'));
 }
+/**
+ *
+ * @param str
+ * @return  true if string is a double form of number
+ */
 bool Utils::isStrDouble(const string str) {
     bool hasDot = false;
     for(const auto* it = str.c_str(); *it; ++it) {
@@ -52,10 +62,14 @@ bool Utils::isStrDouble(const string str) {
     }
     return true;
 }
+
 bool Utils::isBooleanOperator(char c) {
     return ((c==NOT_CHAR)||(c==GREATER_CHAR)||(c==LESS_CHAR));
 }
-
+/**
+ * @param condition
+ * @return  the string of the operation, can be: ==,!=,<=,>=,<,>
+ */
 string Utils::getStringOfOperation(string &condition) {
     string con = condition , boolExpOperator;
     int boolExpNum = 0, diffOfParents = 0;

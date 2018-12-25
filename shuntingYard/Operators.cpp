@@ -2,9 +2,9 @@
 Operators::Operators(const char op) {
     this->operation = op;
 }
-char Operators::getOperation() const {
-    return this->operation;
-}
+/*
+ * the string of the operation
+ */
 string Operators::getNumOrOperationExp() {
     string s;
     s+=operation;

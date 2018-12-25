@@ -42,7 +42,6 @@ public:
     bool isOperator(char c);
     bool isValidVarChar(char c);
     bool isBooleanOperator (char c);
-    int findBoolExpression(string &condition);
     string getStringOfOperation(string &condition);
 };
 

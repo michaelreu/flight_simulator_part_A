@@ -214,12 +214,16 @@ Expression* ExpressionFactory::finalExpression() {
     freeVectorOfMainStack();
     return exp;
 }
-
+/*
+ * create expression
+ */
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
     this->expressionStr = (*it);
     return finalExpression();
 }
-
+/*
+ * create expression
+ */
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
     return finalExpression();
