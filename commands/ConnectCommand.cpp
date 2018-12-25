@@ -52,14 +52,13 @@ void* runClient(void *arg) {
     cout<<"connected"<<endl;
     //&&(!ConnectCommand::getShouldStop())
 
-    while (!cnct.getShouldStop()) {
+    while (*clientPar->isRun) {
     //while(true) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
         pthread_mutex_lock(clientPar->mutex);
-        vector<string> changedArgs = (clientPar->symbolTablePa)->getChangedArgsVec();
-        for(string var : changedArgs) {
+        for(string var : (clientPar->symbolTablePa)->getChangedArgsVec()) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
                 tempPath = tempPath.substr(START_OF_STRING,tempPath.size()-END_OF_STRING);
@@ -94,7 +93,7 @@ void ConnectCommand::execute(){
     clParams->clientSocket = this->threadsParam->sockfdConnect;
     clParams->isRun = &this->threadsParam->clientThreadIsRun;
     clParams->mutex = this->threadsParam->mutex;
-    this->threadsParam->serverThreadIsRun = true;
+    this->threadsParam->clientThreadIsRun = true;
     pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
 }
 

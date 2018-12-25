@@ -11,7 +11,6 @@ OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable, thr
 }
 
 void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* symbolTable){
-    cout << "in the function update" << endl;
     Utils utils;
     stringstream valuesStream(str);
     vector<double>valuesVector;
@@ -35,7 +34,7 @@ void* runServer(void *arg) {
         perror("ERROR on accept");
         exit(1);
     }
-    while (!ops.getShouldStop()) {
+    while (*serverPar->isRun) {
         bzero(buffer,BUFF_SIZE);
         int i = 0, n = 0;
         char lastDigit = '\0';
@@ -55,7 +54,7 @@ void* runServer(void *arg) {
         } catch (exception &exception) {
             cout<<"ERROR: couldn't update data"<<endl;
         }
-        sleep((unsigned int)10);
+        sleep((unsigned int)1/2);
         //sleep((unsigned int)1/serverPar->hertzPa);
     }
 
@@ -104,15 +103,8 @@ void OpenServerCommand::execute(){
     params->newsockfd = newsockfd;
     params->sockfd = this->threadsParam->sockfdServer;
     params->isRun = &this->threadsParam->serverThreadIsRun;
+    params->clientIsRun = &this->threadsParam->clientThreadIsRun;
 
     this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
-}
-
-void OpenServerCommand::stop() {
-    shouldStop = true;
-}
-
-bool OpenServerCommand::getShouldStop() {
-    return shouldStop;
 }
