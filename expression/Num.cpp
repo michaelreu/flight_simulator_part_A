@@ -24,6 +24,4 @@ double Num::calculate() {
     return getNum();
 }
 
-string Num::getNumOrOperationExp() {
-    return  to_string(this->num);
-}
+

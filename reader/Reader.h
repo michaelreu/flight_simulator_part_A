@@ -17,9 +17,6 @@
 using namespace std;
 
 class Reader  {
-
-
-
 public:
     Reader() = default;
     bool readCommandsFromFile(string fileName, LexerParser* interpreter);

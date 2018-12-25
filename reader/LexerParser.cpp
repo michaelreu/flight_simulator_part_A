@@ -232,7 +232,7 @@ void LexerParser::parser(vector<string>* vecOfExpressions) {
         // calculate it
         tempExp->calculate();
         //if it's exit
-        delete (tempExp);
+        //delete (tempExp);
     }
     this->vecOfExpressions.clear();
 }

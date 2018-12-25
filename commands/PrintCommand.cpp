@@ -31,7 +31,6 @@ void PrintCommand::execute() {
         cout<< toPrint << endl;
     // var value case
     } else {
-
         cout << (expFactory->createExpression(strToPrint))->calculate() << endl;
     }
 }

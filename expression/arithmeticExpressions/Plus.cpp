@@ -14,5 +14,3 @@ Plus::Plus(Expression* leftEx, double rightNum):BinaryExpression(leftEx,new Num(
 double Plus::calculate() {
     return (getLeftExpression()->calculate() + getRightExpression()->calculate());
 }
-
-

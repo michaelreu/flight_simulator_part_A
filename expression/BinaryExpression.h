@@ -15,7 +15,7 @@ private:
 public:
     BinaryExpression(Expression* leftEx, Expression* rightEx);
 
-    virtual double calculate()=0;
+    virtual double calculate() = 0;
 
     Expression* getLeftExpression();
 

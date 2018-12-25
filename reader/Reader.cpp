@@ -1,7 +1,6 @@
 
 #include "Reader.h"
 
-
 bool Reader::readCommandsFromFile(string fileName, LexerParser *interpreter){
     string command;
     vector<string> *lexerFile;

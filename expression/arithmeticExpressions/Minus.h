@@ -21,10 +21,6 @@ public:
 
     virtual double calculate();
 
-    //virtual ~Minus() = default;
-
 };
-
-
 
 #endif //SEMPROJECT_MINUS_H

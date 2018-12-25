@@ -6,16 +6,15 @@
 #define FALSE 0
 
 #include <cstdlib>
+#include <string>
 
+using namespace std;
 class Expression {
-
 public:
     virtual double calculate() = 0;
+
     virtual ~Expression() = default;
 };
 
-//class BinaryExpression {
-//
-//};
 
 #endif //SEMPROJECT_EXPRESSION_H

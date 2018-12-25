@@ -13,7 +13,7 @@ class ShuntingYardExpression;
 
 
 //no death diamond
-class Num : public Expression, public ShuntingYardExpression {
+class Num : public Expression { //, public ShuntingYardExpression {
 private:
     double num;
 
@@ -30,9 +30,7 @@ public:
 
     virtual double calculate();
 
-    virtual string getNumOrOperationExp();
-
-    //virtual ~Num() = default;
+    virtual ~Num() = default;
 
 };
 

@@ -21,7 +21,6 @@ public:
 
     virtual double calculate();
 
-    //virtual ~Div() = default;
 
 };
 

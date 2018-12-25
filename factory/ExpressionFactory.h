@@ -23,7 +23,6 @@
 #include "../expression/arithmeticExpressions/Div.h"
 #include "../expression/Num.h"
 #include "../shuntingYard/Operators.h"
-#include "../shuntingYard/ShuntingYardExpression.h"
 #include "../Utils.h"
 #include "../maps/SymbolTable.h"
 
@@ -35,15 +34,18 @@ private:
     Utils utils;
     SymbolTable* symbolTable;
     stack<ShuntingYardExpression*> mainStack;
+    //stack<Expression*> mainStack;
     stack<char> operationsStack;
-    vector<ShuntingYardExpression*>saveToFree;
-    vector<Expression*>expToFree;
+    vector<ShuntingYardExpression*>vecOfShuntToFree;
+    vector<Expression*>expressToFree;
+
     string expressionStr;
     bool numBeforeMe;
     bool varDigit;
 
     //private functions
     stack<ShuntingYardExpression*> &getMainStack();
+    //stack<Expression*> &getMainStack();
     stack<char> &getOperationsStack();
     // getters
     const string &getStrOfExpression() const;
@@ -63,6 +65,7 @@ public:
     ExpressionFactory(SymbolTable* &symbolTable);
     virtual Expression* createExpression(vector<string>::iterator &it);
     virtual Expression* createExpression(const string &strToExp);
+    vector<Expression *> &getExpressToFree();
     ~ExpressionFactory();
 };
 

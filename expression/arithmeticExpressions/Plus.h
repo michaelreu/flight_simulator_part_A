@@ -20,9 +20,6 @@ public:
     Plus(double leftNum, double rightNum);
 
     virtual double calculate();
-
-    //virtual ~Plus() = default ;
-
 };
 
 

@@ -1,4 +1,5 @@
 #include "ExpressionFactory.h"
+#include "../shuntingYard/ShuntingNum.h"
 
 /*
  * Ctor
@@ -15,6 +16,10 @@ ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
 const string& ExpressionFactory::getStrOfExpression() const {
     return this->expressionStr;
 }
+vector<Expression *>& ExpressionFactory::getExpressToFree() {
+    return expressToFree;
+}
+
 /*
  * getter
  */
@@ -43,7 +48,6 @@ bool ExpressionFactory::operationsPrecedence(const char c) {
  *
  */
 void ExpressionFactory::popOperatorFromStackToMainStack() {
-    //
     while ((!getOperationsStack().empty()) && (getOperationsStack().top() != PARENTHESES_OPEN_CHAR)) {
         (getMainStack()).push(new Operators(getOperationsStack().top()));
         //pop the top of the stack
@@ -69,19 +73,28 @@ void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
  * the negative expression becomes to be minus: adding 0 before
  */
 void ExpressionFactory::addMinusExpressionToMainStack(double valOfVar) {
+    ShuntingYardExpression* shExp;
     if (valOfVar < ZERO) {
         valOfVar = -1 * valOfVar;
-        getMainStack().push(new Num(ZERO));
-        getMainStack().push(new Num(valOfVar));
+        shExp = new ShuntingNum(ZERO);
+        getMainStack().push(shExp);
+        vecOfShuntToFree.push_back(shExp);
+        shExp = new ShuntingNum(valOfVar);
+        getMainStack().push(shExp);
+        vecOfShuntToFree.push_back(shExp);
+        //shExp = MINUS_CHAR;
         getOperationsStack().push(MINUS_CHAR);
     } else {
-        getMainStack().push(new Num(valOfVar));
+        shExp = new ShuntingNum(valOfVar);
+        getMainStack().push(shExp);
+        vecOfShuntToFree.push_back(shExp);
     }
 }
 /*
  * inserting the numbers to the stack by the order of the expression
  */
 void ExpressionFactory::insertByOrderToStack() {
+    ShuntingYardExpression* shExp;
     string str = getStrOfExpression();
     string tempVar="";
     this->varDigit = false;
@@ -98,7 +111,9 @@ void ExpressionFactory::insertByOrderToStack() {
             if (!utils.isStrDouble(numStr)) {
                 throw DOUBLE_STRING_ERROR;
             }
-            getMainStack().push(new Num(stod (numStr)));
+            shExp = new ShuntingNum(stod (numStr));
+            getMainStack().push(shExp);
+            vecOfShuntToFree.push_back(shExp);
             --it;
             this->numBeforeMe = true;
         } else if (utils.isShunYardOperation(*it)) {
@@ -113,7 +128,7 @@ void ExpressionFactory::insertByOrderToStack() {
                 case MINUS_CHAR:
                     this->varDigit = false;
                     if (!this->numBeforeMe) {
-                        getMainStack().push(new Num(ZERO));
+                        getMainStack().push(new ShuntingNum(ZERO));
                         getOperationsStack().push(*it);
                         break;
                     }
@@ -164,13 +179,13 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
     while (!(getMainStack()).empty()) {
         //each one of the ShuntingYardExpression* goes to the vector, then the vector frees
         ShuntingYardExpression* shuntingYardExpression = getMainStack().top();
-        saveToFree.push_back(shuntingYardExpression);
         getMainStack().pop();
         //if expression is operator
         string tempStr = shuntingYardExpression->getNumOrOperationExp();
         //delete(shuntingYardExpression);
         const auto it = tempStr.c_str();
         if (utils.isShunYardOperation(*it)) {
+            vecOfShuntToFree.push_back(shuntingYardExpression);
             Expression* rightExpression = generateExpressionOfStack();
             Expression* leftExpression = generateExpressionOfStack();
             switch (tempStr[ZERO]) {
@@ -191,7 +206,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             }
         } else if (utils.isStrDouble(tempStr)) {
             Expression* num = new Num(stod(tempStr));
-            expToFree.push_back(num);
+            expressToFree.push_back(num);
             return num;
         } else {
             throw ERR_GEN_EXP;
@@ -202,10 +217,10 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
  * freeing the allocated memory of the ShuntingYardExpression* objects
  */
 void ExpressionFactory::freeVectorOfMainStack() {
-    for (ShuntingYardExpression* objToFree : this->saveToFree) {
-        delete(objToFree);
+    for (ShuntingYardExpression* shToBeFree : this->vecOfShuntToFree) {
+        delete(shToBeFree);
     }
-    this->saveToFree.clear();
+    this->vecOfShuntToFree.clear();
 }
 /*
  * create the final expression to be return
@@ -235,5 +250,11 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
  */
 ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
+    vector<Expression*> vecOfExp = getExpressToFree();
+
+    for (Expression* expression : vecOfExp) {
+        delete (expression);
+
+    }
     delete(this->symbolTable);
 }

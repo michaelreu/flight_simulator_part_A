@@ -14,3 +14,4 @@ Expression* BinaryExpression::getLeftExpression() {
 Expression* BinaryExpression::getRightExpression() {
     return this->right;
 }
+
