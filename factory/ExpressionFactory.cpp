@@ -1,25 +1,35 @@
 #include "ExpressionFactory.h"
 
-
+/*
+ * Ctor
+ */
 ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
     this->symbolTable = symTbl;
     this->numBeforeMe = false;
     this->varDigit = false;
 }
 
-
+/*
+ * getter
+ */
 const string& ExpressionFactory::getStrOfExpression() const {
     return this->expressionStr;
 }
-
+/*
+ * getter
+ */
 stack<char>& ExpressionFactory::getOperationsStack() {
     return this->operationsStack;
 }
-
+/*
+ * getter
+ */
 stack<ShuntingYardExpression*>& ExpressionFactory::getMainStack() {
     return this->mainStack;
 }
-
+/*
+ * if the operation has precedence it pops all the operation with lower precedence
+ */
 bool ExpressionFactory::operationsPrecedence(const char c) {
     if ((getOperationsStack().top() == MINUS_CHAR) && (c==PLUS_CHAR)) {
         return true;
@@ -29,6 +39,9 @@ bool ExpressionFactory::operationsPrecedence(const char c) {
     }
     return false;
 }
+/*
+ *
+ */
 void ExpressionFactory::popOperatorFromStackToMainStack() {
     //
     while ((!getOperationsStack().empty()) && (getOperationsStack().top() != PARENTHESES_OPEN_CHAR)) {
@@ -37,29 +50,37 @@ void ExpressionFactory::popOperatorFromStackToMainStack() {
         getOperationsStack().pop();
     }
 }
-
+/*
+ * in parentheses there is a precedence
+ */
 void ExpressionFactory::popOperatorsInParenthesesToMainStack() {
     getMainStack().push(new Operators(getOperationsStack().top()));
     getOperationsStack().pop();
 }
-
+/*
+ * all the rest of the operation will be poped to the stack
+ */
 void ExpressionFactory::addRestOfOperatorsToDigitsStack() {
     while (!getOperationsStack().empty()) {
         popOperatorFromStackToMainStack();
     }
 }
-
+/*
+ * the negative expression becomes to be minus: adding 0 before
+ */
 void ExpressionFactory::addMinusExpressionToMainStack(double valOfVar) {
-    if (valOfVar < 0) {
+    if (valOfVar < ZERO) {
         valOfVar = -1 * valOfVar;
-        getMainStack().push(new Num(0));
+        getMainStack().push(new Num(ZERO));
         getMainStack().push(new Num(valOfVar));
         getOperationsStack().push(MINUS_CHAR);
     } else {
         getMainStack().push(new Num(valOfVar));
     }
 }
-
+/*
+ * inserting the numbers to the stack by the order of the expression
+ */
 void ExpressionFactory::insertByOrderToStack() {
     string str = getStrOfExpression();
     string tempVar="";
@@ -127,7 +148,6 @@ void ExpressionFactory::insertByOrderToStack() {
         } else {
             throw INVALID_EXPRESSION_STRING;
         }
-        //this->varDigit = false;
     }
     if (symbolTable->isVarInValueMap(tempVar)) {
         double valOfVar = symbolTable->getValueOfVar(tempVar);
@@ -137,7 +157,9 @@ void ExpressionFactory::insertByOrderToStack() {
     addRestOfOperatorsToDigitsStack();
 }
 
-
+/*
+ * creating an expression with recursion
+ */
 Expression* ExpressionFactory::generateExpressionOfStack() {
     while (!(getMainStack()).empty()) {
         //each one of the ShuntingYardExpression* goes to the vector, then the vector frees
@@ -173,22 +195,26 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             throw ERR_GEN_EXP;
         }
     }
-
-    //return new Num(0);
 }
+/*
+ * freeing the allocated memory of the ShuntingYardExpression* objects
+ */
 void ExpressionFactory::freeVectorOfMainStack() {
     for (ShuntingYardExpression* objToFree : this->saveToFree) {
         delete(objToFree);
     }
     this->saveToFree.clear();
 }
-
+/*
+ * create the final expression to be return
+ */
 Expression* ExpressionFactory::finalExpression() {
     insertByOrderToStack();
     Expression* exp = generateExpressionOfStack();
     freeVectorOfMainStack();
     return exp;
 }
+
 Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
     this->expressionStr = (*it);
     return finalExpression();
@@ -198,6 +224,9 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
     return finalExpression();
 }
+/*
+ * Dtor
+ */
 ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
     delete(this->symbolTable);

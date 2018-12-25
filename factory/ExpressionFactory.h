@@ -12,6 +12,7 @@
 #define PARENTHESES_CLOSE_CHAR ')'
 #define ZERO_CHAR '0'
 #define SPACE_CHAR ' '
+#define ZERO 0
 #include <stack>
 #include <vector>
 
