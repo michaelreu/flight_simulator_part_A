@@ -190,7 +190,9 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
                     break;
             }
         } else if (utils.isStrDouble(tempStr)) {
-            return new Num(stod(tempStr));
+            Expression* num = new Num(stod(tempStr));
+            expToFree.push_back(num);
+            return num;
         } else {
             throw ERR_GEN_EXP;
         }

@@ -38,6 +38,7 @@ private:
     stack<ShuntingYardExpression*> mainStack;
     stack<char> operationsStack;
     vector<ShuntingYardExpression*>saveToFree;
+    vector<Expression*>expToFree;
     string expressionStr;
     bool numBeforeMe;
     bool varDigit;
