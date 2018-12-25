@@ -3,10 +3,11 @@
 bool OpenServerCommand::shouldStop = false;
 
 
-OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable) {
+OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable, threadParams *threadsParam) {
     this->symbolTable = symTable;
     this->port = prt;
     this->hertz = hz;
+    this->threadsParam = threadsParam;
 }
 
 void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* symbolTable){
@@ -63,15 +64,14 @@ void* runServer(void *arg) {
 }
 
 void OpenServerCommand::execute(){
-
-    int sockfd, newsockfd, clilen;
+    int newsockfd, clilen;
     struct sockaddr_in serverAddress, clientAddress;
     int  n;
     string tempStr;
     //***************************setup starts here***********************************
     // First call to socket() function
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
+    this->threadsParam->sockfdServer = socket(AF_INET, SOCK_STREAM, 0);
+    if ( this->threadsParam->sockfdServer < 0) {
         perror("ERROR opening socket");
         exit(1);
     }
@@ -83,18 +83,18 @@ void OpenServerCommand::execute(){
     serverAddress.sin_port = htons(this->port);
 
     // Now bind the host address using bind() call.
-    if (bind(sockfd, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+    if (bind(this->threadsParam->sockfdServer, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
         perror("ERROR on binding");
         exit(1);
     }
     /* Now start listening for the clients, here process will
     go in sleep mode and will wait for the incoming connection */
 
-    listen(sockfd, 5);
+    listen(this->threadsParam->sockfdServer, BACKLOG);
     //***************************setup ends here***********************************
     clilen = sizeof(clientAddress);
     // Accept actual connection from the client
-    newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
+    newsockfd = accept(this->threadsParam->sockfdServer, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
     cout << "accepted!!!!!!!!!!!!!" << endl;
 
     //thread serverFlightSimulator(runServer, port, hertz, symbolTable);
@@ -103,10 +103,11 @@ void OpenServerCommand::execute(){
     params->portPa = this->port;
     params->hertzPa = this->hertz;
     params->newsockfd = newsockfd;
-    params->sockfd = sockfd;
+    params->sockfd = this->threadsParam->sockfdServer;
 
-    pthread_t serverFlightSimulator;
-    pthread_create(&serverFlightSimulator, nullptr, runServer, params);
+    this->threadsParam->serverSucketIsRun = true;
+    pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
+    this->threadsParam->serverSucketIsRun = false;
 }
 
 void OpenServerCommand::stop() {

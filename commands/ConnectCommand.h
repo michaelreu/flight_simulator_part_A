@@ -29,6 +29,7 @@ struct clientParams {
     SymbolTable* symbolTablePa;
     const char* ipPa;
     int portPa;
+    int clientSocket;
 };
 class ConnectCommand: public Command {
 private:
@@ -36,11 +37,12 @@ private:
     SymbolTable* symbolTable;
     const char* ip;
     int port;
+    threadParams *threadsParam;
 
 
 public:
     ConnectCommand(){}
-    ConnectCommand(const char* ip, int port, SymbolTable* &symTable);
+    ConnectCommand(const char* ip, int port, SymbolTable* &symTable, threadParams *threadsParam);
     static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;

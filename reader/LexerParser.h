@@ -10,6 +10,8 @@
 #define LEFT_CURLY_PARENT_CHAR 123
 #define RIGHT_CURLY_PARENT_CHAR '}'
 #define EQUAL '='
+#define IF_STR "if"
+#define WHILE_STR "while"
 
 #include <vector>
 #include <string.h>
@@ -22,7 +24,7 @@
 
 #include "../expression/Expression.h"
 #include "../factory/CommandExpressionFactory.h"
-#include "../maps/SymbolTable.h"
+#include "../Utils.h"
 
 using namespace std;
 class CommandExpressionFactory;

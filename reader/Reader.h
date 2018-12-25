@@ -16,17 +16,6 @@
 
 using namespace std;
 
-
-struct threadParams {
-    pthread_t* thread;
-    pthread_mutex_t* lock;
-    int hertz;
-    int sockfdConnect;
-    int sockfdServer;
-    int newsockfd;
-};
-typedef struct threadParams threadParams;
-
 class Reader  {
 
 

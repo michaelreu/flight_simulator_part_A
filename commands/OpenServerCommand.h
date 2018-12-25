@@ -3,12 +3,13 @@
 
 
 #define BUFF_SIZE 256
+#define BACKLOG 5
 
 #include "Command.h"
+#include "../Utils.h"
 #include <vector>
 #include <string.h>
 #include <sstream>
-#include "../factory/ExpressionFactory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
@@ -39,11 +40,12 @@ private:
     int port;
     int hertz;
     static bool shouldStop;
+    threadParams *threadsParam;
 
 
 public:
     OpenServerCommand(){}
-    OpenServerCommand(int prt, int hz, SymbolTable* symTable);
+    OpenServerCommand(int prt, int hz, SymbolTable* symTable, threadParams *threadsParam);
     void updateDataFromClient(const string &str, SymbolTable* symTable);
     //static void runServer(int port, int hz, SymbolTable* symTable);
     //void* runServer(void* arg);

@@ -5,8 +5,8 @@ using namespace std;
 
 
 LexerParser::LexerParser (threadParams *threadsParam){
-    this->commandExpfac = new CommandExpressionFactory();
     this->threadsParam = threadsParam;
+    this->commandExpfac = new CommandExpressionFactory(threadsParam);
 }
 
 const vector<string> &LexerParser::getVecOfExpressions() const {

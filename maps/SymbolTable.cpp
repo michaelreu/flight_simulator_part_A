@@ -2,10 +2,10 @@
 
 
 
-SymbolTable::SymbolTable() {
+SymbolTable::SymbolTable(threadParams *threadsParam) {
     initPathXmlVec();
     this->mutex = PTHREAD_MUTEX_INITIALIZER;
-    //pthread_mutex_init(getMutex(),);
+    this->threadsParam = threadsParam;
 }
 
 void SymbolTable::initPathXmlVec() {

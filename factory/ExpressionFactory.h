@@ -13,11 +13,10 @@
 #define ZERO_CHAR '0'
 #define SPACE_CHAR ' '
 #define ZERO 0
+
 #include <stack>
 #include <vector>
-
 #include "../expression/Expression.h"
-#include "../expression/Num.h"
 #include "../expression/arithmeticExpressions/Plus.h"
 #include "../expression/arithmeticExpressions/Minus.h"
 #include "../expression/arithmeticExpressions/Mult.h"

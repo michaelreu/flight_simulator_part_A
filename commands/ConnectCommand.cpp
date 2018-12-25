@@ -6,11 +6,12 @@
 
 bool ConnectCommand::shouldStop = false;
 
-ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable){
+ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable, threadParams *threadsParam){
     this->symbolTable = symTable;
     this->ip = ip;
     this->port = port;
     shouldStop = false;
+    this->threadsParam = threadsParam;
 }
 
 
@@ -19,7 +20,7 @@ void* runClient(void *arg) {
     ConnectCommand cnct = ConnectCommand();
     struct clientParams* clientPar = (struct clientParams*) arg;
     double valueOfVar;
-    int sockfd, n;
+    int n;
     struct sockaddr_in serverAddress;
     struct hostent *server;
     string tempPath, messageOfSet = "hi";
@@ -27,9 +28,9 @@ void* runClient(void *arg) {
     //char buffer[256];
     const char* buffer;
     /* Create a socket point */
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    clientPar->clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (sockfd < 0) {
+    if (clientPar->clientSocket < 0) {
         perror("ERROR opening socket");
         exit(1);
     }
@@ -47,7 +48,7 @@ void* runClient(void *arg) {
     serverAddress.sin_port = htons(clientPar->portPa);
 
     /* Now connect to the server */
-    while ((connect(sockfd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)){}
+    while ((connect(clientPar->clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)){}
     cout<<"connected"<<endl;
     //&&(!ConnectCommand::getShouldStop())
 
@@ -66,7 +67,7 @@ void* runClient(void *arg) {
                 messageOfSet = SET + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";
                 buffer = messageOfSet.c_str();
-                n = write(sockfd, buffer, strlen(buffer));
+                n = write(clientPar->clientSocket, buffer, strlen(buffer));
 
             }
         }
@@ -80,7 +81,7 @@ void* runClient(void *arg) {
         sleep((unsigned int)SEEP_TIME);
         //this_thread::sleep_for(chrono::milliseconds(300));
     }
-    close(sockfd);
+    close(clientPar->clientSocket);
     delete(clientPar);
 }
 
@@ -89,9 +90,10 @@ void ConnectCommand::execute(){
     clParams->symbolTablePa = this->symbolTable;
     clParams->portPa = this->port;
     clParams->ipPa = this->ip;
-    pthread_t clientFlightSimulator;
-    pthread_create(&clientFlightSimulator, nullptr, runClient, clParams);
-    //no need to delete clParams it has been deleted above
+    clParams->clientSocket = this->threadsParam->sockfdConnect;
+    this->threadsParam->serverSucketIsRun = true;
+    pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
+    this->threadsParam->serverSucketIsRun = false;
 }
 
 void ConnectCommand::stop() {

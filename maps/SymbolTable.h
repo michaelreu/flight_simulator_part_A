@@ -27,10 +27,14 @@
 #define FLAPS "/controls/flight/flaps"
 #define THROTTLE "/controls/engines/current-engine/throttle"
 #define RPM "/engines/engine/rpm"
+
+
 #include <string>
 #include <map>
 #include <vector>
 #include <algorithm>
+#include "../Utils.h"
+
 
 using namespace std;
 class SymbolTable {
@@ -47,9 +51,10 @@ private:
 
     vector<string> xmlPathsVec;
     pthread_mutex_t mutex;
+    threadParams *threadsParam;
 
 public:
-    SymbolTable ();
+    SymbolTable (threadParams *threadsParam);
     void initPathXmlVec();
     void initVar(const string &key);
     void addValuesToMap(string &key, double value);

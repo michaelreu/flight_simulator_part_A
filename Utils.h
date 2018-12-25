@@ -18,7 +18,6 @@
 #define GREATER_CHAR '>'
 #define LESS_CHAR '<'
 #define NOT_CHAR '!'
-
 #define UNDER_SCR_CHAR 95
 #define LOW_Z_CHAR 122
 #define LOW_A_CHAR 97
@@ -31,6 +30,17 @@
 #define COMMA_CHAR ','
 
 using namespace std;
+
+struct threadParams {
+    pthread_t* serverThread;
+    pthread_t* clientThread;
+    pthread_mutex_t* lock;
+    int sockfdConnect;
+    int sockfdServer;
+    bool serverSucketIsRun;
+    bool clientSucketIsRun;
+};
+typedef struct threadParams threadParams;
 
 class Utils {
 public:

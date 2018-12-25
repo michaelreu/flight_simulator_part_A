@@ -47,9 +47,10 @@ private:
     SymbolTable* symTbl;
     map<string, create> mapCreate;
     CheckInputs* check;
+    threadParams *threadsParam;
 
 public:
-    CommandExpressionFactory();
+    CommandExpressionFactory(threadParams *threadsParam);
     virtual Expression* createExpression(vector<string>::iterator &it);
     void initMapOfStrToFunctionsAddress();
     Expression* getOpenServerCommand(vector<string>::iterator &it);

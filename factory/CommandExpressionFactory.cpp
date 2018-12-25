@@ -4,8 +4,9 @@
 /**
  * constructor
  */
-CommandExpressionFactory::CommandExpressionFactory() {
-    this->symTbl = new SymbolTable();
+CommandExpressionFactory::CommandExpressionFactory(threadParams *threadsParam) {
+    this->threadsParam = threadsParam;
+    this->symTbl = new SymbolTable(threadsParam);
     this->expressionNumberCreator = new ExpressionFactory(symTbl);
     initMapOfStrToFunctionsAddress();
 }
@@ -58,7 +59,7 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
     if (!check->checkHertz(hertz)){
         throw "invalid hertz";
     }
-    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl));
+    return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl, this->threadsParam));
 }
 
 /**
@@ -75,7 +76,7 @@ Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator
     if (!check->checkIP(ip)){
         throw  "invalid ip";
     }
-    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl));
+    return new ExpressionCommand(new ConnectCommand(ip,port, symTbl, this->threadsParam));
 }
 
 /**
