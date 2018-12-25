@@ -4,7 +4,6 @@
 
 #define START_OF_STRING 2
 #define END_OF_STRING 3
-#define SEEP_TIME (1/4)
 #define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 #define SET "set "
 
@@ -35,7 +34,6 @@ struct clientParams {
 };
 class ConnectCommand: public Command {
 private:
-    static bool shouldStop;
     SymbolTable* symbolTable;
     const char* ip;
     int port;
@@ -45,13 +43,8 @@ private:
 public:
     ConnectCommand(){}
     ConnectCommand(const char* ip, int port, SymbolTable* &symTable, threadParams *threadsParam);
-    static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;
-
-    static bool getShouldStop();
-
-
 };
 
 

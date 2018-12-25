@@ -7,7 +7,9 @@
 
 #include "../expression/Expression.h"
 #include "../maps/SymbolTable.h"
-
+#include <chrono>
+#include <thread>
+#define SLEEP_TIME 500
 
 class Command {
 public:

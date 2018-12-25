@@ -28,7 +28,6 @@
 #define THROTTLE "/controls/engines/current-engine/throttle"
 #define RPM "/engines/engine/rpm"
 
-
 #include <string>
 #include <map>
 #include <vector>

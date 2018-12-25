@@ -20,8 +20,6 @@
 #include <iostream>
 #include <pthread.h>
 
-
-
 using namespace std;
 
 struct serverParams {
@@ -51,7 +49,6 @@ public:
     void updateDataFromClient(const string &str, SymbolTable* symTable);
     virtual void execute();
     virtual ~OpenServerCommand() = default;
-
 };
 
 #endif //PROJECTPART1_OPENSERVERCOMMAND_H

@@ -1,7 +1,5 @@
 #include "OpenServerCommand.h"
 //this class gets from the client(flightSimulator) 23 doubles seperated by comma
-bool OpenServerCommand::shouldStop = false;
-
 
 OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable, threadParams *threadsParam) {
     this->symbolTable = symTable;
@@ -54,7 +52,7 @@ void* runServer(void *arg) {
         } catch (exception &exception) {
             cout<<"ERROR: couldn't update data"<<endl;
         }
-        sleep((unsigned int)1/2);
+        this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
         //sleep((unsigned int)1/serverPar->hertzPa);
     }
 
@@ -104,7 +102,6 @@ void OpenServerCommand::execute(){
     params->sockfd = this->threadsParam->sockfdServer;
     params->isRun = &this->threadsParam->serverThreadIsRun;
     params->clientIsRun = &this->threadsParam->clientThreadIsRun;
-
     this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
 }

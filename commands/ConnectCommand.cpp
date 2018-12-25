@@ -2,18 +2,12 @@
 
 #include "ConnectCommand.h"
 
-
-
-bool ConnectCommand::shouldStop = false;
-
 ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable, threadParams *threadsParam){
     this->symbolTable = symTable;
     this->ip = ip;
     this->port = port;
-    shouldStop = false;
     this->threadsParam = threadsParam;
 }
-
 
 void* runClient(void *arg) {
     cout << "in the runClien func" << endl;
@@ -50,7 +44,6 @@ void* runClient(void *arg) {
     /* Now connect to the server */
     while ((connect(clientPar->clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)){}
     cout<<"connected"<<endl;
-    //&&(!ConnectCommand::getShouldStop())
 
     while (*clientPar->isRun) {
     //while(true) {
@@ -77,7 +70,7 @@ void* runClient(void *arg) {
             perror("ERROR writing to socket");
             exit(1);
         }
-        sleep((unsigned int)SEEP_TIME);
+        this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
         //this_thread::sleep_for(chrono::milliseconds(300));
     }
     close(clientPar->clientSocket);
@@ -97,10 +90,3 @@ void ConnectCommand::execute(){
     pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
 }
 
-void ConnectCommand::stop() {
-    shouldStop = true;
-}
-
-bool ConnectCommand::getShouldStop() {
-    return shouldStop;
-}
