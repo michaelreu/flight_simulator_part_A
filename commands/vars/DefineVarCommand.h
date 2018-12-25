@@ -17,7 +17,7 @@ private:
 public:
     DefineVarCommand(SymbolTable* &symTable, const string &key);
     virtual void execute();
+    virtual ~DefineVarCommand() = default;
 };
-
 
 #endif //INC_14_12_12_46_DEFINEVARCOMMAND_H

@@ -206,7 +206,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             }
         } else if (utils.isStrDouble(tempStr)) {
             Expression* num = new Num(stod(tempStr));
-            //expressToFree.push_back(num);
+            expressToFree.push_back(num);
             return num;
         } else {
             throw ERR_GEN_EXP;
@@ -219,8 +219,6 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
 void ExpressionFactory::freeVectorOfMainStack() {
     for (ShuntingYardExpression* shToBeFree : this->vecOfShuntToFree) {
         delete(shToBeFree);
-        cout<<k<<endl;
-        ++k;
     }
     this->vecOfShuntToFree.clear();
 }
@@ -263,8 +261,8 @@ Expression* ExpressionFactory::createExpression(const string &strToExp) {
 ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
     this->expressToFree.clear();
-    //for (Expression* expression : this->expressToFree) {
-        //delete (expression);
-    //}
+    for (Expression* expression : this->expressToFree) {
+        delete (expression);
+    }
     delete(this->symbolTable);
 }

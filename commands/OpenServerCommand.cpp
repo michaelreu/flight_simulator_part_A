@@ -97,7 +97,6 @@ void OpenServerCommand::execute(){
     newsockfd = accept(this->threadsParam->sockfdServer, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
     cout << "accepted!!!!!!!!!!!!!" << endl;
 
-    //thread serverFlightSimulator(runServer, port, hertz, symbolTable);
     struct serverParams* params = new serverParams();
     params->symbolTablePa = this->symbolTable;
     params->portPa = this->port;

@@ -224,15 +224,19 @@ vector<string>* LexerParser::lexerCommand(const string &command) {
 }
 
 void LexerParser::parser(vector<string>* vecOfExpressions) {
+    Expression *tempExp = NULL;
     vector<string>::iterator it = vecOfExpressions->begin();
     // run on all commands
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         // create new expression
-        Expression* tempExp = (this->commandExpfac)->createExpression(it);
+        tempExp = (this->commandExpfac)->createExpression(it);
         // calculate it
-        tempExp->calculate();
-        //if it's exit
-        delete (tempExp);
+        if(tempExp) {
+            tempExp->calculate();
+            //if it's exit
+            delete (tempExp);
+        }
+
     }
     this->vecOfExpressions.clear();
 }
