@@ -4,7 +4,6 @@
 
 SymbolTable::SymbolTable(threadParams *threadsParam) {
     initPathXmlVec();
-    this->mutex = PTHREAD_MUTEX_INITIALIZER;
     this->threadsParam = threadsParam;
 }
 
@@ -18,14 +17,13 @@ void SymbolTable::initVar(const string &key) {
     destinationMapVarToPath.insert({key, ""});
 }
 void SymbolTable::addValuesToMap(string &key, double value) {
-    pthread_mutex_lock(getMutex());
+    pthread_mutex_lock(this->threadsParam->mutex);
     valuesMapVarToValue.at(key) = value;
     // if is not on map already
     if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
         changedArgsVec.push_back(key);
     }
-    pthread_mutex_unlock(getMutex());
-    pthread_mutex_destroy(getMutex());
+    pthread_mutex_unlock(this->threadsParam->mutex);
 }
 
 vector<string>& SymbolTable::getChangedArgsVec() {
@@ -33,7 +31,7 @@ vector<string>& SymbolTable::getChangedArgsVec() {
 }
 
 void SymbolTable::addDestinationToMap(string &key, string &dest) {
-    pthread_mutex_lock(getMutex());
+    pthread_mutex_lock(this->threadsParam->mutex);
     string pathDest = dest;
     // type of x = bind y - means: dest will be y
     if (destinationMapVarToPath.count(dest) == IN_MAP){
@@ -43,7 +41,7 @@ void SymbolTable::addDestinationToMap(string &key, string &dest) {
     destinationMapVarToPath.at(key) = pathDest;
     //add the var to vector of vars that belongs to a path in the bind map
     bindMapPathToVecOfVars[pathDest].push_back(key);
-    pthread_mutex_unlock(getMutex());
+    pthread_mutex_unlock(this->threadsParam->mutex);
 }
 
 bool SymbolTable::isVarInMap(const string &key) {
@@ -80,6 +78,7 @@ double SymbolTable::getValueOfVar(const string &key) {
 
 
 void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
+    pthread_mutex_lock(this->threadsParam->mutex);
     //changedArgsVec.clear();
     string tempPath;
     vector<string>varsOfSpecificPath;
@@ -93,12 +92,7 @@ void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
             changedArgsVec.push_back(var);
         }
     }
+    pthread_mutex_unlock(this->threadsParam->mutex);
 }
 
-pthread_mutex_t* SymbolTable::getMutex(){
-    return (&this->mutex);
-}
 
-SymbolTable::~SymbolTable() {
-    //pthread_mutex_destroy(getMutex());
-}

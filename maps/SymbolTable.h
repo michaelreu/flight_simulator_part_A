@@ -50,7 +50,7 @@ private:
     vector<string> changedArgsVec;
 
     vector<string> xmlPathsVec;
-    pthread_mutex_t mutex;
+
     threadParams *threadsParam;
 
 public:
@@ -66,8 +66,7 @@ public:
     void updateValuesFromClient(vector<double>&vecOfVals);
     string getPathByVar(const string &keyVar);
     vector<string> &getChangedArgsVec();
-    pthread_mutex_t* getMutex();
-    ~SymbolTable();
+    ~SymbolTable() = default;
 
 
 };

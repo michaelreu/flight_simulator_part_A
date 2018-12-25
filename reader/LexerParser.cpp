@@ -4,9 +4,8 @@ using namespace std;
 
 
 
-LexerParser::LexerParser (threadParams *threadsParam){
-    this->threadsParam = threadsParam;
-    this->commandExpfac = new CommandExpressionFactory(threadsParam);
+LexerParser::LexerParser (CommandExpressionFactory* commandExpFac){
+    this->commandExpfac = commandExpFac;
 }
 
 const vector<string> &LexerParser::getVecOfExpressions() const {

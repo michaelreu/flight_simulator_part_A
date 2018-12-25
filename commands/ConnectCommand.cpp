@@ -57,7 +57,7 @@ void* runClient(void *arg) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
-        pthread_mutex_lock(clientPar->symbolTablePa->getMutex());
+        pthread_mutex_lock(clientPar->mutex);
         vector<string> changedArgs = (clientPar->symbolTablePa)->getChangedArgsVec();
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
@@ -72,7 +72,7 @@ void* runClient(void *arg) {
             }
         }
         ((clientPar->symbolTablePa)->getChangedArgsVec()).clear();
-        pthread_mutex_unlock(clientPar->symbolTablePa->getMutex());
+        pthread_mutex_unlock(clientPar->mutex);
         //check if there is a message
         if (n < 0) {
             perror("ERROR writing to socket");
@@ -83,6 +83,7 @@ void* runClient(void *arg) {
     }
     close(clientPar->clientSocket);
     delete(clientPar);
+    *clientPar->isRun = false;
 }
 
 void ConnectCommand::execute(){
@@ -91,9 +92,10 @@ void ConnectCommand::execute(){
     clParams->portPa = this->port;
     clParams->ipPa = this->ip;
     clParams->clientSocket = this->threadsParam->sockfdConnect;
-    this->threadsParam->serverSucketIsRun = true;
+    clParams->isRun = &this->threadsParam->clientThreadIsRun;
+    clParams->mutex = this->threadsParam->mutex;
+    this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
-    this->threadsParam->serverSucketIsRun = false;
 }
 
 void ConnectCommand::stop() {

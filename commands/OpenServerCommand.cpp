@@ -51,16 +51,16 @@ void* runServer(void *arg) {
         }
         printf("Here is the message: %s\n",buffer);
         try {
-            pthread_mutex_lock(serverPar->symbolTablePa->getMutex());
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
-            pthread_mutex_unlock(serverPar->symbolTablePa->getMutex());
         } catch (exception &exception) {
             cout<<"ERROR: couldn't update data"<<endl;
         }
-        sleep((unsigned int)1/serverPar->hertzPa);
+        sleep((unsigned int)10);
+        //sleep((unsigned int)1/serverPar->hertzPa);
     }
 
     close(serverPar->sockfd);
+    *serverPar->isRun = false;
 }
 
 void OpenServerCommand::execute(){
@@ -103,10 +103,10 @@ void OpenServerCommand::execute(){
     params->hertzPa = this->hertz;
     params->newsockfd = newsockfd;
     params->sockfd = this->threadsParam->sockfdServer;
+    params->isRun = &this->threadsParam->serverThreadIsRun;
 
-    this->threadsParam->serverSucketIsRun = true;
+    this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
-    this->threadsParam->serverSucketIsRun = false;
 }
 
 void OpenServerCommand::stop() {

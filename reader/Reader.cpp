@@ -37,12 +37,8 @@ bool Reader::readCommandsFromCmd(string command, LexerParser *interpreter) {
 
 
 void Reader::run(int argc, char* argv[]) {
-    bool endFlag = false;
     string command = "";
-    int sockArr[NUM_OF_SOCK];
-    for (int i = 0; i < NUM_OF_SOCK; i++) {    //initialize sockets values
-        sockArr[i] = -1;
-    }
+    bool endFlag = false;
     pthread_t serverThread;
     pthread_t clientThread;
     pthread_mutex_t mutex;
@@ -51,15 +47,14 @@ void Reader::run(int argc, char* argv[]) {
         cout << "mutex initialization error" << endl;
         return;
     }
-
     threadParams threads;
     threads.serverThread = &serverThread;
     threads.clientThread = &clientThread;
-    threads.lock = &mutex;
-    threads.serverSucketIsRun = false;
-    threads.clientSucketIsRun = false;
-
-    LexerParser *interpreter = new LexerParser(&threads);
+    threads.mutex = &mutex;
+    threads.serverThreadIsRun = false;
+    threads.clientThreadIsRun = false;
+    CommandExpressionFactory* commandExpFac = new CommandExpressionFactory(&threads);
+    LexerParser *interpreter = new LexerParser(commandExpFac);
 
     //executing scripts from all file paths passed as arguments
     for (int j = 1; j < argc; j++) {
@@ -91,11 +86,11 @@ void Reader::run(int argc, char* argv[]) {
         }
         // if there is an error
         if (endFlag) {
-            delete (interpreter);
-            if (!serverThread){
+            //delete (interpreter);
+            if (threads.serverThreadIsRun){
                 pthread_join(serverThread, NULL);
             }
-            if (!clientThread){
+            if (threads.clientThreadIsRun){
                 pthread_join(clientThread, NULL);
             }
             pthread_mutex_destroy(&mutex);

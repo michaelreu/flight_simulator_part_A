@@ -37,10 +37,9 @@ class LexerParser {
     vector<string> vecOfExpressions;
     Utils utils;
     CommandExpressionFactory* commandExpfac;
-    threadParams* threadsParam;
     vector<string>* lexByValue(vector<string>* vecOfExp);
 public:
-    LexerParser (threadParams* threadsParam);
+    LexerParser (CommandExpressionFactory* commandExpFac);
     vector<string>* loadfile(const string& fileName);
     vector<string>* lexerCommand(const string&  command);
     void parser(vector<string>* vecOfExpressions);

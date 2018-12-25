@@ -30,6 +30,7 @@ struct serverParams {
     int hertzPa;
     int sockfd;
     int newsockfd;
+    bool* isRun;
 };
 
 

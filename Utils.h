@@ -34,11 +34,11 @@ using namespace std;
 struct threadParams {
     pthread_t* serverThread;
     pthread_t* clientThread;
-    pthread_mutex_t* lock;
+    pthread_mutex_t* mutex;
     int sockfdConnect;
     int sockfdServer;
-    bool serverSucketIsRun;
-    bool clientSucketIsRun;
+    bool serverThreadIsRun;
+    bool clientThreadIsRun;
 };
 typedef struct threadParams threadParams;
 
