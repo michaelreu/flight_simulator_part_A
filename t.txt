@@ -1,3 +1,5 @@
+openDataServer 5400 10
+connect 10.0.2.2 5402
 var breaks = bind "/controls/flight/speedbrake"
 var throttle = bind "/controls/engines/current-engine/throttle"
 var heading = bind "/instrumentation/heading-indicator/offset-deg"
@@ -11,7 +13,7 @@ var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 roll = 0
 throttle = 1
 var h0 = heading
-if alt < 1000 {
+while alt < 1000 {
     rudder = (h0 - heading)/20
     aileron = -roll / 70
     elevator = pitch / 50

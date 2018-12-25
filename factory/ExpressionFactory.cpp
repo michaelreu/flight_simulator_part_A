@@ -1,6 +1,7 @@
+#include <iostream>
 #include "ExpressionFactory.h"
 #include "../shuntingYard/ShuntingNum.h"
-
+int k = 0;
 /*
  * Ctor
  */
@@ -156,7 +157,6 @@ void ExpressionFactory::insertByOrderToStack() {
             if (*it == PARENTHESES_CLOSE_CHAR) {
                 this->numBeforeMe = true;
             }
-
         } else if (utils.isValidVarChar(*it)) {
             tempVar+=(*it);
             this->varDigit = true;
@@ -206,7 +206,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             }
         } else if (utils.isStrDouble(tempStr)) {
             Expression* num = new Num(stod(tempStr));
-            expressToFree.push_back(num);
+            //expressToFree.push_back(num);
             return num;
         } else {
             throw ERR_GEN_EXP;
@@ -219,6 +219,8 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
 void ExpressionFactory::freeVectorOfMainStack() {
     for (ShuntingYardExpression* shToBeFree : this->vecOfShuntToFree) {
         delete(shToBeFree);
+        cout<<k<<endl;
+        ++k;
     }
     this->vecOfShuntToFree.clear();
 }
@@ -243,18 +245,26 @@ Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
  */
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
-    return finalExpression();
+    Expression* final = finalExpression();
+    /*
+    for (Expression* expression : this->expressToFree) {
+        if (expression==final) {
+            continue;
+        } else {
+            delete (expression);
+        }
+    }
+    */
+    return final;
 }
 /*
  * Dtor
  */
 ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
-    vector<Expression*> vecOfExp = getExpressToFree();
-
-    for (Expression* expression : vecOfExp) {
-        delete (expression);
-
-    }
+    this->expressToFree.clear();
+    //for (Expression* expression : this->expressToFree) {
+        //delete (expression);
+    //}
     delete(this->symbolTable);
 }
