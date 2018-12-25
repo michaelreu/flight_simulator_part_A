@@ -31,6 +31,7 @@ struct serverParams {
     int sockfd;
     int newsockfd;
     bool* isRun;
+    bool* clientIsRun;
 };
 
 
@@ -48,13 +49,9 @@ public:
     OpenServerCommand(){}
     OpenServerCommand(int prt, int hz, SymbolTable* symTable, threadParams *threadsParam);
     void updateDataFromClient(const string &str, SymbolTable* symTable);
-    //static void runServer(int port, int hz, SymbolTable* symTable);
-    //void* runServer(void* arg);
-    static void stop();
     virtual void execute();
     virtual ~OpenServerCommand() = default;
 
-    static bool getShouldStop();
 };
 
 #endif //PROJECTPART1_OPENSERVERCOMMAND_H
