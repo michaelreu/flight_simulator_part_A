@@ -21,6 +21,7 @@ public:
     bool checkPort(int port);
     bool checkHertz(int hertz);
     bool checkTime(int time);
+    ~CheckInputs() = default;
 
 };
 

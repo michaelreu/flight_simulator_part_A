@@ -113,7 +113,7 @@ void ExpressionFactory::insertByOrderToStack() {
                 case MINUS_CHAR:
                     this->varDigit = false;
                     if (!this->numBeforeMe) {
-                        getMainStack().push(new Num(0));
+                        getMainStack().push(new Num(ZERO));
                         getOperationsStack().push(*it);
                         break;
                     }
@@ -173,7 +173,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
         if (utils.isShunYardOperation(*it)) {
             Expression* rightExpression = generateExpressionOfStack();
             Expression* leftExpression = generateExpressionOfStack();
-            switch (tempStr[0]) {
+            switch (tempStr[ZERO]) {
                 case PLUS_CHAR:
                     return new Plus (leftExpression,rightExpression);
 
@@ -190,7 +190,9 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
                     break;
             }
         } else if (utils.isStrDouble(tempStr)) {
-            return new Num(stod(tempStr));
+            Expression* num = new Num(stod(tempStr));
+            expToFree.push_back(num);
+            return num;
         } else {
             throw ERR_GEN_EXP;
         }

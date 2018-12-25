@@ -106,8 +106,9 @@ Expression* CommandExpressionFactory::getAssignCommand(vector<string>::iterator 
         return new ExpressionCommand(new AssignCommand(symTbl, var, destinationPath));
     // value case
     } else {
+        Expression* exp = new ExpressionCommand(new AssignCommand(symTbl, expressionNumberCreator, var , it));
         //because it's a var - it has to get an ExpressionFactory, var, and it's value so it can update them.
-        return new ExpressionCommand(new AssignCommand(symTbl, expressionNumberCreator, var , it));
+        return exp;
     }
 }
 
@@ -179,6 +180,6 @@ Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &
  * distructor
  */
 CommandExpressionFactory::~CommandExpressionFactory() {
-    delete (this->expressionNumberCreator);
-    //delete (this->symTbl);
+    delete(this->expressionNumberCreator);
+    delete(check);
 }

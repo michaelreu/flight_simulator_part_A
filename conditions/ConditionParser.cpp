@@ -12,22 +12,11 @@ ConditionParser::ConditionParser(vector<Expression *> &vecOfExp, string &con, Ex
     this->condition = con;
     this->boolOperator = utils.getStringOfOperation(con);
 }
-/*
-ConditionParser::ConditionParser(vector<string> &vecOfExp, string &con, ExpressionFactory *exprNumCreator) {
-    this->expressionFactory = exprNumCreator;
-    this->vecOfStrCommands = vecOfExp;
-    this->condition = con;
-    this->boolOperator = utils.getStringOfOperation(con);
-}
- */
+
 vector<Expression*>& ConditionParser::getVecOfExpCommands() {
     return this->vecOfExpCommands;
 }
-/*
-vector<string>& ConditionParser::getVecOfStrCommands() {
-    return this->vecOfStrCommands;
-}
- */
+
 bool ConditionParser::isValidCondition() {
     return (!boolOperator.empty());
 }
@@ -36,13 +25,13 @@ bool ConditionParser::checkCondition() {
     if (!isValidCondition()) {
         return false;
     }
-    string left = condition.substr(START_OF_STR ,condition.find(boolOperator));
+    string left = condition.substr(0,condition.find(boolOperator));
     string right = condition.substr(condition.find(boolOperator)+boolOperator.size(),condition.size());
 
     Expression* exp1;
     Expression* exp2;
     //can be 0 or 1 = false or true
-    double result = 0;
+    double result = FALSE;
     if (boolOperator == "==") {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
@@ -66,8 +55,10 @@ bool ConditionParser::checkCondition() {
     }
     return (result == TRUE);
 }
-/*
-ExpressionFactory *ConditionParser::getExpressionFactory() const {
-    return expressionFactory;
+
+ConditionParser::~ConditionParser() {
+    for (Expression* expToFree : vecOfExpCommands) {
+        delete(expToFree);
+    }
+    vecOfExpCommands.clear();
 }
-*/

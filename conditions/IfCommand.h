@@ -14,9 +14,6 @@ class IfCommand : public  ConditionParser {
 public:
     IfCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac);
     virtual void execute();
-
-    virtual ~IfCommand() = default;
-
 };
 
 
