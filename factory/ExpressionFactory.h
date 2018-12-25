@@ -56,6 +56,7 @@ private:
     void addMinusExpressionToMainStack(double minusVal);
     void freeVectorOfMainStack();
     Expression* generateExpressionOfStack();
+    Expression* finalExpression();
 public:
     ExpressionFactory()= default;
     ExpressionFactory(SymbolTable* &symbolTable);

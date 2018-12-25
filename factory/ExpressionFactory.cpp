@@ -182,27 +182,21 @@ void ExpressionFactory::freeVectorOfMainStack() {
     }
     this->saveToFree.clear();
 }
-Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
-    this->expressionStr = (*it);
+
+Expression* ExpressionFactory::finalExpression() {
     insertByOrderToStack();
     Expression* exp = generateExpressionOfStack();
     freeVectorOfMainStack();
     return exp;
 }
+Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
+    this->expressionStr = (*it);
+    return finalExpression();
+}
 
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
-    insertByOrderToStack();
-    Expression* exp = generateExpressionOfStack();
-    freeVectorOfMainStack();
-    /*
-    for (ShuntingYardExpression* objToFree : this->saveToFree) {
-        delete(objToFree);
-    }
-
-    this->saveToFree.clear();
-     */
-    return exp;
+    return finalExpression();
 }
 ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
