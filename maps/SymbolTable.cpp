@@ -7,6 +7,7 @@ SymbolTable::SymbolTable() {
     this->mutex = PTHREAD_MUTEX_INITIALIZER;
     //pthread_mutex_init(getMutex(),);
 }
+
 void SymbolTable::initPathXmlVec() {
     xmlPathsVec = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
                     ENC_INDICATE_ALT, ENC_PRESURE_ALT, GPS_ALT, GPS_GRND_SPD, GPS_VERTICAL_SPD, HEAD_DEG, CMPS_HEAD_DEG,
@@ -18,8 +19,6 @@ void SymbolTable::initVar(const string &key) {
 }
 void SymbolTable::addValuesToMap(string &key, double value) {
     pthread_mutex_lock(getMutex());
-    //valuesMapVarToValue.insert(pair<const string, double>(key,value));
-    //VarValue varVal = VarValue(value);
     valuesMapVarToValue.at(key) = value;
     // if is not on map already
     if(!(find(changedArgsVec.begin(), changedArgsVec.end(), key) != changedArgsVec.end())) {
@@ -48,15 +47,12 @@ void SymbolTable::addDestinationToMap(string &key, string &dest) {
 }
 
 bool SymbolTable::isVarInMap(const string &key) {
-    //return ((destinationMapVarToPath.find(key) != destinationMapVarToPath.end()) && (isVarInValueMap(key)));
-    //return ((destinationMapVarToPath.count(key) == IN_MAP) && (isVarInValueMap(key)));
     return ((destinationMapVarToPath.count(key) == IN_MAP) && (valuesMapVarToValue.count(key)==IN_MAP));
 }
 
 
 bool SymbolTable::isVarInValueMap(const string &key) {
     if (valuesMapVarToValue.count(key)==IN_MAP) {
-        //return ((valuesMapVarToValue.at(key)).isVarInitialized());
         return ((valuesMapVarToValue.count(key)==IN_MAP));
     }
 }
@@ -80,18 +76,6 @@ string SymbolTable::getPathByVar(const string &keyVar) {
 }
 double SymbolTable::getValueOfVar(const string &key) {
     return (valuesMapVarToValue.at(key));
-    /*
-    if (isVarInValueMap(key)) {
-        return ((valuesMapVarToValue.at(key)).getValue());
-    } else {
-        return 0;
-        //throw INIT_ERR + key;
-    }
-    //else if (isVarInBindsMap(key)) {
-        //return ((isVarInBindsMap.at(key)).getValue());
-
-    //}
-     */
 }
 
 
