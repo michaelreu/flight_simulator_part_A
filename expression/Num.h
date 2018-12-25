@@ -32,7 +32,7 @@ public:
 
     virtual string getNumOrOperationExp();
 
-    virtual ~Num() = default;
+    //virtual ~Num() = default;
 
 };
 

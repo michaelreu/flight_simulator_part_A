@@ -27,19 +27,22 @@
 using namespace std;
 class CommandExpressionFactory;
 
+
+typedef struct threadParams threadParams;
+
 class LexerParser {
 
     vector<string> vecOfExpressions;
     Utils utils;
     CommandExpressionFactory* commandExpfac;
-
+    threadParams* threadsParam;
+    vector<string>* lexByValue(vector<string>* vecOfExp);
 public:
-    LexerParser ();
-    void loadfile(const string& fileName);
-    vector<string> lexer(const string&  command);
-    void parser();
+    LexerParser (threadParams* threadsParam);
+    vector<string>* loadfile(const string& fileName);
+    vector<string>* lexerCommand(const string&  command);
+    void parser(vector<string>* vecOfExpressions);
     const vector<string> &getVecOfExpressions() const;
-    void lexByValue();
     bool charCase(char prev, int i);
     bool parnthesesCase(char prev);
 

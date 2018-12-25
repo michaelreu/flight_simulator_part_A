@@ -4,8 +4,9 @@ using namespace std;
 
 
 
-LexerParser::LexerParser (){
+LexerParser::LexerParser (threadParams *threadsParam){
     this->commandExpfac = new CommandExpressionFactory();
+    this->threadsParam = threadsParam;
 }
 
 const vector<string> &LexerParser::getVecOfExpressions() const {
@@ -20,7 +21,8 @@ string withoutSpaces(string s){
     return s;
 }
 
-void LexerParser::loadfile(const string& fileName){
+vector<string>* LexerParser::loadfile(const string& fileName){
+    vector<string> lex;
     string expression;
     vector<string> dataFromFile;
     ifstream myFile(fileName);
@@ -37,17 +39,18 @@ void LexerParser::loadfile(const string& fileName){
             for(string temp; iss >> temp;) {
                 // print case - leave the spaces
                 if (temp == PRINT_STR){
-                    this->vecOfExpressions.push_back(withoutSpaces(*it));
+                    lex.push_back(withoutSpaces(*it));
                     break;
                 }
-                this->vecOfExpressions.push_back(temp);
+                lex.push_back(temp);
 
             }
             // end of line from file
-            this->vecOfExpressions.push_back("\n");
+            lex.push_back("\n");
         }
     }
     myFile.close();
+    return lexByValue(&lex);
 }
 
 
@@ -74,13 +77,13 @@ bool isSeparatingChar (char check){
 }
 
 
-void LexerParser::lexByValue(){
+vector<string>* LexerParser::lexByValue(vector<string>* vectorOfExp){
     bool condition = false;
     bool inQuoteFlag = false;
     vector<string> lex;
     char prev = '\0';
     string value;
-    vector<string>::iterator it = this->vecOfExpressions.begin();
+    vector<string>::iterator it = (*vectorOfExp).begin();
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         // and line case
         if ((*it) == "\n"){
@@ -195,9 +198,11 @@ void LexerParser::lexByValue(){
         lex.push_back(value);
     }
     this->vecOfExpressions = lex;
+    return &this->vecOfExpressions;
 }
 
-vector<string> LexerParser::lexer(const string &command) {
+vector<string>* LexerParser::lexerCommand(const string &command) {
+    vector<string> lex;
     vector <string> listOfCommands;
     listOfCommands.push_back(command);
     // command from command line
@@ -207,19 +212,18 @@ vector<string> LexerParser::lexer(const string &command) {
         for (string s; iss >> s;) {
             // print case
             if (s == PRINT_STR){
-                this->vecOfExpressions.push_back(withoutSpaces(*it));
+                lex.push_back(withoutSpaces(*it));
                 break;
             }
-            (this->vecOfExpressions).push_back(s);
+            (lex).push_back(s);
         }
-        this->vecOfExpressions.push_back("\n");
+        lex.push_back("\n");
     }
-    lexByValue();
-    return this->vecOfExpressions;
+    return lexByValue(&lex);
 }
 
-void LexerParser::parser() {
-    vector<string>::iterator it = vecOfExpressions.begin();
+void LexerParser::parser(vector<string>* vecOfExpressions) {
+    vector<string>::iterator it = vecOfExpressions->begin();
     // run on all commands
     for ( ;it != getVecOfExpressions().end(); (++it)) {
         // create new expression

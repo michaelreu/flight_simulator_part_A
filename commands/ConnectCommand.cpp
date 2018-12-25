@@ -5,6 +5,7 @@
 
 
 bool ConnectCommand::shouldStop = false;
+
 ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable){
     this->symbolTable = symTable;
     this->ip = ip;
@@ -60,7 +61,7 @@ void* runClient(void *arg) {
         for(string var : changedArgs) {
             if ((clientPar->symbolTablePa)->isVarInBindsMap(var)) {
                 tempPath = (clientPar->symbolTablePa)->getPathByVar(var);
-                tempPath = tempPath.substr(START_OF_STR,tempPath.size()-END_OF_STR);
+                tempPath = tempPath.substr(START_OF_STRING,tempPath.size()-END_OF_STRING);
                 valueOfVar = (clientPar->symbolTablePa)->getValueOfVar(var);
                 messageOfSet = SET + tempPath + " ";
                 messageOfSet += to_string(valueOfVar) + "\r\n";
@@ -99,8 +100,4 @@ void ConnectCommand::stop() {
 
 bool ConnectCommand::getShouldStop() {
     return shouldStop;
-}
-
-ConnectCommand::~ConnectCommand() {
-
 }

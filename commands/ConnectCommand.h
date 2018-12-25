@@ -1,26 +1,26 @@
 
 #ifndef PROJECTPART1_CONNECTCOMMAND_H
 #define PROJECTPART1_CONNECTCOMMAND_H
-#define START_OF_STR 2
-#define END_OF_STR 3
-#define SEEP_TIME 1/4
-#define INVALID_IP_ADRESS_ERR "Error: connection failed - invalid IP adress"
-#define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 
+#define START_OF_STRING 2
+#define END_OF_STRING 3
+#define SEEP_TIME (1/4)
+#define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
+#define SET "set "
 
 #include "Command.h"
-#include "../reader/Reader.h"
+#include <iostream>
 #include <pthread.h>
 #include <string>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <regex>
 #include <netdb.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
 
-#include <string.h>
+#include <cstring>
 
 using namespace std;
 
@@ -40,7 +40,7 @@ private:
 
 public:
     ConnectCommand(){}
-    ConnectCommand(const char* ip, int port, SymbolTable* symTable);
+    ConnectCommand(const char* ip, int port, SymbolTable* &symTable);
     static void stop();
     virtual void execute();
     virtual ~ConnectCommand()= default;
