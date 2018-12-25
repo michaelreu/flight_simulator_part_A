@@ -46,7 +46,7 @@ private:
     ExpressionFactory* expressionNumberCreator;
     SymbolTable* symTbl;
     map<string, create> mapCreate;
-    CheckInputs* check;
+    CheckInputs check;
     threadParams *threadsParam;
 
 public:

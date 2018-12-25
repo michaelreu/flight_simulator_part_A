@@ -63,11 +63,12 @@ void Reader::run(int argc, char* argv[]) {
         // if there is an error
         if (endFlag) {
             delete (interpreter);
+            interpreter = nullptr;
             if (!serverThread){
-                pthread_join(serverThread, NULL);
+                pthread_join(serverThread, nullptr);
             }
             if (!clientThread){
-                pthread_join(clientThread, NULL);
+                pthread_join(clientThread, nullptr);
             }
             pthread_mutex_destroy(&mutex);
             return;
@@ -86,12 +87,12 @@ void Reader::run(int argc, char* argv[]) {
         }
         // if there is an error
         if (endFlag) {
-            //delete (interpreter);
+            delete (interpreter);
             if (threads.serverThreadIsRun){
-                pthread_join(serverThread, NULL);
+                pthread_join(serverThread, nullptr);
             }
             if (threads.clientThreadIsRun){
-                pthread_join(clientThread, NULL);
+                pthread_join(clientThread, nullptr);
             }
             pthread_mutex_destroy(&mutex);
             return;

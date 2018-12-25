@@ -8,6 +8,7 @@ CommandExpressionFactory::CommandExpressionFactory(threadParams *threadsParam) {
     this->threadsParam = threadsParam;
     this->symTbl = new SymbolTable(threadsParam);
     this->expressionNumberCreator = new ExpressionFactory(symTbl);
+    //this->check = new CheckInputs();
     initMapOfStrToFunctionsAddress();
 }
 /**
@@ -53,10 +54,10 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
     int hertz = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    if (!check->checkPort(port)){
+    if (!check.checkPort(port)){
         throw "invalid port";
     }
-    if (!check->checkHertz(hertz)){
+    if (!check.checkHertz(hertz)){
         throw "invalid hertz";
     }
     return new ExpressionCommand(new OpenServerCommand(port, hertz,symTbl, this->threadsParam));
@@ -70,10 +71,10 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     const char* ip = (*(++it)).c_str();
     int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    if (!check->checkPort(port)){
+    if (!check.checkPort(port)){
         throw "invalid port";
     }
-    if (!check->checkIP(ip)){
+    if (!check.checkIP(ip)){
         throw  "invalid ip";
     }
     return new ExpressionCommand(new ConnectCommand(ip,port, symTbl, this->threadsParam));
@@ -86,7 +87,7 @@ Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator
  */
 Expression* CommandExpressionFactory::getDefineVarCommand(vector<string>::iterator &it) {
     string var = (*(++it));
-    if(!check->checkNameOfVar(var)){
+    if(!check.checkNameOfVar(var)){
         throw "invalid name";
     }
     return new ExpressionCommand(new DefineVarCommand(symTbl, var));
@@ -170,7 +171,7 @@ Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &
  */
 Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &it) {
     double time = (expressionNumberCreator->createExpression(((++it))))->calculate();
-    if (check->checkTime(time)) {
+    if (check.checkTime(time)) {
         return new ExpressionCommand(new SleepCommand(time));
     }else{
         throw "invalid time";
@@ -182,5 +183,4 @@ Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &
  */
 CommandExpressionFactory::~CommandExpressionFactory() {
     delete(this->expressionNumberCreator);
-    delete(check);
 }
