@@ -18,7 +18,9 @@ public:
         c->execute();
         return 0;
     }
-    virtual ~ExpressionCommand() = default;
+    virtual ~ExpressionCommand() {
+        delete(c);
+    };
 
 };
 
