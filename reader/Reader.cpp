@@ -62,13 +62,21 @@ void Reader::run(int argc, char* argv[]) {
         //******************************************************************//
         // if there is an error
         if (endFlag) {
-            //delete (interpreter);
-            if (threads.serverThreadIsRun){
+            delete (interpreter);
+            pthread_mutex_lock(threads.mutex);
+            bool tempServer = threads.serverThreadIsRun;
+            bool tempClient = threads.clientThreadIsRun;
+            pthread_mutex_unlock(threads.mutex);
+            if (tempServer){
+                pthread_mutex_lock(threads.mutex);
                 threads.serverThreadIsRun = false;
+                pthread_mutex_unlock(threads.mutex);
                 pthread_join(serverThread, NULL);
             }
-            if (threads.clientThreadIsRun){
+            if (tempClient){
+                pthread_mutex_lock(threads.mutex);
                 threads.clientThreadIsRun = false;
+                pthread_mutex_unlock(threads.mutex);
                 pthread_join(clientThread, NULL);
             }
             pthread_mutex_destroy(&mutex);
@@ -77,9 +85,9 @@ void Reader::run(int argc, char* argv[]) {
     }
 
     while (true) {
-        cout << "enter new Command in cmd or '0' to exit\n";
+        cout << "enter new Command in cmd, press enter or '0' to exit\n";
         getline(cin, command);
-        if (command == "0") {
+        if (command == "0" || command == "") {
             endFlag = true;
         }
         // read one command
@@ -88,7 +96,8 @@ void Reader::run(int argc, char* argv[]) {
         }
         // if there is an error
         if (endFlag) {
-            //delete (interpreter);
+            delete (interpreter);
+            pthread_mutex_lock(threads.mutex);
             if (threads.serverThreadIsRun){
                 threads.serverThreadIsRun = false;
                 pthread_join(serverThread, NULL);
@@ -97,6 +106,7 @@ void Reader::run(int argc, char* argv[]) {
                 threads.clientThreadIsRun = false;
                 pthread_join(clientThread, NULL);
             }
+            pthread_mutex_unlock(threads.mutex);
             pthread_mutex_destroy(&mutex);
             return;
         }

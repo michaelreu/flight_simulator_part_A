@@ -1,6 +1,5 @@
 openDataServer 5400 10
-connect 10.0.2.2 5402
-var speed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"
+connect 127.0.0.1 5402
 var breaks = bind "/controls/flight/speedbrake"
 var throttle = bind "/controls/engines/current-engine/throttle"
 var heading = bind "/instrumentation/heading-indicator/offset-deg"
@@ -11,15 +10,16 @@ var rudder = bind "/controls/flight/rudder"
 var aileron = bind "/controls/flight/aileron"
 var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
+var speed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"
 roll = 0
-throttle = 1
 var h0 = heading
-var x = 1
-while x < 10 {
+while speed < 5 {
+    throttle = 1
     rudder = (h0 - heading)/20
     aileron = -roll / 70
     elevator = pitch / 50
-    sleep 250
-    x = x+1
+    print "throtle: "
+    print throttle
+    sleep 2000
 }
 print "done"
