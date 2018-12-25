@@ -39,49 +39,51 @@ bool Reader::readCommandsFromCmd(string command, LexerParser *interpreter) {
 
 void Reader::run(int argc, char* argv[]) {
     bool endFlag = false;
-    string command;
+    string command = "";
     int sockArr[NUM_OF_SOCK];
     for (int i = 0; i < NUM_OF_SOCK; i++) {    //initialize sockets values
         sockArr[i] = -1;
     }
     pthread_t thread;
-    pthread_mutex_t lock;
+    pthread_mutex_t mutex;
 
-    if (pthread_mutex_init(&lock, NULL)) {
+    if (pthread_mutex_init(&mutex, NULL)) {
         cout << "mutex initialization error" << endl;
         return;
     }
     threadParams threads;
     threads.thread = &thread;
-    threads.lock = &lock;
+    threads.lock = &mutex;
 
     LexerParser *interpreter = new LexerParser(&threads);
+
     //executing scripts from all file paths passed as arguments
-    for (int j = 0; j < argc; j++) {
+    for (int j = 1; j < argc; j++) {
         endFlag = readCommandsFromFile(argv[j], interpreter);
+        // if there is an error
         if (endFlag) {
             delete (interpreter);
             pthread_join(thread, NULL);
-            pthread_mutex_destroy(&lock);
+            pthread_mutex_destroy(&mutex);
             return;
         }
     }
-    while (true) {
 
+    while (true) {
         cout << "enter new Command in cmd or '0' to exit\n";
         getline(cin, command);
         if (command == "0") {
             endFlag = true;
         }
-            // read one command
+        // read one command
         else {
             endFlag = readCommandsFromCmd(command, interpreter);
         }
-
+        // if there is an error
         if (endFlag) {
             delete (interpreter);
             pthread_join(thread, NULL);
-            pthread_mutex_destroy(&lock);
+            pthread_mutex_destroy(&mutex);
             return;
         }
     }

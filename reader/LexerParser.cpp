@@ -50,7 +50,8 @@ vector<string>* LexerParser::loadfile(const string& fileName){
         }
     }
     myFile.close();
-    return lexByValue(&lex);
+    this->vecOfExpressions = lex;
+    return lexByValue(&this->vecOfExpressions);
 }
 
 
