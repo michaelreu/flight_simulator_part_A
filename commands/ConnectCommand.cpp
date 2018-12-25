@@ -74,8 +74,8 @@ void* runClient(void *arg) {
         //this_thread::sleep_for(chrono::milliseconds(300));
     }
     close(clientPar->clientSocket);
+    (*clientPar->isRun) = false;
     delete(clientPar);
-    *clientPar->isRun = false;
 }
 
 void ConnectCommand::execute(){

@@ -7,7 +7,12 @@
 
 #define  START_STR 0
 #define TRUE 1
-
+#define EQUAL_STR "=="
+#define GREATER_EQUAL_STR  ">="
+#define LESS_EQUAL_STR "<="
+#define NOT_EQUAL_STR "!="
+#define GREATER_STR ">"
+#define LESS_STR "<"
 
 #include "../commands/Command.h"
 #include <string>

@@ -50,6 +50,7 @@ void* runServer(void *arg) {
         try {
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
         } catch (exception &exception) {
+            //delete(serverPar);
             cout<<"ERROR: couldn't update data"<<endl;
         }
         this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
@@ -58,6 +59,7 @@ void* runServer(void *arg) {
 
     close(serverPar->sockfd);
     *serverPar->isRun = false;
+    delete(serverPar);
 }
 
 void OpenServerCommand::execute(){

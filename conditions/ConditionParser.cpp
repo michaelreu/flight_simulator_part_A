@@ -28,30 +28,36 @@ bool ConditionParser::checkCondition() {
     string left = condition.substr(0,condition.find(boolOperator));
     string right = condition.substr(condition.find(boolOperator)+boolOperator.size(),condition.size());
 
-    Expression* exp1;
-    Expression* exp2;
+    Expression* exp1 = nullptr;
+    Expression* exp2 = nullptr;
     //can be 0 or 1 = false or true
     double result = FALSE;
-    if (boolOperator == "==") {
+    if (boolOperator == EQUAL_STR) {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
-    } else if (boolOperator == ">=") {
+    } else if (boolOperator == GREATER_EQUAL_STR) {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         exp2 = new GreaterThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = (exp1->calculate() + exp2->calculate());
-    } else if (boolOperator == "<=") {
+    } else if (boolOperator == LESS_EQUAL_STR) {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         exp2 = new LessThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = (exp1->calculate() + exp2->calculate());
-    } else if (boolOperator == "!=") {
+    } else if (boolOperator == NOT_EQUAL_STR) {
         exp1 = new Equal(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = ((int)(exp1->calculate() + 1) % 2);
-    } else if (boolOperator == ">") {
+    } else if (boolOperator == GREATER_STR) {
         exp1 = new GreaterThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
-    } else if (boolOperator == "<") {
+    } else if (boolOperator == LESS_STR) {
         exp1 = new LessThen(expressionFactory->createExpression(left), expressionFactory->createExpression(right));
         result = exp1->calculate();
+    }
+    if (exp1 != nullptr) {
+        delete(exp1);
+    }
+    if (exp2 != nullptr) {
+        delete(exp2);
     }
     return (result == TRUE);
 }

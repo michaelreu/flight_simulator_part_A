@@ -129,7 +129,9 @@ void ExpressionFactory::insertByOrderToStack() {
                 case MINUS_CHAR:
                     this->varDigit = false;
                     if (!this->numBeforeMe) {
-                        getMainStack().push(new ShuntingNum(ZERO));
+                        shExp = new ShuntingNum(ZERO);
+                        getMainStack().push(shExp);
+                        vecOfShuntToFree.push_back(shExp);
                         getOperationsStack().push(*it);
                         break;
                     }
@@ -206,7 +208,7 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             }
         } else if (utils.isStrDouble(tempStr)) {
             Expression* num = new Num(stod(tempStr));
-            expressToFree.push_back(num);
+            //expressToFree.push_back(num);
             return num;
         } else {
             throw ERR_GEN_EXP;
@@ -244,15 +246,6 @@ Expression* ExpressionFactory::createExpression(vector<string>::iterator &it) {
 Expression* ExpressionFactory::createExpression(const string &strToExp) {
     this->expressionStr = strToExp;
     Expression* final = finalExpression();
-    /*
-    for (Expression* expression : this->expressToFree) {
-        if (expression==final) {
-            continue;
-        } else {
-            delete (expression);
-        }
-    }
-    */
     return final;
 }
 /*
