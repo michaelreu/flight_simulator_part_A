@@ -13,8 +13,13 @@ void OpenServerCommand::updateDataFromClient(const string &str, SymbolTable* sym
     stringstream valuesStream(str);
     vector<double>valuesVector;
     string tempStr;
+
     while (valuesStream.good()) {
+
         getline(valuesStream, tempStr, COMMA_CHAR);
+        if (tempStr.at(tempStr.size() - 1 == '\n')){
+            tempStr = tempStr.substr(0, tempStr.size() - 2);
+        }
         if (utils.isStrDouble(tempStr)) {
             valuesVector.push_back(stod(tempStr));
         }
@@ -46,13 +51,13 @@ void* runServer(void *arg) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        //printf("Here is the message: %s\n",buffer);
+        printf("Here is the message: %s\n",buffer);
         try {
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
         } catch (exception &exception) {
             //delete(serverPar);
             cout<<"ERROR: couldn't update data"<<endl;
-            //*serverPar->isRun = false;
+            *serverPar->isRun = false;
         }
         this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
     }

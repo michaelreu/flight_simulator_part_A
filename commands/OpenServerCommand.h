@@ -2,7 +2,7 @@
 #define PROJECTPART1_OPENSERVERCOMMAND_H
 
 
-#define BUFF_SIZE 256
+#define BUFF_SIZE 1024
 #define BACKLOG 5
 
 #include "Command.h"
