@@ -223,15 +223,9 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
  * freeing the allocated memory of the ShuntingYardExpression* objects
  */
 void ExpressionFactory::freeVectorOfMainStack() {
-    int x = 0;
     for (ShuntingYardExpression* shToBeFree : this->vecOfShuntToFree) {
         if (shToBeFree != nullptr) {
             delete (shToBeFree);
-            cout<< x<< endl;
-            x++;
-            if (x == 26){
-                int y = 0;
-            }
             shToBeFree = nullptr;
         }
     }
@@ -268,7 +262,6 @@ ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
     this->expressToFree.clear();
     for (Expression* expression : this->expressToFree) {
-
         if (expression != nullptr) {
             delete (expression);
             expression = nullptr;

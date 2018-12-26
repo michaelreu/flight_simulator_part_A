@@ -11,6 +11,6 @@ private:
 public:
     Operators(const char op);
     virtual string getNumOrOperationExp();
-    virtual ~Operators() = default;
+    //virtual ~Operators() = default;
 };
 #endif //INC_14_12_12_46_OPERATORS_H
