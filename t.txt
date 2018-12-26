@@ -19,7 +19,7 @@ sleep 5000
 breaks = 0
 throttle = 1
 var h0 = heading
-while alt < 250 {
+while alt < 500 {
     rudder = (h0 - heading)/20
     aileron = -roll / 70
     elevator = pitch / 50

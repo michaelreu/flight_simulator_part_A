@@ -52,6 +52,7 @@ bool SymbolTable::isVarInValueMap(const string &key) {
     if (valuesMapVarToValue.count(tempKey)==IN_MAP) {
         return ((valuesMapVarToValue.count(tempKey)==IN_MAP));
     }
+    return false;
 }
 bool SymbolTable::isVarInBindsMap(const string &key) {
     map <string, vector<string>>::iterator it;
@@ -70,7 +71,9 @@ string SymbolTable::getPathByVar(const string &keyVar) {
     if (isVarInMap(tempKeyVar)) {
         return (destinationMapVarToPath.at(tempKeyVar));
     }
+    return nullptr;
 }
+
 double SymbolTable::getValueOfVar(const string &key) {
     return (valuesMapVarToValue.at(key));
 }
