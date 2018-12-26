@@ -48,19 +48,8 @@ bool Utils::isValidVarChar(char c) {
  * @return  true if string is a double form of number
  */
 bool Utils::isStrDouble(const string str) {
-    bool hasDot = false;
-    for(const auto* it = str.c_str(); *it; ++it) {
-        if (((*it) == DOT_CHAR) && (hasDot)) {
-            return false;
-
-        } else if ((*it) == DOT_CHAR) {
-            hasDot = true;
-        }
-        if ((!isDigit(*it)) && ((*it) != DOT_CHAR)) {
-            return false;
-        }
-    }
-    return true;
+    regex doublePattern (DOUBLE_REGEX);
+    return  (regex_match (str, doublePattern));
 }
 
 bool Utils::isBooleanOperator(char c) {

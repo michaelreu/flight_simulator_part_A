@@ -1,12 +1,12 @@
 
 #ifndef SEMPROJECT_UTILS_H
 #define SEMPROJECT_UTILS_H
-
+#include <regex>
 #include <string>
 #define PARENT_ERR "Error: too many right parentheses"
 #define INV_EQUATION_FORMT "ERROR: invalid format of equation"
 #define CHAR_NOT_DIGIT "ERROR: cannot convert digit to int because the char is not a digit"
-
+#define DOUBLE_REGEX "-?(0||[1-9][0-9]*)\.[0-9][0-9]*"
 #define MIN_DIGIT_ASCII 48
 #define MAX_DIGIT_ASCII 57
 #define MIN_OPERATION_ASCII 40

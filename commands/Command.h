@@ -9,7 +9,7 @@
 #include "../maps/SymbolTable.h"
 #include <chrono>
 #include <thread>
-#define SLEEP_TIME 500
+#define SLEEP_TIME 300
 
 class Command {
 public:
