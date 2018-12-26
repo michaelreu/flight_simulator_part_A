@@ -84,7 +84,7 @@ vector<string>* LexerParser::lexByValue(vector<string>* vectorOfExp){
     char prev = '\0';
     string value;
     vector<string>::iterator it = (*vectorOfExp).begin();
-    for ( ;it != getVecOfExpressions().end(); (++it)) {
+    for ( ;it != vectorOfExp->end(); (++it)) {
         // and line case
         if ((*it) == "\n"){
             if (prev == LEFT_CURLY_PARENT_CHAR){

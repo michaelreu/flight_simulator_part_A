@@ -46,15 +46,15 @@ void* runServer(void *arg) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        printf("Here is the message: %s\n",buffer);
+        //printf("Here is the message: %s\n",buffer);
         try {
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
         } catch (exception &exception) {
             //delete(serverPar);
             cout<<"ERROR: couldn't update data"<<endl;
+            //*serverPar->isRun = false;
         }
         this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
-        //sleep((unsigned int)1/serverPar->hertzPa);
     }
 
     close(serverPar->sockfd);
@@ -62,15 +62,14 @@ void* runServer(void *arg) {
     delete(serverPar);
 }
 
-void OpenServerCommand::execute(){
+void OpenServerCommand::execute() {
     int newsockfd, clilen;
     struct sockaddr_in serverAddress, clientAddress;
-    int  n;
     string tempStr;
-    //***************************setup starts here***********************************
+    //**********setup starts here************
     // First call to socket() function
     this->threadsParam->sockfdServer = socket(AF_INET, SOCK_STREAM, 0);
-    if ( this->threadsParam->sockfdServer < 0) {
+    if (this->threadsParam->sockfdServer < 0) {
         perror("ERROR opening socket");
         exit(1);
     }
@@ -90,16 +89,14 @@ void OpenServerCommand::execute(){
     go in sleep mode and will wait for the incoming connection */
 
     listen(this->threadsParam->sockfdServer, BACKLOG);
-    //***************************setup ends here***********************************
+    //**********setup ends here************
     clilen = sizeof(clientAddress);
     // Accept actual connection from the client
-    newsockfd = accept(this->threadsParam->sockfdServer, (struct sockaddr *)&clientAddress, (socklen_t*)&clilen);
+    newsockfd = accept(this->threadsParam->sockfdServer, (struct sockaddr*) &clientAddress, (socklen_t*) &clilen);
     cout << "accepted!!!!!!!!!!!!!" << endl;
 
-    struct serverParams* params = new serverParams();
+    struct serverParams *params = new serverParams();
     params->symbolTablePa = this->symbolTable;
-    params->portPa = this->port;
-    params->hertzPa = this->hertz;
     params->newsockfd = newsockfd;
     params->sockfd = this->threadsParam->sockfdServer;
     params->isRun = &this->threadsParam->serverThreadIsRun;

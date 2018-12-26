@@ -24,8 +24,7 @@ using namespace std;
 
 struct serverParams {
     SymbolTable* symbolTablePa;
-    int portPa;
-    int hertzPa;
+    pthread_mutex_t* mutexPa;
     int sockfd;
     int newsockfd;
     bool* isRun;

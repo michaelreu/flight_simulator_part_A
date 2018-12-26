@@ -1,4 +1,3 @@
-
 #include "Reader.h"
 
 bool Reader::readCommandsFromFile(string fileName, LexerParser *interpreter){
@@ -59,10 +58,9 @@ void Reader::run(int argc, char* argv[]) {
     //executing scripts from all file paths passed as arguments
     for (int j = 1; j < argc; j++) {
         endFlag = readCommandsFromFile(argv[j], interpreter);
-        //******************************************************************//
+        //**********************//
         // if there is an error
         if (endFlag) {
-            delete (interpreter);
             pthread_mutex_lock(threads.mutex);
             bool tempServer = threads.serverThreadIsRun;
             bool tempClient = threads.clientThreadIsRun;
@@ -79,6 +77,7 @@ void Reader::run(int argc, char* argv[]) {
                 pthread_mutex_unlock(threads.mutex);
                 pthread_join(clientThread, NULL);
             }
+            delete (interpreter);
             pthread_mutex_destroy(&mutex);
             return;
         }
@@ -90,13 +89,13 @@ void Reader::run(int argc, char* argv[]) {
         if (command == "0" || command == "") {
             endFlag = true;
         }
-        // read one command
+            // read one command
         else {
             endFlag = readCommandsFromCmd(command, interpreter);
         }
         // if there is an error
         if (endFlag) {
-            delete (interpreter);
+            /*
             pthread_mutex_lock(threads.mutex);
             if (threads.serverThreadIsRun){
                 threads.serverThreadIsRun = false;
@@ -107,11 +106,28 @@ void Reader::run(int argc, char* argv[]) {
                 pthread_join(clientThread, NULL);
             }
             pthread_mutex_unlock(threads.mutex);
+            delete (interpreter);
+            pthread_mutex_destroy(&mutex);
+            return;*/
+            pthread_mutex_lock(threads.mutex);
+            bool tempServer = threads.serverThreadIsRun;
+            bool tempClient = threads.clientThreadIsRun;
+            pthread_mutex_unlock(threads.mutex);
+            if (tempServer){
+                pthread_mutex_lock(threads.mutex);
+                threads.serverThreadIsRun = false;
+                pthread_mutex_unlock(threads.mutex);
+                pthread_join(serverThread, NULL);
+            }
+            if (tempClient){
+                pthread_mutex_lock(threads.mutex);
+                threads.clientThreadIsRun = false;
+                pthread_mutex_unlock(threads.mutex);
+                pthread_join(clientThread, NULL);
+            }
+            delete (interpreter);
             pthread_mutex_destroy(&mutex);
             return;
         }
     }
 }
-
-
-

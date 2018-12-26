@@ -46,7 +46,7 @@ void* runClient(void *arg) {
     cout<<"connected"<<endl;
 
     while (*clientPar->isRun) {
-    //while(true) {
+        //while(true) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
@@ -89,4 +89,3 @@ void ConnectCommand::execute(){
     this->threadsParam->clientThreadIsRun = true;
     pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
 }
-
