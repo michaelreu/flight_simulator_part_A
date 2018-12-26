@@ -29,6 +29,7 @@ struct serverParams {
     int newsockfd;
     bool* isRun;
     bool* clientIsRun;
+    bool *clientThreadIsRun;
 };
 
 

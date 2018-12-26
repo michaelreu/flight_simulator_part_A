@@ -16,7 +16,7 @@ void* runClient(void *arg) {
     int n;
     struct sockaddr_in serverAddress;
     struct hostent *server;
-    string tempPath, messageOfSet = "hi";
+    string tempPath, messageOfSet = "";
     //int port = stoi(port1);
     //char buffer[256];
     const char* buffer;

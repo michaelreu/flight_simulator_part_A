@@ -12,18 +12,19 @@ var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
 while rpm <= 750 {
-    sleep 1000
+    sleep 500
 }
 sleep 5000
+throttle = 1
+sleep 10000
 var h0 = heading
 breaks = 0
-throttle = 1
 while alt < 1000 {
-    rudder = (h0 - heading)/20
-    aileron = -roll / 70
-    elevator = pitch / 50
+    rudder = (h0 - heading)/300
+    aileron = -roll / 200
+    elevator = pitch / 100
     print alt
-    sleep 250
-    print alt
+    sleep 500
+    print throttle
 }
 print "done"

@@ -56,7 +56,7 @@ void* runServer(void *arg) {
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
         } catch (exception &exception) {
             //delete(serverPar);
-            cout<<"ERROR: couldn't update data"<<endl;
+            cout<<"ERROR: couldn't update data - check your simulator"<<endl;
             *serverPar->isRun = false;
         }
 
@@ -64,7 +64,10 @@ void* runServer(void *arg) {
     }
 
     close(serverPar->sockfd);
+    pthread_mutex_lock(serverPar->mutexPa);
     *serverPar->isRun = false;
+    *serverPar->clientThreadIsRun = false;
+    pthread_mutex_unlock(serverPar->mutexPa);
     delete(serverPar);
     serverPar = nullptr;
 }
@@ -107,6 +110,7 @@ void OpenServerCommand::execute() {
     params->sockfd = this->threadsParam->sockfdServer;
     params->isRun = &this->threadsParam->serverThreadIsRun;
     params->clientIsRun = &this->threadsParam->clientIsRun;
+    params->clientThreadIsRun = &this->threadsParam->clientThreadIsRun;
     this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
 }
