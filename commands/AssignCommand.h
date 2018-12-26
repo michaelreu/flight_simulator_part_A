@@ -7,8 +7,6 @@
 
 
 #include "Command.h"
-#include "../maps/SymbolTable.h"
-#include "../factory/ExpressionFactory.h"
 
 /*
  * responsible for assigning to our SymbolTable the key, value of specific var

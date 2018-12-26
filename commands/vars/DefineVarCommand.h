@@ -7,7 +7,6 @@
 
 
 #include "../Command.h"
-#include "../../maps/SymbolTable.h"
 
 class DefineVarCommand : public Command {
 private:

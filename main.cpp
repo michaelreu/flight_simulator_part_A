@@ -3,7 +3,7 @@
 
 
 int main(int argc, char *argv[]) {
-    Reader* start;
+    Reader* start = new Reader();
     start->run(argc, argv);
+    delete(start);
 }
-//run "t.txt"

@@ -4,7 +4,6 @@
 #define SEMPROJECT_BINARYEXPRESSION_H
 
 #include "Expression.h"
-#include "Num.h"
 
 class BinaryExpression : public Expression {
 

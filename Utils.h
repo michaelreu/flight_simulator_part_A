@@ -1,8 +1,8 @@
 
 #ifndef SEMPROJECT_UTILS_H
 #define SEMPROJECT_UTILS_H
-#include <regex>
-#include <string>
+
+
 #define PARENT_ERR "Error: too many right parentheses"
 #define INV_EQUATION_FORMT "ERROR: invalid format of equation"
 #define CHAR_NOT_DIGIT "ERROR: cannot convert digit to int because the char is not a digit"
@@ -30,6 +30,9 @@
 #define MINUS_CHAR '-'
 #define DIV_CHAR '/'
 #define COMMA_CHAR ','
+
+#include <regex>
+#include <string>
 
 using namespace std;
 

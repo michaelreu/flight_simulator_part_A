@@ -8,18 +8,7 @@
 #define SET "set "
 
 #include "Command.h"
-#include <iostream>
-#include <pthread.h>
-#include <string>
-#include <cstdio>
-#include <cstdlib>
-#include <regex>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <netinet/in.h>
 
-#include <cstring>
 
 using namespace std;
 

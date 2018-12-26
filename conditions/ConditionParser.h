@@ -15,11 +15,9 @@
 #define LESS_STR "<"
 
 #include "../commands/Command.h"
-#include <string>
-#include <vector>
-#include "../maps/SymbolTable.h"
-#include "../Utils.h"
-#include "../factory/ExpressionFactory.h"
+#include "../expression/booleanExpressions/Equal.h"
+#include "../expression/booleanExpressions/GreaterThen.h"
+#include "../expression/booleanExpressions/LessThen.h"
 
 using namespace std;
 

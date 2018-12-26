@@ -5,10 +5,7 @@
 #ifndef INC_14_12_12_46_PRINTCOMMAND_H
 #define INC_14_12_12_46_PRINTCOMMAND_H
 #define FIRST 1
-#include <string>
-#include <iostream>
 #include "Command.h"
-#include "../factory/ExpressionFactory.h"
 
 using namespace std;
 class PrintCommand : public Command {

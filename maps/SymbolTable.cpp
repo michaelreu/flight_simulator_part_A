@@ -1,7 +1,5 @@
 #include "SymbolTable.h"
 
-
-
 SymbolTable::SymbolTable(threadParams *threadsParam) {
     initPathXmlVec();
     this->threadsParam = threadsParam;
@@ -50,12 +48,12 @@ bool SymbolTable::isVarInMap(const string &key) {
 
 
 bool SymbolTable::isVarInValueMap(const string &key) {
-    if (valuesMapVarToValue.count(key)==IN_MAP) {
-        return ((valuesMapVarToValue.count(key)==IN_MAP));
+    const string &tempKey = key;
+    if (valuesMapVarToValue.count(tempKey)==IN_MAP) {
+        return ((valuesMapVarToValue.count(tempKey)==IN_MAP));
     }
 }
 bool SymbolTable::isVarInBindsMap(const string &key) {
-    string path;
     map <string, vector<string>>::iterator it;
     for(it = bindMapPathToVecOfVars.begin(); it != bindMapPathToVecOfVars.end(); it++){
         for (string var : it->second) {
@@ -68,8 +66,9 @@ bool SymbolTable::isVarInBindsMap(const string &key) {
 }
 
 string SymbolTable::getPathByVar(const string &keyVar) {
-    if (isVarInMap(keyVar)) {
-        return (destinationMapVarToPath.at(keyVar));
+    const string &tempKeyVar = keyVar;
+    if (isVarInMap(tempKeyVar)) {
+        return (destinationMapVarToPath.at(tempKeyVar));
     }
 }
 double SymbolTable::getValueOfVar(const string &key) {

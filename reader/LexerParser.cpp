@@ -13,9 +13,9 @@ const vector<string> &LexerParser::getVecOfExpressions() const {
 }
 
 string withoutSpaces(string s){
-    int i = 0;
+    int i = ZERO;
     while (s[i] == ' '){
-        s.erase(0, 1);
+        s.erase(ZERO, 1);
     }
     return s;
 }
@@ -70,6 +70,7 @@ bool LexerParser::charCase(char prev, int i){
     if (prev == EQUAL){
         return true;
     }
+    return false;
 }
 
 bool isSeparatingChar (char check){
@@ -111,9 +112,8 @@ vector<string>* LexerParser::lexByValue(vector<string>* vectorOfExp){
         }
 
         // read char by char
-        for (int i = 0; i < (*it).size(); i++){
+        for (unsigned int i = 0; i < (*it).size(); i++){
             char current = ((*it)[i]);
-
             //if we are not in quote or condition
             if ((inQuoteFlag == false) && (condition == false)) {
                 // condition case

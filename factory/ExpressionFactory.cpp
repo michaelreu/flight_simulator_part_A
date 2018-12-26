@@ -17,9 +17,6 @@ ExpressionFactory::ExpressionFactory(SymbolTable *&symTbl) {
 const string& ExpressionFactory::getStrOfExpression() const {
     return this->expressionStr;
 }
-vector<Expression *>& ExpressionFactory::getExpressToFree() {
-    return expressToFree;
-}
 
 /*
  * getter

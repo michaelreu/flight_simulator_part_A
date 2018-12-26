@@ -11,9 +11,8 @@ class ShuntingYardExpression;
 #include "Expression.h"
 #include "../shuntingYard/ShuntingYardExpression.h"
 
-
 //no death diamond
-class Num : public Expression { //, public ShuntingYardExpression {
+class Num : public Expression {
 private:
     double num;
 
@@ -25,8 +24,6 @@ public:
 
     //getter
     double getNum() const;
-
-    void setNum(double num);
 
     virtual double calculate();
 

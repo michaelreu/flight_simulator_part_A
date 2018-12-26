@@ -1,6 +1,3 @@
-//
-// Created by cs on 12/23/18.
-//
 
 #include "CheckInputs.h"
 

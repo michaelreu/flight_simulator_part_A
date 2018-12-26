@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include "WhileCommand.h"
 
 WhileCommand::WhileCommand(vector<Expression *> &vecOfExp, string &con, ExpressionFactory* expFac)

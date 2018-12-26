@@ -7,18 +7,7 @@
 
 #include "Command.h"
 #include "../Utils.h"
-#include <vector>
-#include <string.h>
-#include <sstream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <iostream>
-#include <pthread.h>
+
 
 using namespace std;
 

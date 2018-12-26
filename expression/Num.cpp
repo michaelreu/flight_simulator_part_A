@@ -1,5 +1,4 @@
 
-
 #include "Num.h"
 //Ctor
 Num::Num(double num) {
@@ -14,10 +13,6 @@ Num::Num(const char *num) {
 }
 double Num::getNum() const {
     return this->num;
-}
-
-void Num::setNum(double newNum) {
-    this->num=newNum;
 }
 
 double Num::calculate() {

@@ -3,8 +3,6 @@
 #define INC_14_12_12_46_IFCONDITION_H
 
 #include "ConditionParser.h"
-#include "../commands/ExpressionCommand.h"
-#include <vector>
 
 
 using namespace std;

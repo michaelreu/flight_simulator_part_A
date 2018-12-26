@@ -13,12 +13,6 @@ class LessThen : public BinaryExpression  {
 public:
     LessThen(Expression* leftEx, Expression* rightEx);
 
-    LessThen(double leftNum, Expression* rightEx);
-
-    LessThen(Expression* leftEx, double rightNum);
-
-    LessThen(double leftNum, double rightNum);
-
     virtual double calculate();
 
     virtual ~LessThen() = default;

@@ -67,7 +67,7 @@ void* runServer(void *arg) {
     *serverPar->isRun = false;
     *serverPar->clientThreadIsRun = false;
     delete(serverPar);
-    serverPar = nullptr;
+    //serverPar = nullptr;
 }
 
 void OpenServerCommand::execute() {

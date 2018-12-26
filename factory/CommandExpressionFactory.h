@@ -18,7 +18,7 @@
 #define START_OF_STR 1
 #define END_OF_STR 2
 
-#include "ExpressionFactory.h"
+#include "CheckInputs.h"
 #include "../commands/ExpressionCommand.h"
 #include "../commands/OpenServerCommand.h"
 #include "../commands/ConnectCommand.h"
@@ -29,13 +29,6 @@
 #include "../conditions/WhileCommand.h"
 #include "../commands/PrintCommand.h"
 #include <map>
-#include "../maps/SymbolTable.h"
-#include "CheckInputs.h"
-
-
-#include <vector>
-
-
 
 using namespace std;
 

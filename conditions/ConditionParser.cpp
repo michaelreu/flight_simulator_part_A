@@ -1,9 +1,4 @@
-
 #include "ConditionParser.h"
-#include "../expression/booleanExpressions/Equal.h"
-#include "../expression/booleanExpressions/GreaterThen.h"
-#include "../expression/booleanExpressions/LessThen.h"
-
 
 ConditionParser::ConditionParser(vector<Expression *> &vecOfExp, string &con, ExpressionFactory* exprNumCreator) {
     //this->symTbl=symbolTable;

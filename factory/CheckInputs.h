@@ -7,8 +7,6 @@
 #define NAME_REGEX "[a-zA-Z_][a-zA-Z_0-9]*"
 #define MAX_PORT_VALUE 65535
 
-
-
 #include <regex>
 #include <string>
 

@@ -12,7 +12,7 @@ class ShuntingYardExpression {
 public:
     virtual string getNumOrOperationExp() = 0;
 
-    ~ShuntingYardExpression() = default;
+    virtual ~ShuntingYardExpression() = default;
 };
 
 

@@ -1,6 +1,3 @@
-//
-// Created by tamir on 07/12/18.
-//
 
 #ifndef SEMPROJECT_PLUS_H
 #define SEMPROJECT_PLUS_H

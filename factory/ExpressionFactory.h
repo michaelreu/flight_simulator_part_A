@@ -16,6 +16,7 @@
 
 #include <stack>
 #include <vector>
+#include "../Utils.h"
 #include "../expression/Expression.h"
 #include "../expression/arithmeticExpressions/Plus.h"
 #include "../expression/arithmeticExpressions/Minus.h"
@@ -23,7 +24,6 @@
 #include "../expression/arithmeticExpressions/Div.h"
 #include "../expression/Num.h"
 #include "../shuntingYard/Operators.h"
-#include "../Utils.h"
 #include "../maps/SymbolTable.h"
 
 
@@ -65,8 +65,7 @@ public:
     ExpressionFactory(SymbolTable* &symbolTable);
     virtual Expression* createExpression(vector<string>::iterator &it);
     virtual Expression* createExpression(const string &strToExp);
-    vector<Expression *> &getExpressToFree();
-    ~ExpressionFactory();
+    virtual ~ExpressionFactory();
 };
 
 #endif //INC_14_12_12_46_EXPRESSIONFACTORY_H

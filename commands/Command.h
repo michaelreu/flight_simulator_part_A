@@ -6,9 +6,28 @@
 #define PROJECTPART1_COMMAND_H
 
 #include "../expression/Expression.h"
-#include "../maps/SymbolTable.h"
+#include "../factory/ExpressionFactory.h"
+
 #include <chrono>
 #include <thread>
+
+#include <iostream>
+#include <pthread.h>
+#include <cstdio>
+#include <cstdlib>
+#include <regex>
+#include <netdb.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <cstring>
+
+#include <vector>
+#include <string.h>
+#include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
 #define SLEEP_TIME 300
 
 class Command {

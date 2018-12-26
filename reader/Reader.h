@@ -1,10 +1,5 @@
-
-
 #ifndef EX3_READER_H
 #define EX3_READER_H
-
-#define NUM_OF_SOCK 2
-
 
 #include <string>
 #include "list"
@@ -12,7 +7,6 @@
 #include <vector>
 #include <iostream>
 #include "LexerParser.h"
-
 
 using namespace std;
 
@@ -22,6 +16,7 @@ public:
     bool readCommandsFromFile(string fileName, LexerParser* interpreter);
     void run(int argc, char* argv[]);
     bool readCommandsFromCmd(string commad, LexerParser* interpreter);
+    ~Reader() = default;
 };
 
 
