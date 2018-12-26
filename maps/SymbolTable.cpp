@@ -79,16 +79,16 @@ double SymbolTable::getValueOfVar(const string &key) {
 
 void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
     pthread_mutex_lock(this->threadsParam->mutex);
-    //changedArgsVec.clear();
     string tempPath;
     vector<string>varsOfSpecificPath;
     for (unsigned long i = 0; i < vecOfVals.size(); ++i) {
         tempPath = xmlPathsVec.at(i);
         if (bindMapPathToVecOfVars.count(tempPath) > 0) {
             varsOfSpecificPath = bindMapPathToVecOfVars[tempPath];
-        }
-        for (string var : varsOfSpecificPath) {
-            valuesMapVarToValue[var] = vecOfVals.at(i);
+
+            for (string var : varsOfSpecificPath) {
+                valuesMapVarToValue[var] = vecOfVals.at(i);
+            }
         }
     }
     pthread_mutex_unlock(this->threadsParam->mutex);

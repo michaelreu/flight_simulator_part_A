@@ -99,20 +99,6 @@ void Reader::run(int argc, char* argv[]) {
         }
         // if there is an error
         if (endFlag) {
-            /*
-            pthread_mutex_lock(threads.mutex);
-            if (threads.serverThreadIsRun){
-                threads.serverThreadIsRun = false;
-                pthread_join(serverThread, NULL);
-            }
-            if (threads.clientThreadIsRun){
-                threads.clientThreadIsRun = false;
-                pthread_join(clientThread, NULL);
-            }
-            pthread_mutex_unlock(threads.mutex);
-            delete (interpreter);
-            pthread_mutex_destroy(&mutex);
-            return;*/
             pthread_mutex_lock(threads.mutex);
             bool tempServer = threads.serverThreadIsRun;
             bool tempClient = threads.clientThreadIsRun;

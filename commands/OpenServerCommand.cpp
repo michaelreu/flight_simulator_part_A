@@ -64,10 +64,8 @@ void* runServer(void *arg) {
     }
 
     close(serverPar->sockfd);
-    pthread_mutex_lock(serverPar->mutexPa);
     *serverPar->isRun = false;
     *serverPar->clientThreadIsRun = false;
-    pthread_mutex_unlock(serverPar->mutexPa);
     delete(serverPar);
     serverPar = nullptr;
 }
