@@ -2,8 +2,8 @@
 #ifndef PROJECTPART1_CONNECTCOMMAND_H
 #define PROJECTPART1_CONNECTCOMMAND_H
 
-#define START_OF_STRING 2
-#define END_OF_STRING 3
+#define START_OF_STRING 1
+#define END_OF_STRING 1
 #define IP_REGEX "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 #define SET "set "
 

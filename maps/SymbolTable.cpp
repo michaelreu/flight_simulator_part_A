@@ -89,9 +89,6 @@ void SymbolTable::updateValuesFromClient(vector<double> &vecOfVals) {
         }
         for (string var : varsOfSpecificPath) {
             valuesMapVarToValue[var] = vecOfVals.at(i);
-            if(!(find(changedArgsVec.begin(), changedArgsVec.end(), var) != changedArgsVec.end())) {
-                changedArgsVec.push_back(var);
-            }
         }
     }
     pthread_mutex_unlock(this->threadsParam->mutex);
