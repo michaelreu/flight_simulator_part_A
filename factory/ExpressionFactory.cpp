@@ -265,6 +265,9 @@ ExpressionFactory::~ExpressionFactory() {
         if (expression != nullptr) {
             delete (expression);
             expression = nullptr;
+        }else if(!expression){
+            delete (expression);
+            expression = nullptr;
         }
     }
     delete(this->symbolTable);

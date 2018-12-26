@@ -52,8 +52,14 @@ Expression* CommandExpressionFactory::createExpression(vector<string>::iterator 
  * @return new expression of type openServerCommand
  */
 Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::iterator &it) {
-    int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
-    int hertz = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
+    Expression* tempExp1 = (expressionNumberCreator->createExpression(((++it))));
+    int port = (int) tempExp1->calculate();
+    delete(tempExp1);
+    tempExp1 = nullptr;
+    Expression* tempExp2 = (expressionNumberCreator->createExpression(((++it))));
+    int hertz = (int) tempExp2->calculate();
+    delete(tempExp2);
+    tempExp2 = nullptr;
     if (!check.checkPort(port)){
         throw "invalid port";
     }
@@ -70,7 +76,10 @@ Expression* CommandExpressionFactory::getOpenServerCommand(vector<string>::itera
  */
 Expression* CommandExpressionFactory::getConnectCommand(vector<string>::iterator &it) {
     const char* ip = (*(++it)).c_str();
-    int port = (int) (expressionNumberCreator->createExpression(((++it))))->calculate();
+    Expression* portExp = (expressionNumberCreator->createExpression(((++it))));
+    int port = (int)(portExp->calculate());
+    delete(portExp);
+    portExp= nullptr;
     if (!check.checkPort(port)){
         throw "invalid port";
     }
@@ -170,7 +179,10 @@ Expression* CommandExpressionFactory::getPrintCommand(vector<string>::iterator &
  * @return new expression of type sleep
  */
 Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &it) {
-    double time = (expressionNumberCreator->createExpression(((++it))))->calculate();
+    Expression* timeExp = (expressionNumberCreator->createExpression(((++it))));
+    double time = timeExp->calculate();
+    delete(timeExp);
+    timeExp = nullptr;
     if (check.checkTime(time)) {
         return new ExpressionCommand(new SleepCommand(time));
     }else{
