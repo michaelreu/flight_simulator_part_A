@@ -13,6 +13,11 @@ bool Reader::readCommandsFromFile(string fileName, LexerParser *interpreter){
     } catch (string &e) {
         cout << e << endl;
         return true;
+    } catch (const char* e) {
+        cout << e << endl;
+        return true;
+    } catch (...) {
+        return true;
     }
     return false;
 }
@@ -29,11 +34,14 @@ bool Reader::readCommandsFromCmd(string command, LexerParser *interpreter) {
     } catch (string &e) {
         cout << e << endl;
         return true;
+    } catch (const char* e) {
+        cout << e << endl;
+        return true;
+    } catch (...) {
+        return true;
     }
     return false;
 }
-
-
 
 void Reader::run(int argc, char* argv[]) {
     string command = "";
@@ -93,26 +101,12 @@ void Reader::run(int argc, char* argv[]) {
         if (command == "0" || command == "") {
             endFlag = true;
         }
-            // read one command
+        // read one command
         else {
             endFlag = readCommandsFromCmd(command, interpreter);
         }
         // if there is an error
         if (endFlag) {
-            /*
-            pthread_mutex_lock(threads.mutex);
-            if (threads.serverThreadIsRun){
-                threads.serverThreadIsRun = false;
-                pthread_join(serverThread, NULL);
-            }
-            if (threads.clientThreadIsRun){
-                threads.clientThreadIsRun = false;
-                pthread_join(clientThread, NULL);
-            }
-            pthread_mutex_unlock(threads.mutex);
-            delete (interpreter);
-            pthread_mutex_destroy(&mutex);
-            return;*/
             pthread_mutex_lock(threads.mutex);
             bool tempServer = threads.serverThreadIsRun;
             bool tempClient = threads.clientThreadIsRun;

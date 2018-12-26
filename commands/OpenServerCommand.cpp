@@ -59,7 +59,7 @@ void* runServer(void *arg) {
             cout<<"ERROR: couldn't update data - check your simulator"<<endl;
             *serverPar->isRun = false;
         }
-
+        //this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
         while(*serverPar->clientIsRun){}
     }
 

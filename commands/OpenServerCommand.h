@@ -39,7 +39,6 @@ private:
     SymbolTable* symbolTable;
     int port;
     int hertz;
-    static bool shouldStop;
     threadParams *threadsParam;
 
 
