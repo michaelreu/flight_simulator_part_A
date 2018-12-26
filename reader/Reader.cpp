@@ -77,7 +77,10 @@ void Reader::run(int argc, char* argv[]) {
                 pthread_mutex_unlock(threads.mutex);
                 pthread_join(clientThread, NULL);
             }
-            delete (interpreter);
+            if (interpreter != nullptr) {
+                delete (interpreter);
+                interpreter = nullptr;
+            }
             pthread_mutex_destroy(&mutex);
             return;
         }
@@ -125,7 +128,10 @@ void Reader::run(int argc, char* argv[]) {
                 pthread_mutex_unlock(threads.mutex);
                 pthread_join(clientThread, NULL);
             }
-            delete (interpreter);
+            if (interpreter!=nullptr) {
+                delete (interpreter);
+                interpreter = nullptr;
+            }
             pthread_mutex_destroy(&mutex);
             return;
         }

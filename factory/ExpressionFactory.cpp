@@ -208,19 +208,32 @@ Expression* ExpressionFactory::generateExpressionOfStack() {
             }
         } else if (utils.isStrDouble(tempStr)) {
             Expression* num = new Num(stod(tempStr));
-            //expressToFree.push_back(num);
+            expressToFree.push_back(num);
             return num;
         } else {
             throw ERR_GEN_EXP;
         }
     }
+    //if the main stack is empty
+    Expression* num = new Num(ZERO);
+    expressToFree.push_back(num);
+    return num;
 }
 /*
  * freeing the allocated memory of the ShuntingYardExpression* objects
  */
 void ExpressionFactory::freeVectorOfMainStack() {
+    int x = 0;
     for (ShuntingYardExpression* shToBeFree : this->vecOfShuntToFree) {
-        delete(shToBeFree);
+        if (shToBeFree != nullptr) {
+            delete (shToBeFree);
+            cout<< x<< endl;
+            x++;
+            if (x == 26){
+                int y = 0;
+            }
+            shToBeFree = nullptr;
+        }
     }
     this->vecOfShuntToFree.clear();
 }
@@ -230,7 +243,7 @@ void ExpressionFactory::freeVectorOfMainStack() {
 Expression* ExpressionFactory::finalExpression() {
     insertByOrderToStack();
     Expression* exp = generateExpressionOfStack();
-    freeVectorOfMainStack();
+    //freeVectorOfMainStack();
     return exp;
 }
 /*
@@ -255,7 +268,12 @@ ExpressionFactory::~ExpressionFactory() {
     freeVectorOfMainStack();
     this->expressToFree.clear();
     for (Expression* expression : this->expressToFree) {
-        delete (expression);
+
+        if (expression != nullptr) {
+            delete (expression);
+            expression = nullptr;
+        }
     }
     delete(this->symbolTable);
+    this->symbolTable= nullptr;
 }

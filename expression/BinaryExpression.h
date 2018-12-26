@@ -23,7 +23,9 @@ public:
 
     ~BinaryExpression() {
         delete(this->left);
+        this->left = nullptr;
         delete(this->right);
+        this->right = nullptr;
     };
 
 

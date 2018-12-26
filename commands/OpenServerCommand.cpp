@@ -60,6 +60,7 @@ void* runServer(void *arg) {
     close(serverPar->sockfd);
     *serverPar->isRun = false;
     delete(serverPar);
+    serverPar = nullptr;
 }
 
 void OpenServerCommand::execute() {

@@ -183,4 +183,5 @@ Expression* CommandExpressionFactory::getSleepCommand(vector<string>::iterator &
  */
 CommandExpressionFactory::~CommandExpressionFactory() {
     delete(this->expressionNumberCreator);
+    this->expressionNumberCreator = nullptr;
 }

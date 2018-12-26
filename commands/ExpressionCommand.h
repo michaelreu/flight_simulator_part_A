@@ -20,6 +20,7 @@ public:
     }
     virtual ~ExpressionCommand() {
         delete(c);
+        c = nullptr;
     };
 
 };

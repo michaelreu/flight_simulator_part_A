@@ -76,6 +76,7 @@ void* runClient(void *arg) {
     close(clientPar->clientSocket);
     (*clientPar->isRun) = false;
     delete(clientPar);
+    clientPar = nullptr;
 }
 
 void ConnectCommand::execute(){

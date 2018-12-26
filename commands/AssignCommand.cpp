@@ -41,6 +41,7 @@ void AssignCommand::execute() {
         value = tempExp->calculate();
         symTbl->addValuesToMap(var,value);
         delete(tempExp);
+        tempExp = nullptr;
     // path case
     } else {
         symTbl->addDestinationToMap(var, dest);

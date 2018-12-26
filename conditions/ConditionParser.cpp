@@ -55,16 +55,21 @@ bool ConditionParser::checkCondition() {
     }
     if (exp1 != nullptr) {
         delete(exp1);
+        exp1 = nullptr;
     }
     if (exp2 != nullptr) {
         delete(exp2);
+        exp2 = nullptr;
     }
     return (result == TRUE);
 }
 
 ConditionParser::~ConditionParser() {
     for (Expression* expToFree : vecOfExpCommands) {
-        delete(expToFree);
+        if (expToFree !=nullptr) {
+            delete(expToFree);
+            expToFree = nullptr;
+        }
     }
     vecOfExpCommands.clear();
 }
