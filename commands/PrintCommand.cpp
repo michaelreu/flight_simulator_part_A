@@ -1,8 +1,3 @@
-//
-// Created by tamir on 20/12/18.
-//
-
-#include <iostream>
 #include "PrintCommand.h"
 PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
     this->expFactory = expFac;
@@ -29,8 +24,11 @@ void PrintCommand::execute() {
     if (isInQoutes()) {
         string toPrint = strToPrint.substr(FIRST,strToPrint.size()-2);
         cout<< toPrint << endl;
-    // var value case
+        // var value case
     } else {
-        cout << (expFactory->createExpression(strToPrint))->calculate() << endl;
+        Expression* tempPrint = (expFactory->createExpression(strToPrint));
+        double toPrint = tempPrint->calculate();
+        cout << toPrint << endl;
+        delete(tempPrint);
     }
 }
