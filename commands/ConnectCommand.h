@@ -30,6 +30,7 @@ struct clientParams {
     int portPa;
     int clientSocket;
     bool* isRun;
+    bool* updateData;
     pthread_mutex_t* mutex;
 };
 class ConnectCommand: public Command {

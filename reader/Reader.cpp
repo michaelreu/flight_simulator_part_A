@@ -52,6 +52,7 @@ void Reader::run(int argc, char* argv[]) {
     threads.mutex = &mutex;
     threads.serverThreadIsRun = false;
     threads.clientThreadIsRun = false;
+    threads.clientIsRun = false;
     CommandExpressionFactory* commandExpFac = new CommandExpressionFactory(&threads);
     LexerParser *interpreter = new LexerParser(commandExpFac);
 

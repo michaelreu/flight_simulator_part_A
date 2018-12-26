@@ -59,7 +59,8 @@ void* runServer(void *arg) {
             cout<<"ERROR: couldn't update data"<<endl;
             *serverPar->isRun = false;
         }
-        this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
+
+        while(*serverPar->clientIsRun){}
     }
 
     close(serverPar->sockfd);
@@ -99,14 +100,13 @@ void OpenServerCommand::execute() {
     clilen = sizeof(clientAddress);
     // Accept actual connection from the client
     newsockfd = accept(this->threadsParam->sockfdServer, (struct sockaddr*) &clientAddress, (socklen_t*) &clilen);
-    cout << "accepted!!!!!!!!!!!!!" << endl;
 
     struct serverParams *params = new serverParams();
     params->symbolTablePa = this->symbolTable;
     params->newsockfd = newsockfd;
     params->sockfd = this->threadsParam->sockfdServer;
     params->isRun = &this->threadsParam->serverThreadIsRun;
-    params->clientIsRun = &this->threadsParam->clientThreadIsRun;
+    params->clientIsRun = &this->threadsParam->clientIsRun;
     this->threadsParam->serverThreadIsRun = true;
     pthread_create(this->threadsParam->serverThread, nullptr, runServer, params);
 }

@@ -41,6 +41,7 @@ struct threadParams {
     int sockfdServer;
     bool serverThreadIsRun;
     bool clientThreadIsRun;
+    bool clientIsRun;
 };
 typedef struct threadParams threadParams;
 

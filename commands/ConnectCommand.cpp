@@ -44,6 +44,9 @@ void* runClient(void *arg) {
     while ((connect(clientPar->clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)){}
 
     while (*clientPar->isRun) {
+        pthread_mutex_lock(clientPar->mutex);
+        *clientPar->updateData = true;
+        pthread_mutex_unlock(clientPar->mutex);
         //while(true) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
@@ -68,8 +71,9 @@ void* runClient(void *arg) {
             perror("ERROR writing to socket");
             exit(1);
         }
-        this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
-        //this_thread::sleep_for(chrono::milliseconds(300));
+        pthread_mutex_lock(clientPar->mutex);
+        *clientPar->updateData = false;
+        pthread_mutex_unlock(clientPar->mutex);
     }
     close(clientPar->clientSocket);
     (*clientPar->isRun) = false;
@@ -84,6 +88,7 @@ void ConnectCommand::execute(){
     clParams->ipPa = this->ip;
     clParams->clientSocket = this->threadsParam->sockfdConnect;
     clParams->isRun = &this->threadsParam->clientThreadIsRun;
+    clParams->updateData = &this->threadsParam->clientIsRun;
     clParams->mutex = this->threadsParam->mutex;
     this->threadsParam->clientThreadIsRun = true;
     pthread_create(this->threadsParam->clientThread, nullptr, runClient, clParams);
