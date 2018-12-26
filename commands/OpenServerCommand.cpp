@@ -51,7 +51,7 @@ void* runServer(void *arg) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        printf("Here is the message: %s\n",buffer);
+        //printf("Here is the message: %s\n",buffer);
         try {
             ops.updateDataFromClient(string(buffer), serverPar->symbolTablePa);
         } catch (exception &exception) {

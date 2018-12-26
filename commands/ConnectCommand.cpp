@@ -10,7 +10,6 @@ ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable,
 }
 
 void* runClient(void *arg) {
-    cout << "in the runClien func" << endl;
     ConnectCommand cnct = ConnectCommand();
     struct clientParams* clientPar = (struct clientParams*) arg;
     double valueOfVar;
@@ -43,7 +42,6 @@ void* runClient(void *arg) {
 
     /* Now connect to the server */
     while ((connect(clientPar->clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0)){}
-    cout<<"connected"<<endl;
 
     while (*clientPar->isRun) {
         //while(true) {
