@@ -13,6 +13,11 @@ bool Reader::readCommandsFromFile(string fileName, LexerParser *interpreter){
     } catch (string &e) {
         cout << e << endl;
         return true;
+    } catch (const char* e) {
+        cout << e << endl;
+        return true;
+    } catch (...) {
+        return true;
     }
     return false;
 }
@@ -29,11 +34,14 @@ bool Reader::readCommandsFromCmd(string command, LexerParser *interpreter) {
     } catch (string &e) {
         cout << e << endl;
         return true;
+    } catch (const char* e) {
+        cout << e << endl;
+        return true;
+    } catch (...) {
+        return true;
     }
     return false;
 }
-
-
 
 void Reader::run(int argc, char* argv[]) {
     string command = "";
@@ -93,7 +101,7 @@ void Reader::run(int argc, char* argv[]) {
         if (command == "0" || command == "") {
             endFlag = true;
         }
-            // read one command
+        // read one command
         else {
             endFlag = readCommandsFromCmd(command, interpreter);
         }

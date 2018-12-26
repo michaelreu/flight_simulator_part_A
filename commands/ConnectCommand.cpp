@@ -16,9 +16,7 @@ void* runClient(void *arg) {
     int n;
     struct sockaddr_in serverAddress;
     struct hostent *server;
-    string tempPath, messageOfSet = "";
-    //int port = stoi(port1);
-    //char buffer[256];
+    string tempPath = "", messageOfSet = "";
     const char* buffer;
     /* Create a socket point */
     clientPar->clientSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,7 +45,6 @@ void* runClient(void *arg) {
         pthread_mutex_lock(clientPar->mutex);
         *clientPar->updateData = true;
         pthread_mutex_unlock(clientPar->mutex);
-        //while(true) {
         /* need to check what variables changed and send to the
          * server in this format: "set path value"   */
         n = 0;
