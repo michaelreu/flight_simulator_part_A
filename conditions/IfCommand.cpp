@@ -1,6 +1,3 @@
-//
-// Created by cs on 12/18/18.
-//
 
 #include "IfCommand.h"
 #include "../factory/CommandExpressionFactory.h"

@@ -18,11 +18,7 @@
 #include <vector>
 #include "../Utils.h"
 #include "../expression/Expression.h"
-#include "../expression/arithmeticExpressions/Plus.h"
-#include "../expression/arithmeticExpressions/Minus.h"
-#include "../expression/arithmeticExpressions/Mult.h"
-#include "../expression/arithmeticExpressions/Div.h"
-#include "../expression/Num.h"
+#include "../expression/BinaryExpression.h"
 #include "../shuntingYard/Operators.h"
 #include "../maps/SymbolTable.h"
 

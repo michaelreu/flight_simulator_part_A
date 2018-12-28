@@ -15,9 +15,7 @@
 #define LESS_STR "<"
 
 #include "../commands/Command.h"
-#include "../expression/booleanExpressions/Equal.h"
-#include "../expression/booleanExpressions/GreaterThen.h"
-#include "../expression/booleanExpressions/LessThen.h"
+#include "../expression/BinaryExpression.h"
 
 using namespace std;
 
@@ -41,5 +39,19 @@ public:
 
 };
 
+
+class IfCommand : public  ConditionParser {
+public:
+    IfCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac)
+    :ConditionParser(vecOfExp,con, expFac) {}
+
+    virtual void execute(){
+        if (checkCondition()) {
+            for (Expression* command : getVecOfExpCommands()) {
+                command->calculate();
+            }
+        }
+    }
+};
 
 #endif //INC_14_12_12_46_CONDITIONPARSER_H

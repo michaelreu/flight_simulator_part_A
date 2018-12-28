@@ -2,8 +2,7 @@
 
 #ifndef SEMPROJECT_EXPRESSION_H
 #define SEMPROJECT_EXPRESSION_H
-#define TRUE 1
-#define FALSE 0
+
 
 #include <cstdlib>
 #include <string>
@@ -16,5 +15,21 @@ public:
     virtual ~Expression() = default;
 };
 
+
+class Num : public Expression {
+private:
+    double num;
+
+public:
+    //ctor
+    Num(double num) {     this->num=num;    }
+    Num(int num){       this->num=num;    }
+    //getter
+    double getNum() const{    return this->num;    }
+
+    virtual double calculate(){ return this->num; }
+
+    virtual ~Num() = default;
+};
 
 #endif //SEMPROJECT_EXPRESSION_H
