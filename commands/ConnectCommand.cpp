@@ -1,6 +1,6 @@
 //this class sends messages to the flight simulator such as: set path value
 
-#include "ConnectCommand.h"
+#include "Command.h"
 
 ConnectCommand::ConnectCommand(const char* ip, int port, SymbolTable* &symTable, threadParams *threadsParam){
     this->symbolTable = symTable;

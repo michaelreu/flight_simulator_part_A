@@ -1,5 +1,5 @@
 
-#include "AssignCommand.h"
+#include "Command.h"
 /**
  * constructor
  * @param symTable symbol table

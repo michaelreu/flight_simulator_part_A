@@ -20,13 +20,8 @@
 
 #include "CheckInputs.h"
 #include "../commands/ExpressionCommand.h"
-#include "../commands/OpenServerCommand.h"
-#include "../commands/ConnectCommand.h"
-#include "../commands/AssignCommand.h"
-#include "../commands/SleepCommand.h"
-#include "../commands/vars/DefineVarCommand.h"
+#include "../commands/Command.h"
 #include "../conditions/ConditionParser.h"
-#include "../commands/PrintCommand.h"
 #include <map>
 
 using namespace std;

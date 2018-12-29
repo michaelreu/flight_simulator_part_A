@@ -1,4 +1,4 @@
-#include "OpenServerCommand.h"
+#include "Command.h"
 //this class gets from the client(flightSimulator) 23 doubles seperated by comma
 
 OpenServerCommand::OpenServerCommand(int prt, int hz, SymbolTable* symTable, threadParams *threadsParam) {

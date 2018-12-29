@@ -1,4 +1,4 @@
-#include "PrintCommand.h"
+#include "Command.h"
 PrintCommand::PrintCommand(ExpressionFactory* expFac, string &str) {
     this->expFactory = expFac;
     this->strToPrint = str;
