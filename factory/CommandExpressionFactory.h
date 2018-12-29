@@ -25,8 +25,7 @@
 #include "../commands/AssignCommand.h"
 #include "../commands/SleepCommand.h"
 #include "../commands/vars/DefineVarCommand.h"
-#include "../conditions/IfCommand.h"
-#include "../conditions/WhileCommand.h"
+#include "../conditions/ConditionParser.h"
 #include "../commands/PrintCommand.h"
 #include <map>
 

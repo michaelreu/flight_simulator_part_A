@@ -19,7 +19,7 @@
 #include "../Utils.h"
 #include "../expression/Expression.h"
 #include "../expression/BinaryExpression.h"
-#include "../shuntingYard/Operators.h"
+#include "../shuntingYard/ShuntingYardExpression.h"
 #include "../maps/SymbolTable.h"
 
 

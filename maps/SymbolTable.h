@@ -35,6 +35,7 @@
 
 
 using namespace std;
+
 class SymbolTable {
 private:
     //key - var, value - double, bool initialized
@@ -65,8 +66,6 @@ public:
     string getPathByVar(const string &keyVar);
     vector<string> &getChangedArgsVec();
     ~SymbolTable() = default;
-
-
 };
 
 #endif //INC_14_12_12_46_VARIABLESMAP_H

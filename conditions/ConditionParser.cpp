@@ -60,11 +60,11 @@ bool ConditionParser::checkCondition() {
 }
 
 ConditionParser::~ConditionParser() {
-    for (Expression* expToFree : vecOfExpCommands) {
+    for (Expression* expToFree : this->vecOfExpCommands) {
         if (expToFree !=nullptr) {
             delete(expToFree);
             expToFree = nullptr;
         }
     }
-    vecOfExpCommands.clear();
+    this->vecOfExpCommands.clear();
 }

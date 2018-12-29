@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ExpressionFactory.h"
-#include "../shuntingYard/ShuntingNum.h"
+#include "../shuntingYard/ShuntingYardExpression.h"
 int k = 0;
 /*
  * Ctor

@@ -26,16 +26,15 @@ private:
     string condition;
     string boolOperator;
     Utils utils;
-
     bool isValidCondition();
 
 public:
     ConditionParser(vector <Expression*> &vecOfExp, string &con,ExpressionFactory* expFac);
-
     vector<Expression*> &getVecOfExpCommands();
     bool checkCondition();
     virtual void execute() = 0;
-    virtual ~ConditionParser();
+    //while and if Commands are going to this Dtor
+    ~ConditionParser();
 
 };
 
@@ -43,8 +42,10 @@ public:
 class IfCommand : public  ConditionParser {
 public:
     IfCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory* expFac)
-    :ConditionParser(vecOfExp,con, expFac) {}
-
+            :ConditionParser(vecOfExp,con, expFac) {}
+    /**
+     * if the condition is true -> do all the internal commands
+     */
     virtual void execute(){
         if (checkCondition()) {
             for (Expression* command : getVecOfExpCommands()) {
@@ -53,5 +54,25 @@ public:
         }
     }
 };
+
+
+class WhileCommand : public  ConditionParser {
+public:
+    WhileCommand(vector <Expression*> &vecOfExp, string &con, ExpressionFactory *expFac)
+            :ConditionParser(vecOfExp,con, expFac) {}
+    /**
+    * while the condition is true -> -> do all the internal commands
+    */
+    virtual void execute(){
+        while (checkCondition()) {
+            for (Expression* command : getVecOfExpCommands()) {
+                command->calculate();
+            }
+        }
+    }
+};
+
+
+
 
 #endif //INC_14_12_12_46_CONDITIONPARSER_H
